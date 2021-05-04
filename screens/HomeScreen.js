@@ -51,18 +51,21 @@ const HomeScreen: () => Node = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? Colors.gray : Colors.white,
   };
 
   return (
     <SafeAreaView style={styles.mainScreen}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar
+        barStyle={'light-content'}
+        backgroundColor={Colors.green}
+      />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <View
           style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            backgroundColor: isDarkMode ? Colors.gray : Colors.white,
           }}>
           <JourneyList />
         </View>

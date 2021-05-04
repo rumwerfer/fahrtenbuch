@@ -11,6 +11,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import type {Node} from 'react';
+import Colors from './Colors';
 import HomeScreen from './screens/HomeScreen.js';
 import CameraScreen from './screens/CameraScreen.js';
 
@@ -23,9 +24,25 @@ const App: () => Node = () => {
         <Stack.Screen
           name='Home'
           component={HomeScreen}
-          options={{ title: 'Fahrtenbuch'}}
+          options={{
+            title: 'Fahrtenbuch',
+            headerStyle: {
+              backgroundColor: Colors.green,
+            },
+            headerTintColor: Colors.white,
+          }}
         />
-        <Stack.Screen name='Camera' component={CameraScreen} />
+        <Stack.Screen
+          name='Camera'
+          component={CameraScreen}
+          options={{
+            title: 'Fahrt beginnen',
+            headerStyle: {
+              backgroundColor: Colors.green,
+            },
+            headerTintColor: Colors.white,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

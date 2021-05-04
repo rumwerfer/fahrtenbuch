@@ -16,41 +16,45 @@ import {
   Text,
   useColorScheme,
   View,
+  Button,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import Colors from './Colors.js';
 
-const Section = ({children, title}): Node => {
+const Journey = ({date, mileage}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.listContainer}>
+      <View style={{ flex: 2, }}>
+        <Text
+          style={[
+            styles.date,
+            { color : isDarkMode ? Colors.white : Colors.black, }
+          ]}>
+          {date}
+        </Text>
+      </View>
+      <View style={{ flex: 1, }}>
+        <Text
+          style={[
+            styles.mileage,
+            { color : isDarkMode ? Colors.white : Colors.black, }
+          ]}>
+          {mileage + ' km'}
+        </Text>
+      </View>
     </View>
   );
-};
+}
+
+const JourneyList = () => {
+  return (
+    <View>
+      <Journey date='5. Dezember 2020' mileage='123' />
+      <Journey date='24. Mai 2021' mileage='84' />
+    </View>
+  );
+}
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -60,49 +64,62 @@ const App: () => Node = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={styles.mainScreen}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <JourneyList />
         </View>
       </ScrollView>
+      <View style={styles.summary}>
+        <View style={styles.buttonContainer}>
+          <Button title='start journey' color={Colors.green} />
+        </View>
+        <Text style={[styles.mileage, {color : Colors.white}]}>
+          207 km
+        </Text>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  mainScreen: {
+    flex: 1,
   },
-  sectionTitle: {
+  listContainer: {
+    marginTop: 32,
+    paddingLeft: 24,
+    paddingRight: 48,
+    flexDirection: 'row',
+  },
+  summary: {
+    paddingVertical: 32,
+    backgroundColor: Colors.black,
+    paddingHorizontal: 48,
+  },
+  mileage: {
     fontSize: 24,
     fontWeight: '600',
+    alignSelf: 'flex-end',
   },
-  sectionDescription: {
-    marginTop: 8,
+  date: {
+    marginTop: 6,
     fontSize: 18,
     fontWeight: '400',
+    alignSelf: 'center',
+  },
+  buttonContainer: {
+    width: 100,
+    marginTop: -50,
+    marginRight: -10,
+    marginBottom: 10,
+    alignSelf: 'flex-end'
   },
   highlight: {
     fontWeight: '700',

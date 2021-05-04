@@ -1,5 +1,4 @@
 import React from 'react';
-import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -48,7 +47,7 @@ const JourneyList = () => {
   );
 }
 
-const HomeScreen: () => Node = ({navigation}) => {
+const HomeScreen = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {

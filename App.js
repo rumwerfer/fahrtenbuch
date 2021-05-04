@@ -20,28 +20,20 @@ const Stack = createStackNavigator();
 const App: () => Node = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name='Home'
-          component={HomeScreen}
-          options={{
-            title: 'Fahrtenbuch',
-            headerStyle: {
-              backgroundColor: Colors.green,
-            },
-            headerTintColor: Colors.white,
-          }}
-        />
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: Colors.green,
+          },
+          headerTintColor: Colors.white,
+          title: 'Fahrtenbuch',
+        }}
+      >
+        <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen
           name='Camera'
           component={CameraScreen}
-          options={{
-            title: 'Fahrt beginnen',
-            headerStyle: {
-              backgroundColor: Colors.green,
-            },
-            headerTintColor: Colors.white,
-          }}
+          options={{title: 'Fahrt beginnen'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

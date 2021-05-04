@@ -10,7 +10,8 @@ import {
   View,
   Button,
 } from 'react-native';
-import Colors from '../Colors.js';
+import Strings from '../res/Strings';
+import Colors from '../res/Colors';
 
 const Journey = ({date, mileage}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -61,7 +62,7 @@ const HomeScreen: () => Node = ({navigation}) => {
         backgroundColor={Colors.green}
       />
       <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
+        contentInsetAdjustmentBehavior='automatic'
         style={backgroundStyle}>
         <View
           style={{
@@ -73,7 +74,7 @@ const HomeScreen: () => Node = ({navigation}) => {
       <View style={styles.summary}>
         <View style={styles.buttonContainer}>
           <Button
-            title='start journey'
+            title={Strings.startJourney}
             color={Colors.green}
             onPress={() => navigation.navigate('Camera')}
           />

@@ -4,10 +4,22 @@ import {
   View,
   Text,
   Button,
+  Image
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import Strings from '../res/Strings.js';
 import Colors from '../res/Colors.js';
+
+class ImagePreview extends Component {
+  render() {
+    if (!this.props.imageUri) {
+      return <View />;
+    }
+    return (
+      <Image source={{ uri: this.props.imageUri }} style={{height: 200, resizeMode: 'contain', marginTop: 30}}/>
+    );
+  }
+}
 
 class CameraOverlay extends Component {
   render() {
@@ -21,13 +33,22 @@ class CameraOverlay extends Component {
             <Button title='ok' color={Colors.green} onPress={this.props.takePicture} />
           </View>
         </View>
-        <View style={{height: '100%', backgroundColor: Colors.black, }}/>
+        <View style={{height: '100%', backgroundColor: Colors.black, }}>
+          <ImagePreview imageUri={this.props.imageUri} />
+        </View>
       </View>
     );
   }
 }
 
 class CameraScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      imageUri: null,
+    }
+  }
+
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
@@ -45,7 +66,7 @@ class CameraScreen extends Component {
           captureAudio={false}
           style={{flex: 1}}
         >
-          <CameraOverlay style={{flex: 1}} takePicture={this.takePicture} />
+          <CameraOverlay style={{flex: 1}} takePicture={this.takePicture} imageUri={this.state.imageUri}/>
         </RNCamera>
       </SafeAreaView>
     );
@@ -53,9 +74,10 @@ class CameraScreen extends Component {
 
   takePicture = async () => {
     if (this.camera) {
-      const options = { quality: .5, base64: true };
+      const options = { pauseAfterCapture: true };
       const data = await this.camera.takePictureAsync(options);
       console.log(data.uri);
+      this.setState({imageUri: data.uri});
     }
   }
 }

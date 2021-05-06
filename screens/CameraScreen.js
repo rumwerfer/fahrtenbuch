@@ -4,9 +4,11 @@ import {
   View,
   Text,
   Button,
-  Image
+  Image,
+  Dimensions,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import PhotoManipulator from 'react-native-photo-manipulator';
 import Strings from '../res/Strings.js';
 import Colors from '../res/Colors.js';
 
@@ -75,12 +77,34 @@ class CameraScreen extends Component {
 
   takePicture = async () => {
     if (this.camera) {
-      const options = { pauseAfterCapture: true, forceUpOrientation: true };
-      // orientation is only forced for ios
-      // TODO rotate landscape images on android
+      const options = {
+        pauseAfterCapture: true,
+        forceUpOrientation: true, // ios only
+        fixOrientation: true, // slow, but necessary for android
+      };
       const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
-      this.setState({imageUri: data.uri});
+      console.log(
+        'original image: ' + data.uri +
+        ' height: ' + data.height +
+        ' width: ' + data.width
+      );
+
+      console.log(
+        'window height: ' + Dimensions.get('window').height +
+        ' width: ' + Dimensions.get('window').width +
+        ' screen height: '+ Dimensions.get('screen').height +
+        ' width: ' + Dimensions.get('screen').width
+      );
+
+
+      const cropRegion = {x: 530, y: 600, height: 570, width: 1600};
+      PhotoManipulator.crop(data.uri, cropRegion)
+        .then(path => {
+          console.log('cropped image: ' + path);
+          this.setState({imageUri: path});
+        })
+        .catch((error) => {console.log(error)});
+
     }
   }
 }

@@ -27,16 +27,16 @@ class ImagePreview extends Component {
 class CameraOverlay extends Component {
   render() {
     return (
-      <View>
-        <View style={{width: '100%', height: 100, backgroundColor: Colors.black, }}/>
-        <View style={{flexDirection: 'row', height: 100}}>
+      <View style={{flex: 1, flexDirection: 'column'}}>
+        <View style={{width: '100%', flex: .15, backgroundColor: Colors.black, }}/>
+        <View style={{flexDirection: 'row', flex: .15}}>
           <View style={{flex: .07, backgroundColor: Colors.black}} />
           <View style={{flex: .7, borderWidth: 2, borderColor: Colors.green, }} />
           <View style={{flex: .23, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
             <Button title='ok' color={Colors.green} onPress={this.props.takePicture} />
           </View>
         </View>
-        <View style={{height: '100%', backgroundColor: Colors.black, }}>
+        <View style={{flex: .7, backgroundColor: Colors.black, }}>
           <ImagePreview imageUri={this.props.imageUri} />
         </View>
       </View>
@@ -81,7 +81,7 @@ class CameraScreen extends Component {
         pauseAfterCapture: true,
         forceUpOrientation: true, // ios only
         fixOrientation: true, // slow, but necessary for android
-      };
+      }; // this only turns upright pictures correct, TODO rotate landscape pictures
       const data = await this.camera.takePictureAsync(options);
       console.log(
         'original image: ' + data.uri +
@@ -96,8 +96,7 @@ class CameraScreen extends Component {
         ' width: ' + Dimensions.get('screen').width
       );
 
-
-      const cropRegion = {x: 530, y: 600, height: 570, width: 1600};
+      const cropRegion = {x: 530, y: 610, height: 570, width: 1600};
       PhotoManipulator.crop(data.uri, cropRegion)
         .then(path => {
           console.log('cropped image: ' + path);

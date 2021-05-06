@@ -10,6 +10,7 @@ import { RNCamera } from 'react-native-camera';
 import Strings from '../res/Strings.js';
 import Colors from '../res/Colors.js';
 
+// for debugging only
 class ImagePreview extends Component {
   render() {
     if (!this.props.imageUri) {
@@ -74,7 +75,9 @@ class CameraScreen extends Component {
 
   takePicture = async () => {
     if (this.camera) {
-      const options = { pauseAfterCapture: true };
+      const options = { pauseAfterCapture: true, forceUpOrientation: true };
+      // orientation is only forced for ios
+      // TODO rotate landscape images on android
       const data = await this.camera.takePictureAsync(options);
       console.log(data.uri);
       this.setState({imageUri: data.uri});

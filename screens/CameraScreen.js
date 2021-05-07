@@ -10,6 +10,7 @@ import {
 import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
 import MlkitOcr from 'react-native-mlkit-ocr';
+import Toast from 'react-native-simple-toast';
 import Strings from '../res/Strings.js';
 import Colors from '../res/Colors.js';
 
@@ -131,7 +132,7 @@ class CameraScreen extends Component {
       } catch(err) {
         console.log(err);
         if (err.message.includes('to be downloaded')) {
-          console.log(Strings.modelDownloadMessage);
+          Toast.show(Strings.modelDownloadMessage);
         }
       }
     }

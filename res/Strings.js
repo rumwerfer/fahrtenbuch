@@ -5,4 +5,5 @@ export default {
   cameraPermissionMessage: 'Kamera verwenden, um Kilometerstände zu erfassen',
   agree: 'Zustimmen',
   deny: 'Ablehnen',
+  modelDownloadMessage: 'Downloading text recognition model. Please wait.',
 };

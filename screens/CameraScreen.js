@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
+import MlkitOcr from 'react-native-mlkit-ocr';
 import Strings from '../res/Strings.js';
 import Colors from '../res/Colors.js';
 
@@ -106,6 +107,7 @@ class CameraScreen extends Component {
   takePicture = async () => {
     if (this.camera) {
 
+      // take picture
       const options = {
         pauseAfterCapture: true,
         forceUpOrientation: true, // ios only
@@ -113,16 +115,25 @@ class CameraScreen extends Component {
       }; // this only turns upright pictures correct, TODO rotate landscape pictures
       const image = await this.camera.takePictureAsync(options);
 
+      // crop
       const cropRegion = {
         x: scanFrame.relOffsetX * image.width,
         y: scanFrame.relOffsetY * image.height,
         height: scanFrame.relHeight * image.height,
         width: scanFrame.relWidth * image.width,
       };
-      PhotoManipulator.crop(image.uri, cropRegion)
-        .then(cropped => {this.setState({imageUri: cropped})})
-        .catch((error) => {console.log(error)});
+      const croppedUri = await PhotoManipulator.crop(image.uri, cropRegion);
+      this.setState({imageUri: croppedUri}); // debug only
 
+      // ocr
+      try {
+        const scannedText = await MlkitOcr.detectFromUri(croppedUri);
+      } catch(err) {
+        console.log(err);
+        if (err.message.includes('to be downloaded')) {
+          console.log(Strings.modelDownloadMessage);
+        }
+      }
     }
   }
 }

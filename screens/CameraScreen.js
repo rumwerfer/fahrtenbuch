@@ -32,6 +32,14 @@ class ImagePreview extends Component {
   }
 }
 
+class JourneyForm extends Component {
+  render() {
+    return (
+      <ImagePreview imageUri={this.props.imageUri} />
+    );
+  }
+}
+
 class CameraOverlay extends Component {
   render() {
     const scanFrame = this.props.scanFrame;
@@ -49,7 +57,7 @@ class CameraOverlay extends Component {
           </View>
         </View>
         <View style={{flex: remainsY, backgroundColor: Colors.black, }}>
-          <ImagePreview imageUri={this.props.imageUri} />
+          <JourneyForm imageUri={this.props.imageUri} />
         </View>
       </View>
     );
@@ -94,6 +102,7 @@ class CameraScreen extends Component {
     );
   }
 
+  // TODO delete images again
   takePicture = async () => {
     if (this.camera) {
 

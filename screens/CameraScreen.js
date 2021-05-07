@@ -12,6 +12,14 @@ import PhotoManipulator from 'react-native-photo-manipulator';
 import Strings from '../res/Strings.js';
 import Colors from '../res/Colors.js';
 
+// TODO maybe outsource into own file instead of pass via props
+const scanFrame = {
+  relHeight: 0.1,
+  relWidth: 0.6,
+  relOffsetX: 0.1,
+  relOffsetY: 0.15,
+};
+
 // for debugging only
 class ImagePreview extends Component {
   render() {
@@ -26,17 +34,21 @@ class ImagePreview extends Component {
 
 class CameraOverlay extends Component {
   render() {
+    const scanFrame = this.props.scanFrame;
+    const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
+    const remainsY = 1 - (scanFrame.relOffsetY + scanFrame.relHeight);
+
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <View style={{width: '100%', flex: .15, backgroundColor: Colors.black, }}/>
-        <View style={{flexDirection: 'row', flex: .15}}>
-          <View style={{flex: .07, backgroundColor: Colors.black}} />
-          <View style={{flex: .7, borderWidth: 2, borderColor: Colors.green, }} />
-          <View style={{flex: .23, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{width: '100%', flex: scanFrame.relOffsetY, backgroundColor: Colors.black, }}/>
+        <View style={{flexDirection: 'row', flex: scanFrame.relHeight}}>
+          <View style={{flex: scanFrame.relOffsetX, backgroundColor: Colors.black}} />
+          <View style={{flex: scanFrame.relWidth, borderWidth: 2, borderColor: Colors.green, }} />
+          <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
             <Button title='ok' color={Colors.green} onPress={this.props.takePicture} />
           </View>
         </View>
-        <View style={{flex: .7, backgroundColor: Colors.black, }}>
+        <View style={{flex: remainsY, backgroundColor: Colors.black, }}>
           <ImagePreview imageUri={this.props.imageUri} />
         </View>
       </View>
@@ -45,6 +57,7 @@ class CameraOverlay extends Component {
 }
 
 class CameraScreen extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -60,6 +73,7 @@ class CameraScreen extends Component {
             this.camera = cameraRef;
           }}
           type={RNCamera.Constants.Type.back}
+          ratio='16:9'
           androidCameraPermissionOptions={{
             title: Strings.cameraPermission,
             message: Strings.cameraPermissionMessage,
@@ -69,7 +83,12 @@ class CameraScreen extends Component {
           captureAudio={false}
           style={{flex: 1}}
         >
-          <CameraOverlay style={{flex: 1}} takePicture={this.takePicture} imageUri={this.state.imageUri}/>
+          <CameraOverlay
+            style={{flex: 1}}
+            takePicture={this.takePicture}
+            imageUri={this.state.imageUri}
+            scanFrame={scanFrame}
+          />
         </RNCamera>
       </SafeAreaView>
     );
@@ -77,31 +96,22 @@ class CameraScreen extends Component {
 
   takePicture = async () => {
     if (this.camera) {
+
       const options = {
         pauseAfterCapture: true,
         forceUpOrientation: true, // ios only
         fixOrientation: true, // slow, but necessary for android
       }; // this only turns upright pictures correct, TODO rotate landscape pictures
-      const data = await this.camera.takePictureAsync(options);
-      console.log(
-        'original image: ' + data.uri +
-        ' height: ' + data.height +
-        ' width: ' + data.width
-      );
+      const image = await this.camera.takePictureAsync(options);
 
-      console.log(
-        'window height: ' + Dimensions.get('window').height +
-        ' width: ' + Dimensions.get('window').width +
-        ' screen height: '+ Dimensions.get('screen').height +
-        ' width: ' + Dimensions.get('screen').width
-      );
-
-      const cropRegion = {x: 530, y: 610, height: 570, width: 1600};
-      PhotoManipulator.crop(data.uri, cropRegion)
-        .then(path => {
-          console.log('cropped image: ' + path);
-          this.setState({imageUri: path});
-        })
+      const cropRegion = {
+        x: scanFrame.relOffsetX * image.width,
+        y: scanFrame.relOffsetY * image.height,
+        height: scanFrame.relHeight * image.height,
+        width: scanFrame.relWidth * image.width,
+      };
+      PhotoManipulator.crop(image.uri, cropRegion)
+        .then(cropped => {this.setState({imageUri: cropped})})
         .catch((error) => {console.log(error)});
 
     }

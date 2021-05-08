@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
@@ -37,17 +38,29 @@ class ImagePreview extends Component {
 
 class JourneyForm extends Component {
   render() {
+    const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
     return (
-      <View>
-        <TextInput
-          placeholder={Strings.mileage}
-          keyboardType='numeric'
-          value={this.props.mileage}
-          onChangeText={this.props.setMileage}
-          style={{color: Colors.white}}
-        />
+      <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
+      {/* wrapping TextInput in ScrollView for correct keyboard behavior */}
+        <View style={{marginTop: 30, flexDirection: 'row', flex: scanFrame.relHeight}}>
+          <View style={{flex: scanFrame.relOffsetX, backgroundColor: Colors.black}} />
+          <TextInput
+            placeholder={Strings.mileage}
+            keyboardType='numeric'
+            textAlign='right'
+            autoCompleteType='off'
+            autoCorrect={false}
+            value={this.props.mileage}
+            onChangeText={this.props.setMileage}
+            style={{color: Colors.white, flex: scanFrame.relWidth, fontSize: 30}}
+            placeholderTextColor={Colors.gray}
+          />
+          <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
+            <Button title='ok' color={Colors.green} />
+          </View>
+        </View>
         <ImagePreview imageUri={this.props.imageUri} />
-      </View>
+      </ScrollView>
     );
   }
 }

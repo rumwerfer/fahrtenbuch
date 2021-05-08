@@ -147,10 +147,11 @@ class CameraScreen extends Component {
     for (const block of scanResult) {
       for (const line of block.lines) {
         const largestNumberOfLine = Math.max.apply(
-          null, // scope
+          null,
           line.text
             .replace(' ', '') // remove whitespace
-            .match(/\d+/g) // create array only of numbers
+            .replace(/\d{8,}/g, '') // remove numbers with 8 digits and more
+            .match(/\d{4,}/g) // create array only of numbers with 4-7 digits
         );
         if (largestNumberOfLine > largestNumber) {
           largestNumber = largestNumberOfLine;

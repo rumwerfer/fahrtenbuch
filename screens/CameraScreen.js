@@ -6,7 +6,7 @@ import {
   Button,
   Image,
   Dimensions,
-  TextInput
+  TextInput,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
@@ -42,6 +42,13 @@ class JourneyForm extends Component {
         <Text>
           {this.props.scannedMileage?.toString()}
         </Text>
+        <TextInput
+          placeholder={Strings.mileage}
+          keyboardType='numeric'
+          value={this.props.mileageInputValue}
+          onChangeText={this.props.setMileageInputValue}
+          style={{color: Colors.white}}
+        />
         <ImagePreview imageUri={this.props.imageUri} />
       </View>
     );
@@ -72,7 +79,12 @@ class CameraOverlay extends Component {
           </View>
         </View>
         <View style={{flex: remainsY, backgroundColor: Colors.black, }}>
-          <JourneyForm imageUri={this.props.imageUri} scannedMileage={this.props.scannedMileage} />
+          <JourneyForm
+            imageUri={this.props.imageUri}
+            scannedMileage={this.props.scannedMileage}
+            mileageInputValue={this.props.mileageInputValue}
+            setMileageInputValue={this.props.setMileageInputValue}
+          />
         </View>
       </View>
     );
@@ -87,7 +99,12 @@ class CameraScreen extends Component {
       imageUri: null,
       scannedMileage: null,
       cameraIsActive: true,
+      mileageInputValue: '',
     };
+  }
+
+  setMileageInputValue = (mileage) => {
+    this.setState({mileageInputValue: mileage?.toString()})
   }
 
   render() {
@@ -117,6 +134,8 @@ class CameraScreen extends Component {
             scannedMileage={this.state.scannedMileage}
             cameraIsActive={this.state.cameraIsActive}
             resetCamera={this.resetCamera}
+            mileageInputValue={this.state.mileage}
+            setMileageInputValue={this.setMileageInputValue}
           />
         </RNCamera>
       </SafeAreaView>
@@ -133,6 +152,7 @@ class CameraScreen extends Component {
       if (ocrResult) {
         const mileage = this.findMileage(ocrResult);
         this.setState({scannedMileage: mileage});
+        this.setMileageInputValue(mileage);
       }
     }
   }

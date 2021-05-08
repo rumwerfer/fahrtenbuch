@@ -158,7 +158,9 @@ class CameraScreen extends Component {
       const ocrResult = await this.ocr(croppedImage);
       if (ocrResult) {
         const mileage = this.findMileage(ocrResult);
-        this.setMileage(mileage);
+        if (mileage > 0) {
+          this.setMileage(mileage);
+        }
       }
     }
   }

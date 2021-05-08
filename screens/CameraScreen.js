@@ -129,7 +129,10 @@ class CameraScreen extends Component {
 
       // ocr
       try {
-        const scannedText = await MlkitOcr.detectFromUri(croppedUri);
+        const scanResult = await MlkitOcr.detectFromUri(croppedUri);
+        const mileage = this.findMileage(scanResult);
+        console.log(scanResult);
+        console.log(mileage);
       } catch(err) {
         console.log(err);
         if (err.message.includes('to be downloaded')) {
@@ -138,6 +141,25 @@ class CameraScreen extends Component {
       }
     }
   }
+
+  findMileage = (scanResult) => {
+    let largestNumber = 0;
+    for (const block of scanResult) {
+      for (const line of block.lines) {
+        const largestNumberOfLine = Math.max.apply(
+          null, // scope
+          line.text
+            .replace(' ', '') // remove whitespace
+            .match(/\d+/g) // create array only of numbers
+        );
+        if (largestNumberOfLine > largestNumber) {
+          largestNumber = largestNumberOfLine;
+        }
+      }
+    }
+    return largestNumber > 0 ? largestNumber : null;
+  }
+
 }
 
 export default CameraScreen;

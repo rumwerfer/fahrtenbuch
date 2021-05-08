@@ -62,9 +62,9 @@ class CameraOverlay extends Component {
           <View style={{flex: scanFrame.relWidth, borderWidth: 2, borderColor: Colors.green, }} />
           <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
             <Button
-              title={this.props.cameraStatus === 'active' ? 'ok' : 're'}
+              title={this.props.cameraIsActive ? 'ok' : 're'}
               color={Colors.green}
-              onPress={this.props.cameraStatus === 'active'
+              onPress={this.props.cameraIsActive
                 ? this.props.scanMileage
                 : this.props.resetCamera
               }
@@ -86,7 +86,7 @@ class CameraScreen extends Component {
     this.state = {
       imageUri: null,
       scannedMileage: null,
-      cameraStatus: 'active',
+      cameraIsActive: true,
     };
   }
 
@@ -115,7 +115,7 @@ class CameraScreen extends Component {
             imageUri={this.state.imageUri}
             scanFrame={scanFrame}
             scannedMileage={this.state.scannedMileage}
-            cameraStatus={this.state.cameraStatus}
+            cameraIsActive={this.state.cameraIsActive}
             resetCamera={this.resetCamera}
           />
         </RNCamera>
@@ -125,7 +125,7 @@ class CameraScreen extends Component {
 
   // TODO delete images again
   scanMileage = async () => {
-    this.setState({cameraStatus: 'inactive'});
+    this.setState({cameraIsActive: false});
     if (this.camera) {
       const image = await this.takePicture();
       const croppedImage = await this.crop(image);
@@ -138,7 +138,7 @@ class CameraScreen extends Component {
   }
 
   resetCamera = () => {
-    this.setState({cameraStatus: 'active'});
+    this.setState({cameraIsActive: true});
     this.camera.resumePreview();
   };
 

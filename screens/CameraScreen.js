@@ -6,6 +6,7 @@ import {
   Button,
   Image,
   Dimensions,
+  TextInput
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
@@ -37,7 +38,12 @@ class ImagePreview extends Component {
 class JourneyForm extends Component {
   render() {
     return (
-      <ImagePreview imageUri={this.props.imageUri} />
+      <View>
+        <Text>
+          {this.props.scannedMileage?.toString()}
+        </Text>
+        <ImagePreview imageUri={this.props.imageUri} />
+      </View>
     );
   }
 }
@@ -59,7 +65,7 @@ class CameraOverlay extends Component {
           </View>
         </View>
         <View style={{flex: remainsY, backgroundColor: Colors.black, }}>
-          <JourneyForm imageUri={this.props.imageUri} />
+          <JourneyForm imageUri={this.props.imageUri} scannedMileage={this.props.scannedMileage} />
         </View>
       </View>
     );
@@ -72,7 +78,8 @@ class CameraScreen extends Component {
     super(props);
     this.state = {
       imageUri: null,
-    }
+      scannedMileage: null,
+    };
   }
 
   render() {
@@ -99,6 +106,7 @@ class CameraScreen extends Component {
             takePicture={this.takePicture}
             imageUri={this.state.imageUri}
             scanFrame={scanFrame}
+            scannedMileage={this.state.scannedMileage}
           />
         </RNCamera>
       </SafeAreaView>
@@ -130,9 +138,11 @@ class CameraScreen extends Component {
       // ocr
       try {
         const scanResult = await MlkitOcr.detectFromUri(croppedUri);
-        const mileage = this.findMileage(scanResult);
         console.log(scanResult);
+        const mileage = this.findMileage(scanResult);
         console.log(mileage);
+        this.setState({scannedMileage: mileage});
+
       } catch(err) {
         console.log(err);
         if (err.message.includes('to be downloaded')) {

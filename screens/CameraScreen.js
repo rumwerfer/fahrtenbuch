@@ -61,7 +61,7 @@ class CameraOverlay extends Component {
           <View style={{flex: scanFrame.relOffsetX, backgroundColor: Colors.black}} />
           <View style={{flex: scanFrame.relWidth, borderWidth: 2, borderColor: Colors.green, }} />
           <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
-            <Button title='ok' color={Colors.green} onPress={this.props.takePicture} />
+            <Button title='ok' color={Colors.green} onPress={this.props.scanMileage} />
           </View>
         </View>
         <View style={{flex: remainsY, backgroundColor: Colors.black, }}>
@@ -103,7 +103,7 @@ class CameraScreen extends Component {
         >
           <CameraOverlay
             style={{flex: 1}}
-            takePicture={this.takePicture}
+            scanMileage={this.scanMileage}
             imageUri={this.state.imageUri}
             scanFrame={scanFrame}
             scannedMileage={this.state.scannedMileage}
@@ -114,47 +114,60 @@ class CameraScreen extends Component {
   }
 
   // TODO delete images again
-  takePicture = async () => {
+  scanMileage = async () => {
     if (this.camera) {
-
-      // take picture
-      const options = {
-        pauseAfterCapture: true,
-        forceUpOrientation: true, // ios only
-        fixOrientation: true, // slow, but necessary for android
-      }; // this only turns upright pictures correct, TODO rotate landscape pictures
-      const image = await this.camera.takePictureAsync(options);
-
-      // crop
-      const cropRegion = {
-        x: scanFrame.relOffsetX * image.width,
-        y: scanFrame.relOffsetY * image.height,
-        height: scanFrame.relHeight * image.height,
-        width: scanFrame.relWidth * image.width,
-      };
-      const croppedUri = await PhotoManipulator.crop(image.uri, cropRegion);
-      this.setState({imageUri: croppedUri}); // debug only
-
-      // ocr
-      try {
-        const scanResult = await MlkitOcr.detectFromUri(croppedUri);
-        console.log(scanResult);
-        const mileage = this.findMileage(scanResult);
-        console.log(mileage);
+      const image = await this.takePicture();
+      const croppedImage = await this.crop(image);
+      const ocrResult = await this.ocr(croppedImage);
+      if (ocrResult) {
+        const mileage = this.findMileage(ocrResult);
         this.setState({scannedMileage: mileage});
-
-      } catch(err) {
-        console.log(err);
-        if (err.message.includes('to be downloaded')) {
-          Toast.show(Strings.modelDownloadMessage);
-        }
       }
     }
   }
 
-  findMileage = (scanResult) => {
+  takePicture = async () => {
+    const options = {
+      pauseAfterCapture: true,
+      forceUpOrientation: true, // ios only
+      fixOrientation: true, // slow, but necessary for android
+    }; // this only turns upright pictures correct, TODO rotate landscape pictures
+    const image = await this.camera.takePictureAsync(options);
+    console.log('takePicture: ' + image.uri);
+    return image;
+  }
+
+  crop = async (image) => {
+    const cropRegion = {
+      x: scanFrame.relOffsetX * image.width,
+      y: scanFrame.relOffsetY * image.height,
+      height: scanFrame.relHeight * image.height,
+      width: scanFrame.relWidth * image.width,
+    };
+    const croppedImage = await PhotoManipulator.crop(image.uri, cropRegion);
+    this.setState({imageUri: croppedImage}); // debug only
+    console.log('crop: ' + croppedImage);
+    return croppedImage;
+  }
+
+  ocr = async (image) => {
+    try {
+      const ocrResult = await MlkitOcr.detectFromUri(image);
+      console.log('ocr: ' + JSON.stringify(ocrResult));
+      return ocrResult;
+
+    } catch(err) {
+      console.log(err);
+      if (err.message.includes('to be downloaded')) {
+        Toast.show(Strings.modelDownloadMessage);
+      }
+      return null;
+    }
+  }
+
+  findMileage = (scannedText) => {
     let largestNumber = 0;
-    for (const block of scanResult) {
+    for (const block of scannedText) {
       for (const line of block.lines) {
         const largestNumberOfLine = Math.max.apply(
           null,
@@ -168,6 +181,7 @@ class CameraScreen extends Component {
         }
       }
     }
+    console.log('findMileage: ' + largestNumber);
     return largestNumber > 0 ? largestNumber : null;
   }
 

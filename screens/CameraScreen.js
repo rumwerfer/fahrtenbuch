@@ -39,14 +39,11 @@ class JourneyForm extends Component {
   render() {
     return (
       <View>
-        <Text>
-          {this.props.scannedMileage?.toString()}
-        </Text>
         <TextInput
           placeholder={Strings.mileage}
           keyboardType='numeric'
-          value={this.props.mileageInputValue}
-          onChangeText={this.props.setMileageInputValue}
+          value={this.props.mileage}
+          onChangeText={this.props.setMileage}
           style={{color: Colors.white}}
         />
         <ImagePreview imageUri={this.props.imageUri} />
@@ -81,9 +78,8 @@ class CameraOverlay extends Component {
         <View style={{flex: remainsY, backgroundColor: Colors.black, }}>
           <JourneyForm
             imageUri={this.props.imageUri}
-            scannedMileage={this.props.scannedMileage}
-            mileageInputValue={this.props.mileageInputValue}
-            setMileageInputValue={this.props.setMileageInputValue}
+            mileage={this.props.mileage}
+            setMileage={this.props.setMileage}
           />
         </View>
       </View>
@@ -97,14 +93,13 @@ class CameraScreen extends Component {
     super(props);
     this.state = {
       imageUri: null,
-      scannedMileage: null,
+      mileage: '',
       cameraIsActive: true,
-      mileageInputValue: '',
     };
   }
 
-  setMileageInputValue = (mileage) => {
-    this.setState({mileageInputValue: mileage?.toString()})
+  setMileage = (text) => {
+    this.setState({mileage: text?.toString()})
   }
 
   render() {
@@ -131,11 +126,10 @@ class CameraScreen extends Component {
             scanMileage={this.scanMileage}
             imageUri={this.state.imageUri}
             scanFrame={scanFrame}
-            scannedMileage={this.state.scannedMileage}
+            mileage={this.state.mileage}
             cameraIsActive={this.state.cameraIsActive}
             resetCamera={this.resetCamera}
-            mileageInputValue={this.state.mileage}
-            setMileageInputValue={this.setMileageInputValue}
+            setMileage={this.setMileage}
           />
         </RNCamera>
       </SafeAreaView>
@@ -151,8 +145,7 @@ class CameraScreen extends Component {
       const ocrResult = await this.ocr(croppedImage);
       if (ocrResult) {
         const mileage = this.findMileage(ocrResult);
-        this.setState({scannedMileage: mileage});
-        this.setMileageInputValue(mileage);
+        this.setMileage(mileage);
       }
     }
   }

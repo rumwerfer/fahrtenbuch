@@ -92,6 +92,7 @@ class CameraScreen extends Component {
           }}
           captureAudio={false}
           style={{flex: 1}}
+          // TODO autoFocusPointOfInterest
         >
           <CameraOverlay
             style={{flex: 1}}

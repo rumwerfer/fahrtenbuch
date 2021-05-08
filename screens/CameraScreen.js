@@ -141,7 +141,7 @@ class CameraScreen extends Component {
     const cropRegion = {
       x: scanFrame.relOffsetX * image.width,
       y: scanFrame.relOffsetY * image.height,
-      height: scanFrame.relHeight * image.height,
+      height: scanFrame.relHeight * image.height + 50, // dirty hack to fix cropRegion on htc one
       width: scanFrame.relWidth * image.width,
     };
     const croppedImage = await PhotoManipulator.crop(image.uri, cropRegion);

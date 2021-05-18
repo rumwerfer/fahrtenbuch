@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button as PaperButton } from 'react-native-paper';
-import Strings from '../res/Strings';
 import Colors from '../res/Colors';
 
 function Button(props) {

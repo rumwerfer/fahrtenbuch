@@ -12,4 +12,6 @@ export default {
   scanMileage: 'Kilometerstand erfassen',
   confirm: 'Bestätigen',
   enterDetails: 'Details eingeben',
+  route: 'Strecke',
+  weather: 'Wetter',
 };

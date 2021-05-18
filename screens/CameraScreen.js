@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
   SafeAreaView,
   View,
@@ -36,33 +37,36 @@ class ImagePreview extends Component {
   }
 }
 
-class JourneyForm extends Component {
-  render() {
-    const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
-    return (
-      <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
-      {/* wrapping TextInput in ScrollView for correct keyboard behavior */}
-        <View style={{marginTop: 30, flexDirection: 'row', flex: scanFrame.relHeight}}>
-          <View style={{flex: scanFrame.relOffsetX, backgroundColor: Colors.black}} />
-          <TextInput
-            placeholder={Strings.mileage}
-            keyboardType='numeric'
-            textAlign='right'
-            autoCompleteType='off'
-            autoCorrect={false}
-            value={this.props.mileage}
-            onChangeText={this.props.setMileage}
-            style={{color: Colors.white, flex: scanFrame.relWidth, fontSize: 30}}
-            placeholderTextColor={Colors.gray}
+function JourneyForm(props) {
+  const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
+  const navigation = useNavigation();
+  return (
+    <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
+    {/* wrapping TextInput in ScrollView for correct keyboard behavior */}
+      <View style={{marginTop: 30, flexDirection: 'row', flex: scanFrame.relHeight}}>
+        <View style={{flex: scanFrame.relOffsetX, backgroundColor: Colors.black}} />
+        <TextInput
+          placeholder={Strings.mileage}
+          keyboardType='numeric'
+          textAlign='right'
+          autoCompleteType='off'
+          autoCorrect={false}
+          value={props.mileage}
+          onChangeText={props.setMileage}
+          style={{color: Colors.white, flex: scanFrame.relWidth, fontSize: 30}}
+          placeholderTextColor={Colors.gray}
+        />
+        <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
+          <Button
+            icon='check'
+            onPress={() => navigation.navigate('Home', {enRoute: true})}
+            label={Strings.confirm}
           />
-          <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
-            <Button icon='check' label={Strings.confirm} />
-          </View>
         </View>
-        <ImagePreview imageUri={this.props.imageUri} />
-      </ScrollView>
-    );
-  }
+      </View>
+      <ImagePreview imageUri={props.imageUri} />
+    </ScrollView>
+  );
 }
 
 class CameraOverlay extends Component {

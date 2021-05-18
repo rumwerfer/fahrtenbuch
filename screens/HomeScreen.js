@@ -7,8 +7,8 @@ import {
   Text,
   useColorScheme,
   View,
-  Button,
 } from 'react-native';
+import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import Colors from '../res/Colors';
 
@@ -73,9 +73,9 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.summary}>
         <View style={styles.buttonContainer}>
           <Button
-            title={Strings.startJourney}
-            color={Colors.green}
             onPress={() => navigation.navigate('Camera')}
+            icon='car'
+            label={Strings.startJourney}
           />
         </View>
         <Text style={[styles.mileage, {color : Colors.white}]}>
@@ -113,11 +113,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   buttonContainer: {
-    width: 100,
     marginTop: -50,
     marginRight: -10,
     marginBottom: 10,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
   highlight: {
     fontWeight: '700',

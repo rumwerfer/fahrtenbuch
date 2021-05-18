@@ -12,7 +12,7 @@ function Button(props) {
       mode='contained'
       compact={true}
       color={Colors.green}
-      style={{borderRadius: 25, width: 70}}
+      style={{borderRadius: 25, width: 70, height: 45}}
       labelStyle={{fontSize: 30}}
       accessibilityLabel={props.label}
     />

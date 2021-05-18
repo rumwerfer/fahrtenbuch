@@ -73,9 +73,16 @@ const HomeScreen = (props) => {
       <View style={styles.summary}>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => props.navigation.navigate('Camera')}
+            onPress={() => props.navigation.navigate(
+              'Camera',
+              {isEndMileage: props.route.params?.enRoute}
+            )}
             icon={props.route.params?.enRoute ? 'flag-checkered' : 'car'}
-            label={Strings.startJourney}
+            label={
+              props.route.params?.enRoute
+              ? Strings.finishJourney
+              : Strings.startJourney
+            }
           />
         </View>
         <Text style={[styles.mileage, {color : Colors.white}]}>

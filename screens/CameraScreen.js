@@ -59,7 +59,10 @@ function JourneyForm(props) {
         <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
           <Button
             icon='check'
-            onPress={() => navigation.navigate('Home', {enRoute: true})}
+            onPress={() => props.isEndMileage
+              ? navigation.navigate('Details')
+              : navigation.navigate('Home', {enRoute: true})
+            }
             label={Strings.confirm}
           />
         </View>
@@ -98,6 +101,7 @@ class CameraOverlay extends Component {
             imageUri={this.props.imageUri}
             mileage={this.props.mileage}
             setMileage={this.props.setMileage}
+            isEndMileage={this.props.isEndMileage}
           />
         </View>
       </View>
@@ -150,6 +154,7 @@ class CameraScreen extends Component {
             resetCamera={this.resetCamera}
             setMileage={this.setMileage}
             scanning={this.state.scanning}
+            isEndMileage={this.props.route.params?.isEndMileage}
           />
         </RNCamera>
       </SafeAreaView>

@@ -6,6 +6,7 @@ import Colors from './res/Colors';
 import Strings from './res/Strings';
 import HomeScreen from './screens/HomeScreen';
 import CameraScreen from './screens/CameraScreen';
+import DetailsScreen from './screens/DetailsScreen';
 
 const Stack = createStackNavigator();
 
@@ -25,7 +26,16 @@ const App = () => {
         <Stack.Screen
           name='Camera'
           component={CameraScreen}
-          options={{title: Strings.startJourney}}
+          options={({route}) => ({
+            title: route.params?.isEndMileage
+            ? Strings.finishJourney
+            : Strings.startJourney
+          })}
+        />
+        <Stack.Screen
+          name='Details'
+          component={DetailsScreen}
+          options={{title: Strings.enterDetails}}
         />
       </Stack.Navigator>
     </NavigationContainer>

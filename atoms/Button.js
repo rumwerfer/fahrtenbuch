@@ -9,12 +9,13 @@ class Button extends Component {
       <PaperButton
         onPress={this.props.onPress}
         icon={this.props.icon}
+        loading={this.props.loading}
         mode='contained'
         compact={true}
         color={Colors.green}
         style={{borderRadius: 25}}
-        contentStyle={{margin: -5}}
-        labelStyle={{fontSize: 40}}
+        contentStyle={{height: 50, width: 70}}
+        labelStyle={{fontSize: 30}}
         accessibilityLabel={this.props.label}
       />
     );

@@ -6,5 +6,7 @@ export default {
   agree: 'Zustimmen',
   deny: 'Ablehnen',
   modelDownloadMessage: 'Texterkennungsmodell wird heruntergeladen...',
-  mileage: 'Kilometerstand'
+  mileage: 'Kilometerstand',
+  scanMileage: 'Kilometerstand erfassen',
+  confirm: 'Bestätigen',
 };

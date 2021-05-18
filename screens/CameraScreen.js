@@ -3,7 +3,6 @@ import {
   SafeAreaView,
   View,
   Text,
-  Button,
   Image,
   Dimensions,
   TextInput,
@@ -13,6 +12,7 @@ import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
 import MlkitOcr from 'react-native-mlkit-ocr';
 import Toast from 'react-native-simple-toast';
+import Button from '../atoms/Button';
 import Strings from '../res/Strings.js';
 import Colors from '../res/Colors.js';
 
@@ -20,7 +20,7 @@ import Colors from '../res/Colors.js';
 const scanFrame = {
   relHeight: 0.1,
   relWidth: 0.6,
-  relOffsetX: 0.1,
+  relOffsetX: 0.08,
   relOffsetY: 0.15,
 };
 
@@ -56,7 +56,7 @@ class JourneyForm extends Component {
             placeholderTextColor={Colors.gray}
           />
           <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
-            <Button title='ok' color={Colors.green} />
+            <Button icon='check' label={Strings.confirm} />
           </View>
         </View>
         <ImagePreview imageUri={this.props.imageUri} />
@@ -79,12 +79,13 @@ class CameraOverlay extends Component {
           <View style={{flex: scanFrame.relWidth, borderWidth: 2, borderColor: Colors.green, }} />
           <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
             <Button
-              title={this.props.cameraIsActive ? 'ok' : 're'}
-              color={Colors.green}
+              icon={this.props.cameraIsActive ? 'camera' : 'reload'}
               onPress={this.props.cameraIsActive
                 ? this.props.scanMileage
                 : this.props.resetCamera
               }
+              label={Strings.scanMileage}
+              loading={this.props.scanning}
             />
           </View>
         </View>
@@ -108,6 +109,7 @@ class CameraScreen extends Component {
       imageUri: null,
       mileage: '',
       cameraIsActive: true,
+      scanning: false,
     };
   }
 
@@ -143,6 +145,7 @@ class CameraScreen extends Component {
             cameraIsActive={this.state.cameraIsActive}
             resetCamera={this.resetCamera}
             setMileage={this.setMileage}
+            scanning={this.state.scanning}
           />
         </RNCamera>
       </SafeAreaView>
@@ -151,8 +154,8 @@ class CameraScreen extends Component {
 
   // TODO delete images again
   scanMileage = async () => {
-    this.setState({cameraIsActive: false});
     if (this.camera) {
+      this.setState({cameraIsActive: false, scanning: true});
       const image = await this.takePicture();
       const croppedImage = await this.crop(image);
       const ocrResult = await this.ocr(croppedImage);
@@ -162,6 +165,7 @@ class CameraScreen extends Component {
           this.setMileage(mileage);
         }
       }
+      this.setState({scanning: false});
     }
   }
 

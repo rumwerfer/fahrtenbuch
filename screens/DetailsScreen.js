@@ -6,6 +6,7 @@ import {
   useColorScheme,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import Button from '../atoms/Button';
 import TextInput from '../atoms/TextInput';
 import Strings from '../res/Strings';
@@ -13,10 +14,12 @@ import Colors from '../res/Colors';
 
 function DetailsScreen() {
   const navigation = useNavigation();
-  const isDarkMode = useColorScheme() === 'dark';
+  const themeColors = useTheme().colors;
   return (
     <SafeAreaView style={{
-      backgroundColor: Colors.black, flex: 1, padding: 40,
+      backgroundColor: themeColors.screenBackground,
+      flex: 1,
+      padding: 40
     }}>
       <View style={styles.detailsForm}>
         <TextInput label={Strings.route} />

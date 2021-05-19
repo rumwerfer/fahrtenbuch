@@ -21,7 +21,7 @@ import Colors from '../res/Colors.js';
 // TODO maybe outsource into own file instead of pass via props
 const scanFrame = {
   relHeight: 0.1,
-  relWidth: 0.6,
+  relWidth: 0.55,
   relOffsetX: 0.08,
   relOffsetY: 0.15,
 };

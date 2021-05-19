@@ -16,13 +16,12 @@ export const TextInput = (props) => {
   );
 }
 
-export const MileageInput = () => {
-  const [mileage, setMileage] = React.useState('');
+export const MileageInput = (props) => {
   return (
     <PaperTextInput
       label={Strings.mileage}
-      value={mileage}
-      onChangeText={mileage => setMileage(mileage)}
+      value={props.mileage}
+      onChangeText={props.setMileage}
       keyboardType='numeric'
       autoCompleteType='off'
       autoCorrect={false}

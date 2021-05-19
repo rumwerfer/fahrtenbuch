@@ -48,7 +48,7 @@ function JourneyForm(props) {
       <View style={{marginTop: 30, flexDirection: 'row', flex: scanFrame.relHeight}}>
         <View style={{flex: scanFrame.relOffsetX, backgroundColor: backgroundColor}} />
         <View style={{flex: scanFrame.relWidth}}>
-          <MileageInput />
+          <MileageInput mileage={props.mileage} setMileage={props.setMileage}/>
         </View>
         <View style={{flex: remainsX, backgroundColor: backgroundColor, alignItems: 'center', justifyContent: 'center'}}>
           <Button

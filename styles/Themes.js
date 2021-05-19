@@ -23,5 +23,6 @@ export const LightTheme = {
     background: Colors.white,
     text: Colors.black,
     placeholder: Colors.lightgreen,
+    screenBackground: Colors.white,
   }
 };

@@ -6,13 +6,13 @@ import {
   Text,
   Image,
   Dimensions,
-  TextInput,
   ScrollView,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
 import MlkitOcr from 'react-native-mlkit-ocr';
 import Toast from 'react-native-simple-toast';
+import { MileageInput } from '../atoms/Inputs'
 import Button from '../atoms/Button';
 import Strings from '../res/Strings.js';
 import Colors from '../res/Colors.js';
@@ -45,17 +45,9 @@ function JourneyForm(props) {
     {/* wrapping TextInput in ScrollView for correct keyboard behavior */}
       <View style={{marginTop: 30, flexDirection: 'row', flex: scanFrame.relHeight}}>
         <View style={{flex: scanFrame.relOffsetX, backgroundColor: Colors.black}} />
-        <TextInput
-          placeholder={Strings.mileage}
-          keyboardType='numeric'
-          textAlign='right'
-          autoCompleteType='off'
-          autoCorrect={false}
-          value={props.mileage}
-          onChangeText={props.setMileage}
-          style={{color: Colors.white, flex: scanFrame.relWidth, fontSize: 30}}
-          placeholderTextColor={Colors.gray}
-        />
+        <View style={{flex: scanFrame.relWidth}}>
+          <MileageInput />
+        </View>
         <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
           <Button
             icon='check'

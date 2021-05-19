@@ -8,7 +8,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
 import Button from '../atoms/Button';
-import TextInput from '../atoms/TextInput';
+import { TextInput } from '../atoms/Inputs';
 import Strings from '../res/Strings';
 import Colors from '../res/Colors';
 

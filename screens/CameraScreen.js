@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import {
   SafeAreaView,
   View,
   Text,
   Image,
   Dimensions,
-  TextInput,
   ScrollView,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
 import MlkitOcr from 'react-native-mlkit-ocr';
 import Toast from 'react-native-simple-toast';
+import { MileageInput } from '../atoms/Inputs'
 import Button from '../atoms/Button';
 import Strings from '../res/Strings.js';
 import Colors from '../res/Colors.js';
@@ -19,7 +21,7 @@ import Colors from '../res/Colors.js';
 // TODO maybe outsource into own file instead of pass via props
 const scanFrame = {
   relHeight: 0.1,
-  relWidth: 0.6,
+  relWidth: 0.55,
   relOffsetX: 0.08,
   relOffsetY: 0.15,
 };
@@ -36,69 +38,70 @@ class ImagePreview extends Component {
   }
 }
 
-class JourneyForm extends Component {
-  render() {
-    const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
-    return (
-      <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
-      {/* wrapping TextInput in ScrollView for correct keyboard behavior */}
-        <View style={{marginTop: 30, flexDirection: 'row', flex: scanFrame.relHeight}}>
-          <View style={{flex: scanFrame.relOffsetX, backgroundColor: Colors.black}} />
-          <TextInput
-            placeholder={Strings.mileage}
-            keyboardType='numeric'
-            textAlign='right'
-            autoCompleteType='off'
-            autoCorrect={false}
-            value={this.props.mileage}
-            onChangeText={this.props.setMileage}
-            style={{color: Colors.white, flex: scanFrame.relWidth, fontSize: 30}}
-            placeholderTextColor={Colors.gray}
-          />
-          <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
-            <Button icon='check' label={Strings.confirm} />
-          </View>
+function JourneyForm(props) {
+  const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
+  const navigation = useNavigation();
+  const backgroundColor = useTheme().colors.screenBackground;
+  return (
+    <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
+    {/* wrapping TextInput in ScrollView for correct keyboard behavior */}
+      <View style={{marginTop: 30, flexDirection: 'row', flex: scanFrame.relHeight}}>
+        <View style={{flex: scanFrame.relOffsetX, backgroundColor: backgroundColor}} />
+        <View style={{flex: scanFrame.relWidth}}>
+          <MileageInput mileage={props.mileage} setMileage={props.setMileage}/>
         </View>
-        <ImagePreview imageUri={this.props.imageUri} />
-      </ScrollView>
-    );
-  }
-}
-
-class CameraOverlay extends Component {
-  render() {
-    const scanFrame = this.props.scanFrame;
-    const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
-    const remainsY = 1 - (scanFrame.relOffsetY + scanFrame.relHeight);
-
-    return (
-      <View style={{flex: 1, flexDirection: 'column'}}>
-        <View style={{width: '100%', flex: scanFrame.relOffsetY, backgroundColor: Colors.black, }}/>
-        <View style={{flexDirection: 'row', flex: scanFrame.relHeight}}>
-          <View style={{flex: scanFrame.relOffsetX, backgroundColor: Colors.black}} />
-          <View style={{flex: scanFrame.relWidth, borderWidth: 2, borderColor: Colors.green, }} />
-          <View style={{flex: remainsX, backgroundColor: Colors.black, alignItems: 'center', justifyContent: 'center'}}>
-            <Button
-              icon={this.props.cameraIsActive ? 'camera' : 'reload'}
-              onPress={this.props.cameraIsActive
-                ? this.props.scanMileage
-                : this.props.resetCamera
-              }
-              label={Strings.scanMileage}
-              loading={this.props.scanning}
-            />
-          </View>
-        </View>
-        <View style={{flex: remainsY, backgroundColor: Colors.black, }}>
-          <JourneyForm
-            imageUri={this.props.imageUri}
-            mileage={this.props.mileage}
-            setMileage={this.props.setMileage}
+        <View style={{flex: remainsX, backgroundColor: backgroundColor, alignItems: 'center', justifyContent: 'center'}}>
+          <Button
+            icon='check'
+            onPress={() => props.isEndMileage
+              ? navigation.navigate('Details')
+              : navigation.navigate('Home', {enRoute: true})
+            }
+            label={Strings.confirm}
           />
         </View>
       </View>
-    );
-  }
+      <ImagePreview imageUri={props.imageUri} />
+    </ScrollView>
+  );
+}
+
+
+
+function CameraOverlay(props) {
+  const scanFrame = props.scanFrame;
+  const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
+  const remainsY = 1 - (scanFrame.relOffsetY + scanFrame.relHeight);
+  const backgroundColor = useTheme().colors.screenBackground;
+
+  return (
+    <View style={{flex: 1, flexDirection: 'column'}}>
+      <View style={{width: '100%', flex: scanFrame.relOffsetY, backgroundColor: backgroundColor}}/>
+      <View style={{flexDirection: 'row', flex: scanFrame.relHeight}}>
+        <View style={{flex: scanFrame.relOffsetX, backgroundColor: backgroundColor}} />
+        <View style={{flex: scanFrame.relWidth, borderWidth: 2, borderColor: Colors.green, }} />
+        <View style={{flex: remainsX, backgroundColor: backgroundColor, alignItems: 'center', justifyContent: 'center'}}>
+          <Button
+            icon={props.cameraIsActive ? 'camera' : 'reload'}
+            onPress={props.cameraIsActive
+              ? props.scanMileage
+              : props.resetCamera
+            }
+            label={Strings.scanMileage}
+            loading={props.scanning}
+          />
+        </View>
+      </View>
+      <View style={{flex: remainsY, backgroundColor: backgroundColor}}>
+        <JourneyForm
+          imageUri={props.imageUri}
+          mileage={props.mileage}
+          setMileage={props.setMileage}
+          isEndMileage={props.isEndMileage}
+        />
+      </View>
+    </View>
+  );
 }
 
 class CameraScreen extends Component {
@@ -146,6 +149,7 @@ class CameraScreen extends Component {
             resetCamera={this.resetCamera}
             setMileage={this.setMileage}
             scanning={this.state.scanning}
+            isEndMileage={this.props.route.params?.isEndMileage}
           />
         </RNCamera>
       </SafeAreaView>

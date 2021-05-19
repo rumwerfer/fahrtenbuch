@@ -47,7 +47,7 @@ const JourneyList = () => {
   );
 }
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = (props) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -73,9 +73,16 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.summary}>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => navigation.navigate('Camera')}
-            icon='car'
-            label={Strings.startJourney}
+            onPress={() => props.navigation.navigate(
+              'Camera',
+              {isEndMileage: props.route.params?.enRoute}
+            )}
+            icon={props.route.params?.enRoute ? 'flag-checkered' : 'car'}
+            label={
+              props.route.params?.enRoute
+              ? Strings.finishJourney
+              : Strings.startJourney
+            }
           />
         </View>
         <Text style={[styles.mileage, {color : Colors.white}]}>

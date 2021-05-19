@@ -23,7 +23,7 @@ const scanFrame = {
   relHeight: 0.1,
   relWidth: 0.55,
   relOffsetX: 0.08,
-  relOffsetY: 0.15,
+  relOffsetY: 0.06,
 };
 
 // for debugging only

@@ -14,7 +14,6 @@ import PhotoManipulator from 'react-native-photo-manipulator';
 import MlkitOcr from 'react-native-mlkit-ocr';
 import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import * as JourneyActions from '../redux/JourneyActions';
 import { MileageInput } from '../atoms/Inputs'

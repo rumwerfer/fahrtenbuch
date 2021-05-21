@@ -13,3 +13,9 @@ export const finishJourney = endMileage => (
     payload: endMileage,
   }
 );
+
+export const saveJourney = () => (
+  {
+    type: ActionTypes.SAVE_JOURNEY,
+  }
+)

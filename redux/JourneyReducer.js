@@ -2,9 +2,9 @@ import { combineReducers } from 'redux';
 import * as ActionTypes from './ActionTypes';
 
 const INITIAL_STATE = {
-  finished: [],
+  saved: [],
   ongoing: null,
-  enteringDetails: null,
+  finished: null,
 }
 
 const journeyReducer = (journeys = INITIAL_STATE, action) => {
@@ -24,6 +24,15 @@ const journeyReducer = (journeys = INITIAL_STATE, action) => {
           endMileage: action.payload,
         },
         ongoing: null,
+      };
+
+    case ActionTypes.SAVE_JOURNEY:
+      const newSaved = journeys.saved;
+      newSaved.push(journeys.finished);
+      return {
+        ...journeys,
+        saved: newSaved,
+        finished: null,
       };
 
     default:

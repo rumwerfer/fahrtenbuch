@@ -89,7 +89,9 @@ const HomeScreen = (props) => {
         </View>
         <Text style={[styles.mileage, {color : Colors.white}]}>
           {/* {props.journeys.finished.length} Fahrten, */}
-          {props.journeys.ongoing ? 'unterwegs' : 'nicht unterwegs'}, 207 km
+          {props.journeys.ongoing ? 'unterwegs (' : 'daheim ('}
+          {props.journeys.saved.length}
+          ), 207 km
         </Text>
       </View>
     </SafeAreaView>

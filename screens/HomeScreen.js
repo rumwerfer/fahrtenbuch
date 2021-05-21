@@ -14,7 +14,7 @@ import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import Colors from '../res/Colors';
 
-const Journey = ({date, mileage}) => {
+const Journey = ({journey}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.listContainer}>
@@ -24,7 +24,7 @@ const Journey = ({date, mileage}) => {
             styles.date,
             { color : isDarkMode ? Colors.white : Colors.black, }
           ]}>
-          {date}
+          21. Juno 2021
         </Text>
       </View>
       <View style={{ flex: 1, }}>
@@ -33,7 +33,7 @@ const Journey = ({date, mileage}) => {
             styles.mileage,
             { color : isDarkMode ? Colors.white : Colors.black, }
           ]}>
-          {mileage + ' km'}
+          {journey.endMileage - journey.startMileage + ' km'}
         </Text>
       </View>
     </View>
@@ -44,7 +44,7 @@ const JourneyList = (props) => {
   return (
     <View>
       {props.journeys.saved.map(journey =>
-        <Journey date='21. Mäi 2021' mileage={journey.endMileage - journey.startMileage} />
+        <Journey journey={journey} />
       ) /* TODO use timestamp as key */}
     </View>
   );

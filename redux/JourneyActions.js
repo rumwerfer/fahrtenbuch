@@ -1,6 +1,15 @@
-export const startJourney = mileage => (
+import * as ActionTypes from './ActionTypes';
+
+export const startJourney = startMileage => (
   {
-    type: 'START_JOURNEY',
-    payload: mileage,
+    type: ActionTypes.START_JOURNEY,
+    payload: startMileage,
+  }
+);
+
+export const finishJourney = endMileage => (
+  {
+    type: ActionTypes.FINISH_JOURNEY,
+    payload: endMileage,
   }
 );

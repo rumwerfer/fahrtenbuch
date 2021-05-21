@@ -1,20 +1,33 @@
 import { combineReducers } from 'redux';
+import * as ActionTypes from './ActionTypes';
 
 const INITIAL_STATE = {
-  current: [],
+  finished: [],
+  ongoing: null,
+  enteringDetails: null,
 }
 
-const journeyReducer = (state = INITIAL_STATE, action) => {
+const journeyReducer = (journeys = INITIAL_STATE, action) => {
   switch(action.type) {
-    case 'START_JOURNEY':
-      const {current} = state; // to not alter state directly
-      const startedJourney = { mileage: action.payload };
-      current.push(startedJourney);
-      const newState = {current};
-      return newState;
+
+    case ActionTypes.START_JOURNEY:
+      return {
+        ...journeys,
+        ongoing: { startMileage: action.payload },
+      };
+
+    case ActionTypes.FINISH_JOURNEY:
+      return {
+        ...journeys,
+        finished: {
+          ...journeys.ongoing,
+          endMileage: action.payload,
+        },
+        ongoing: null,
+      };
 
     default:
-      return state;
+      return journeys;
   }
 };
 

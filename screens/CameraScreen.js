@@ -16,7 +16,7 @@ import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { startJourney } from '../redux/JourneyActions';
+import * as JourneyActions from '../redux/JourneyActions';
 import { MileageInput } from '../atoms/Inputs'
 import Button from '../atoms/Button';
 import Strings from '../res/Strings.js';
@@ -59,10 +59,12 @@ function JourneyForm(props) {
             icon='check'
             onPress={() => {
               if (props.mileage) {
+                const time = Date.now();
                 if (!props.isEndMileage) {
                   props.startJourney(props.mileage);
                   navigation.navigate('Home', {enRoute: true});
                 } else {
+                  props.finishJourney(props.mileage);
                   navigation.navigate('Details');
                 }
 
@@ -112,6 +114,7 @@ function CameraOverlay(props) {
           setMileage={props.setMileage}
           isEndMileage={props.isEndMileage}
           startJourney={props.startJourney}
+          finishJourney={props.finishJourney}
         />
       </View>
     </View>
@@ -165,6 +168,7 @@ class CameraScreen extends Component {
             scanning={this.state.scanning}
             isEndMileage={this.props.route.params?.isEndMileage}
             startJourney={this.props.startJourney}
+            finishJourney={this.props.finishJourney}
           />
         </RNCamera>
       </SafeAreaView>
@@ -259,10 +263,9 @@ const mapStateToProps = (state) => {
   return { journeys };
 };
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({
-    startJourney,
-  }, dispatch)
-);
+const mapDispatchToProps = dispatch => ({
+  startJourney: () => dispatch(JourneyActions.startJourney()),
+  finishJourney: () => dispatch(JourneyActions.finishJourney()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);

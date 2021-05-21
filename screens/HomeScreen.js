@@ -40,9 +40,10 @@ const Journey = ({date, mileage}) => {
   );
 }
 
-const JourneyList = () => {
+const JourneyList = (props) => {
   return (
     <View>
+      {props.journeys.saved.map(journey => <Journey date='21. Mai 2021' mileage={journey.endMileage - journey.startMileage} key={journey} />)}
       <Journey date='5. Dezember 2020' mileage='123' />
       <Journey date='24. Mai 2021' mileage='84' />
     </View>
@@ -50,6 +51,8 @@ const JourneyList = () => {
 }
 
 const HomeScreen = (props) => {
+  console.log(props.journeys);
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -69,7 +72,7 @@ const HomeScreen = (props) => {
           style={{
             backgroundColor: isDarkMode ? Colors.gray : Colors.white,
           }}>
-          <JourneyList />
+          <JourneyList journeys={props.journeys} />
         </View>
       </ScrollView>
       <View style={styles.summary}>

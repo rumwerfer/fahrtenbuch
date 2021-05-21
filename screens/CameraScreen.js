@@ -80,8 +80,6 @@ function JourneyForm(props) {
   );
 }
 
-
-
 function CameraOverlay(props) {
   const scanFrame = props.scanFrame;
   const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
@@ -263,8 +261,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  startJourney: () => dispatch(JourneyActions.startJourney()),
-  finishJourney: () => dispatch(JourneyActions.finishJourney()),
+  startJourney: (startMileage) => dispatch(JourneyActions.startJourney(startMileage)),
+  finishJourney: (endMileage) => dispatch(JourneyActions.finishJourney(endMileage)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);

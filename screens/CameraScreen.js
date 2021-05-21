@@ -13,6 +13,10 @@ import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
 import MlkitOcr from 'react-native-mlkit-ocr';
 import Toast from 'react-native-simple-toast';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { startJourney } from '../redux/JourneyActions';
 import { MileageInput } from '../atoms/Inputs'
 import Button from '../atoms/Button';
 import Strings from '../res/Strings.js';
@@ -53,10 +57,19 @@ function JourneyForm(props) {
         <View style={{flex: remainsX, backgroundColor: backgroundColor, alignItems: 'center', justifyContent: 'center'}}>
           <Button
             icon='check'
-            onPress={() => props.isEndMileage
-              ? navigation.navigate('Details')
-              : navigation.navigate('Home', {enRoute: true})
-            }
+            onPress={() => {
+              if (props.mileage) {
+                if (!props.isEndMileage) {
+                  props.startJourney(props.mileage);
+                  navigation.navigate('Home', {enRoute: true});
+                } else {
+                  navigation.navigate('Details');
+                }
+
+              } else { // mileage is undefined
+                Toast.show(Strings.enterMileageMessage);
+              }
+            }}
             label={Strings.confirm}
           />
         </View>
@@ -98,6 +111,7 @@ function CameraOverlay(props) {
           mileage={props.mileage}
           setMileage={props.setMileage}
           isEndMileage={props.isEndMileage}
+          startJourney={props.startJourney}
         />
       </View>
     </View>
@@ -150,6 +164,7 @@ class CameraScreen extends Component {
             setMileage={this.setMileage}
             scanning={this.state.scanning}
             isEndMileage={this.props.route.params?.isEndMileage}
+            startJourney={this.props.startJourney}
           />
         </RNCamera>
       </SafeAreaView>
@@ -239,4 +254,15 @@ class CameraScreen extends Component {
 
 }
 
-export default CameraScreen;
+const mapStateToProps = (state) => {
+  const { journeys } = state;
+  return { journeys };
+};
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    startJourney,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);

@@ -8,6 +8,8 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { connect } from 'react-redux';
+
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import Colors from '../res/Colors';
@@ -86,7 +88,7 @@ const HomeScreen = (props) => {
           />
         </View>
         <Text style={[styles.mileage, {color : Colors.white}]}>
-          207 km
+          {props.journeys.current.length} Fahrten, 207 km
         </Text>
       </View>
     </SafeAreaView>
@@ -130,4 +132,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+const mapStateToProps = (state) => {
+  const { journeys } = state;
+  return { journeys };
+}
+
+export default connect(mapStateToProps)(HomeScreen);

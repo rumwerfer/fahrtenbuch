@@ -61,7 +61,7 @@ function JourneyForm(props) {
                 const time = Date.now();
                 if (!props.isEndMileage) {
                   props.startJourney(props.mileage);
-                  navigation.navigate('Home', {enRoute: true});
+                  navigation.navigate('Home', {enRoute: true}); // TODO enRoute not needed anymore, use redux ongoing instead!
                 } else {
                   props.finishJourney(props.mileage);
                   navigation.navigate('Details');

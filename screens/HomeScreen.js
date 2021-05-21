@@ -43,9 +43,9 @@ const Journey = ({date, mileage}) => {
 const JourneyList = (props) => {
   return (
     <View>
-      {props.journeys.saved.map(journey => <Journey date='21. Mai 2021' mileage={journey.endMileage - journey.startMileage} key={journey} />)}
-      <Journey date='5. Dezember 2020' mileage='123' />
-      <Journey date='24. Mai 2021' mileage='84' />
+      {props.journeys.saved.map(journey =>
+        <Journey date='21. Mäi 2021' mileage={journey.endMileage - journey.startMileage} />
+      ) /* TODO use timestamp as key */}
     </View>
   );
 }
@@ -91,10 +91,10 @@ const HomeScreen = (props) => {
           />
         </View>
         <Text style={[styles.mileage, {color : Colors.white}]}>
-          {/* {props.journeys.finished.length} Fahrten, */}
-          {props.journeys.ongoing ? 'unterwegs (' : 'daheim ('}
-          {props.journeys.saved.length}
-          ), 207 km
+          {props.journeys.saved.reduce((mileageSum, journey) =>
+            mileageSum + (journey.endMileage - journey.startMileage), 0)
+            + ' km'
+          }
         </Text>
       </View>
     </SafeAreaView>

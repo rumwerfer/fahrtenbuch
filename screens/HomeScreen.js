@@ -39,8 +39,8 @@ const JourneyList = (props) => {
   return (
     <View>
       {props.journeys.saved.map(journey =>
-        <Journey journey={journey} />
-      ) /* TODO use timestamp as key */}
+        <Journey journey={journey} key={journey.startTime} />
+      )}
     </View>
   );
 }

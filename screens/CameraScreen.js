@@ -163,7 +163,7 @@ class CameraScreen extends Component {
             resetCamera={this.resetCamera}
             setMileage={this.setMileage}
             scanning={this.state.scanning}
-            isEndMileage={this.props.route.params?.isEndMileage}
+            isEndMileage={this.props.journeys.ongoing !== null}
             startJourney={this.props.startJourney}
             finishJourney={this.props.finishJourney}
           />

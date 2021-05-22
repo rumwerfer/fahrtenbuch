@@ -10,28 +10,11 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import JourneyDate from '../atoms/Date';
+import Journey from '../molecules/Journey';
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import Colors from '../res/Colors';
-
-const Journey = ({journey}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={{flex: 1, paddingHorizontal: 48, height: 60, flexDirection: 'row'}}>
-      <JourneyDate time={journey.startTime} flex={.65} />
-      <View style={{flex: .35, alignItems: 'center', justifyContent: 'center'}}>
-        <Text
-          style={[
-            styles.mileage,
-            { color : isDarkMode ? Colors.white : Colors.black, }
-          ]}>
-          {journey.endMileage - journey.startMileage + ' km'}
-        </Text>
-      </View>
-    </View>
-  );
-}
+import { distanceWhite } from '../styles/Styles';
 
 const JourneyList = (props) => {
   return (
@@ -44,8 +27,6 @@ const JourneyList = (props) => {
 }
 
 const HomeScreen = (props) => {
-  console.log(props.journeys);
-
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -80,7 +61,7 @@ const HomeScreen = (props) => {
             }
           />
         </View>
-        <Text style={[styles.mileage, {color : Colors.white}]}>
+        <Text style={distanceWhite}>
           {props.journeys.saved.reduce((mileageSum, journey) =>
             mileageSum + (journey.endMileage - journey.startMileage), 0)
             + ' km'
@@ -105,11 +86,6 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
     backgroundColor: Colors.black,
     paddingHorizontal: 48,
-  },
-  mileage: {
-    fontSize: 24,
-    fontWeight: '600',
-    alignSelf: 'flex-end',
   },
   buttonContainer: {
     marginTop: -50,

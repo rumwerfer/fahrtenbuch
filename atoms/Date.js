@@ -4,6 +4,8 @@ import {
   Text,
 } from 'react-native';
 
+import { centerXY, dateStyle } from '../styles/Styles';
+
 export default JourneyDate = (props) => {
   const date = new Date(props.time);
   const dayAndMonth = date.toLocaleDateString(
@@ -14,9 +16,8 @@ export default JourneyDate = (props) => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <View style={{flex: props.flex, alignItems: 'center', justifyContent: 'center'}}>
-      <Text style={{fontSize: 18, fontWeight: '400', marginTop: 3}}>
-        {/* marginTop = 3 because mileage's fontSize is greater by 6 */}
+    <View style={{...centerXY, flex: props.flex}}>
+      <Text style={dateStyle}>
         {dayAndMonth}
         {year === currentYear ? '' : ' ' + year}
       </Text>

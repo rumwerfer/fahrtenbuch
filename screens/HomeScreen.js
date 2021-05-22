@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
+import JourneyDate from '../atoms/Date';
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import Colors from '../res/Colors';
@@ -17,17 +18,11 @@ import Colors from '../res/Colors';
 const Journey = ({journey}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
-    <View style={styles.listContainer}>
-      <View style={{ flex: 2, }}>
-        <Text
-          style={[
-            styles.date,
-            { color : isDarkMode ? Colors.white : Colors.black, }
-          ]}>
-          21. Juno 2021
-        </Text>
+    <View style={{flex: 1, paddingHorizontal: 48, height: 80}}>
+      <View style={{flex: .65, alignItems: 'center', justifyContent: 'center'}}>
+        <JourneyDate time={journey.startTime} />
       </View>
-      <View style={{ flex: 1, }}>
+      <View style={{flex: .35}}>
         <Text
           style={[
             styles.mileage,
@@ -120,12 +115,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     alignSelf: 'flex-end',
-  },
-  date: {
-    marginTop: 6,
-    fontSize: 18,
-    fontWeight: '400',
-    alignSelf: 'center',
   },
   buttonContainer: {
     marginTop: -50,

@@ -58,12 +58,12 @@ function JourneyForm(props) {
             icon='check'
             onPress={() => {
               if (props.mileage) {
-                const time = Date.now();
+                const payload = {time: Date.now(), mileage: props.mileage};
                 if (!props.isEndMileage) {
-                  props.startJourney(props.mileage);
+                  props.startJourney(payload);
                   navigation.navigate('Home', {enRoute: true}); // TODO enRoute not needed anymore, use redux ongoing instead!
                 } else {
-                  props.finishJourney(props.mileage);
+                  props.finishJourney(payload);
                   navigation.navigate('Details');
                 }
 
@@ -261,8 +261,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  startJourney: (startMileage) => dispatch(JourneyActions.startJourney(startMileage)),
-  finishJourney: (endMileage) => dispatch(JourneyActions.finishJourney(endMileage)),
+  startJourney: (payload) => dispatch(JourneyActions.startJourney(payload)),
+  finishJourney: (payload) => dispatch(JourneyActions.finishJourney(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);

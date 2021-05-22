@@ -13,7 +13,10 @@ const journeyReducer = (journeys = INITIAL_STATE, action) => {
     case ActionTypes.START_JOURNEY:
       return {
         ...journeys,
-        ongoing: { startMileage: action.payload },
+        ongoing: {
+          startMileage: action.payload.mileage,
+          startTime: action.payload.time,
+        },
       };
 
     case ActionTypes.FINISH_JOURNEY:
@@ -21,7 +24,8 @@ const journeyReducer = (journeys = INITIAL_STATE, action) => {
         ...journeys,
         finished: {
           ...journeys.ongoing,
-          endMileage: action.payload,
+          endMileage: action.payload.mileage,
+          endTime: action.payload.time,
         },
         ongoing: null,
       };

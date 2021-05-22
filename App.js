@@ -3,9 +3,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as ReduxProvider } from 'react-redux';
-import { createStore } from 'redux';
 
-import journeyReducer from './redux/JourneyReducer';
+import { store } from './redux/configureStore';
 import Colors from './res/Colors';
 import Strings from './res/Strings';
 import HomeScreen from './screens/HomeScreen';
@@ -13,7 +12,6 @@ import CameraScreen from './screens/CameraScreen';
 import DetailsScreen from './screens/DetailsScreen';
 
 const Stack = createStackNavigator();
-const store = createStore(journeyReducer);
 
 const App = () => {
   return (

@@ -32,7 +32,11 @@ const journeyReducer = (journeys = INITIAL_STATE, action) => {
 
     case ActionTypes.SAVE_JOURNEY:
       const newSaved = journeys.saved;
-      newSaved.push(journeys.finished);
+      newSaved.push({
+        ...journeys.finished,
+        route: action.payload.route,
+        weather: action.payload.weather,
+      });
       return {
         ...journeys,
         saved: newSaved,

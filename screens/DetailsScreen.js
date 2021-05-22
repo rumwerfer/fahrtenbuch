@@ -18,6 +18,8 @@ import Colors from '../res/Colors';
 function DetailsScreen(props) {
   const navigation = useNavigation();
   const themeColors = useTheme().colors;
+  const [route, setRoute] = React.useState('');
+  const [weather, setWeather] = React.useState('');
   return (
     <SafeAreaView style={{
       backgroundColor: themeColors.screenBackground,
@@ -25,13 +27,13 @@ function DetailsScreen(props) {
       padding: 40
     }}>
       <View style={styles.detailsForm}>
-        <TextInput label={Strings.route} />
-        <TextInput label={Strings.weather}/>
+        <TextInput label={Strings.route} text={route} setText={setRoute} />
+        <TextInput label={Strings.weather} text={weather} setText={setWeather} />
         <View style={{alignSelf: 'flex-end'}}>
           <Button
             icon='content-save'
             onPress={() => {
-              props.saveJourney();
+              props.saveJourney({route: route, weather: weather});
               navigation.navigate('Home', {enRoute: false});
             }}
             label={Strings.saveJourney}
@@ -55,7 +57,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  saveJourney: () => dispatch(JourneyActions.saveJourney()),
+  saveJourney: (payload) => dispatch(JourneyActions.saveJourney(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen);

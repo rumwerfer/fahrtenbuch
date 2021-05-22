@@ -11,6 +11,7 @@ import Strings from './res/Strings';
 import HomeScreen from './screens/HomeScreen';
 import CameraScreen from './screens/CameraScreen';
 import DetailsScreen from './screens/DetailsScreen';
+import LoadingScreen from './screens/LoadingScreen';
 
 const Stack = createStackNavigator();
 const { store, persistor } = configureStore();
@@ -18,7 +19,7 @@ const { store, persistor } = configureStore();
 const App = () => {
   return (
     <ReduxProvider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<LoadingScreen />} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{

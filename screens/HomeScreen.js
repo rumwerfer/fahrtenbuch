@@ -18,11 +18,9 @@ import Colors from '../res/Colors';
 const Journey = ({journey}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
-    <View style={{flex: 1, paddingHorizontal: 48, height: 80}}>
-      <View style={{flex: .65, alignItems: 'center', justifyContent: 'center'}}>
-        <JourneyDate time={journey.startTime} />
-      </View>
-      <View style={{flex: .35}}>
+    <View style={{flex: 1, paddingHorizontal: 48, height: 60, flexDirection: 'row'}}>
+      <JourneyDate time={journey.startTime} flex={.65} />
+      <View style={{flex: .35, alignItems: 'center', justifyContent: 'center'}}>
         <Text
           style={[
             styles.mileage,

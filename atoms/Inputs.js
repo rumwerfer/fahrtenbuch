@@ -4,13 +4,12 @@ import Colors from '../res/Colors';
 import Strings from '../res/Strings';
 
 export const TextInput = (props) => {
-  const [text, setText] = React.useState('');
   return (
     <PaperTextInput
       label={props.label}
       multiline={true}
-      value={text}
-      onChangeText={text => setText(text)}
+      value={props.text}
+      onChangeText={props.setText}
       style={{height: 56}}
     />
   );

@@ -8,46 +8,44 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { connect } from 'react-redux';
+
+import JourneyDate from '../atoms/Date';
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import Colors from '../res/Colors';
 
-const Journey = ({date, mileage}) => {
+const Journey = ({journey}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
-    <View style={styles.listContainer}>
-      <View style={{ flex: 2, }}>
-        <Text
-          style={[
-            styles.date,
-            { color : isDarkMode ? Colors.white : Colors.black, }
-          ]}>
-          {date}
-        </Text>
-      </View>
-      <View style={{ flex: 1, }}>
+    <View style={{flex: 1, paddingHorizontal: 48, height: 60, flexDirection: 'row'}}>
+      <JourneyDate time={journey.startTime} flex={.65} />
+      <View style={{flex: .35, alignItems: 'center', justifyContent: 'center'}}>
         <Text
           style={[
             styles.mileage,
             { color : isDarkMode ? Colors.white : Colors.black, }
           ]}>
-          {mileage + ' km'}
+          {journey.endMileage - journey.startMileage + ' km'}
         </Text>
       </View>
     </View>
   );
 }
 
-const JourneyList = () => {
+const JourneyList = (props) => {
   return (
     <View>
-      <Journey date='5. Dezember 2020' mileage='123' />
-      <Journey date='24. Mai 2021' mileage='84' />
+      {props.journeys.saved.map(journey =>
+        <Journey journey={journey} key={journey.startTime} />
+      )}
     </View>
   );
 }
 
 const HomeScreen = (props) => {
+  console.log(props.journeys);
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -67,26 +65,26 @@ const HomeScreen = (props) => {
           style={{
             backgroundColor: isDarkMode ? Colors.gray : Colors.white,
           }}>
-          <JourneyList />
+          <JourneyList journeys={props.journeys} />
         </View>
       </ScrollView>
       <View style={styles.summary}>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => props.navigation.navigate(
-              'Camera',
-              {isEndMileage: props.route.params?.enRoute}
-            )}
-            icon={props.route.params?.enRoute ? 'flag-checkered' : 'car'}
+            onPress={() => props.navigation.navigate('Camera')}
+            icon={props.journeys.ongoing ? 'flag-checkered' : 'car'}
             label={
-              props.route.params?.enRoute
+              props.journeys.ongoing
               ? Strings.finishJourney
               : Strings.startJourney
             }
           />
         </View>
         <Text style={[styles.mileage, {color : Colors.white}]}>
-          207 km
+          {props.journeys.saved.reduce((mileageSum, journey) =>
+            mileageSum + (journey.endMileage - journey.startMileage), 0)
+            + ' km'
+          }
         </Text>
       </View>
     </SafeAreaView>
@@ -113,12 +111,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     alignSelf: 'flex-end',
   },
-  date: {
-    marginTop: 6,
-    fontSize: 18,
-    fontWeight: '400',
-    alignSelf: 'center',
-  },
   buttonContainer: {
     marginTop: -50,
     marginRight: -10,
@@ -130,4 +122,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+const mapStateToProps = (state) => {
+  const { journeys } = state;
+  return { journeys };
+}
+
+export default connect(mapStateToProps)(HomeScreen);

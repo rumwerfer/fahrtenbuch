@@ -14,4 +14,6 @@ export default {
   enterDetails: 'Details eingeben',
   route: 'Strecke',
   weather: 'Wetter',
+  enterMileageMessage: 'Kilometerstand eingeben oder abfotografieren',
+  loadingMessage: 'Deine Fahrten werden geladen...'
 };

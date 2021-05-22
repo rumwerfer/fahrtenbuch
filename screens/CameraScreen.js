@@ -13,6 +13,9 @@ import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
 import MlkitOcr from 'react-native-mlkit-ocr';
 import Toast from 'react-native-simple-toast';
+import { connect } from 'react-redux';
+
+import * as JourneyActions from '../redux/JourneyActions';
 import { MileageInput } from '../atoms/Inputs'
 import Button from '../atoms/Button';
 import Strings from '../res/Strings.js';
@@ -53,10 +56,21 @@ function JourneyForm(props) {
         <View style={{flex: remainsX, backgroundColor: backgroundColor, alignItems: 'center', justifyContent: 'center'}}>
           <Button
             icon='check'
-            onPress={() => props.isEndMileage
-              ? navigation.navigate('Details')
-              : navigation.navigate('Home', {enRoute: true})
-            }
+            onPress={() => {
+              if (props.mileage) {
+                const payload = {time: Date.now(), mileage: props.mileage};
+                if (!props.isEndMileage) {
+                  props.startJourney(payload);
+                  navigation.navigate('Home', {enRoute: true}); // TODO enRoute not needed anymore, use redux ongoing instead!
+                } else {
+                  props.finishJourney(payload);
+                  navigation.navigate('Details');
+                }
+
+              } else { // mileage is undefined
+                Toast.show(Strings.enterMileageMessage);
+              }
+            }}
             label={Strings.confirm}
           />
         </View>
@@ -65,8 +79,6 @@ function JourneyForm(props) {
     </ScrollView>
   );
 }
-
-
 
 function CameraOverlay(props) {
   const scanFrame = props.scanFrame;
@@ -98,6 +110,8 @@ function CameraOverlay(props) {
           mileage={props.mileage}
           setMileage={props.setMileage}
           isEndMileage={props.isEndMileage}
+          startJourney={props.startJourney}
+          finishJourney={props.finishJourney}
         />
       </View>
     </View>
@@ -149,7 +163,9 @@ class CameraScreen extends Component {
             resetCamera={this.resetCamera}
             setMileage={this.setMileage}
             scanning={this.state.scanning}
-            isEndMileage={this.props.route.params?.isEndMileage}
+            isEndMileage={this.props.journeys.ongoing !== null}
+            startJourney={this.props.startJourney}
+            finishJourney={this.props.finishJourney}
           />
         </RNCamera>
       </SafeAreaView>
@@ -239,4 +255,14 @@ class CameraScreen extends Component {
 
 }
 
-export default CameraScreen;
+const mapStateToProps = (state) => {
+  const { journeys } = state;
+  return { journeys };
+};
+
+const mapDispatchToProps = dispatch => ({
+  startJourney: (payload) => dispatch(JourneyActions.startJourney(payload)),
+  finishJourney: (payload) => dispatch(JourneyActions.finishJourney(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);

@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
 import {
   SafeAreaView,
   View,
   Text,
-  Image,
   Dimensions,
-  ScrollView,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
@@ -16,69 +13,12 @@ import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
 
 import * as JourneyActions from '../redux/JourneyActions';
-import { MileageInput } from '../atoms/Inputs'
 import Button from '../atoms/Button';
 import Strings from '../res/Strings.js';
 import Colors from '../res/Colors.js';
-
-// TODO maybe outsource into own file instead of pass via props
-const scanFrame = {
-  relHeight: 0.1,
-  relWidth: 0.55,
-  relOffsetX: 0.08,
-  relOffsetY: 0.06,
-};
-
-// for debugging only
-class ImagePreview extends Component {
-  render() {
-    if (!this.props.imageUri) {
-      return <View />;
-    }
-    return (
-      <Image source={{ uri: this.props.imageUri }} style={{height: 200, resizeMode: 'contain', marginTop: 30}}/>
-    );
-  }
-}
-
-function JourneyForm(props) {
-  const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
-  const navigation = useNavigation();
-  const backgroundColor = useTheme().colors.screenBackground;
-  return (
-    <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
-    {/* wrapping TextInput in ScrollView for correct keyboard behavior */}
-      <View style={{marginTop: 30, flexDirection: 'row', flex: scanFrame.relHeight}}>
-        <View style={{flex: scanFrame.relOffsetX, backgroundColor: backgroundColor}} />
-        <View style={{flex: scanFrame.relWidth}}>
-          <MileageInput mileage={props.mileage} setMileage={props.setMileage}/>
-        </View>
-        <View style={{flex: remainsX, backgroundColor: backgroundColor, alignItems: 'center', justifyContent: 'center'}}>
-          <Button
-            icon='check'
-            onPress={() => {
-              if (props.mileage) {
-                const payload = {time: Date.now(), mileage: props.mileage};
-                if (!props.isEndMileage) {
-                  props.startJourney(payload);
-                  navigation.navigate('Home', {enRoute: true}); // TODO enRoute not needed anymore, use redux ongoing instead!
-                } else {
-                  props.finishJourney(payload);
-                  navigation.navigate('Details');
-                }
-
-              } else { // mileage is undefined
-                Toast.show(Strings.enterMileageMessage);
-              }
-            }}
-            label={Strings.confirm}
-          />
-        </View>
-      </View>
-      <ImagePreview imageUri={props.imageUri} />
-    </ScrollView>
-  );
-}
+import JourneyForm from '../molecules/JourneyForm';
+import { scanFrame } from '../atoms/scanFrame';
+import { fillColumn } from '../styles/Styles';
 
 function CameraOverlay(props) {
   const scanFrame = props.scanFrame;
@@ -87,7 +27,7 @@ function CameraOverlay(props) {
   const backgroundColor = useTheme().colors.screenBackground;
 
   return (
-    <View style={{flex: 1, flexDirection: 'column'}}>
+    <View style={fillColumn}>
       <View style={{width: '100%', flex: scanFrame.relOffsetY, backgroundColor: backgroundColor}}/>
       <View style={{flexDirection: 'row', flex: scanFrame.relHeight}}>
         <View style={{flex: scanFrame.relOffsetX, backgroundColor: backgroundColor}} />

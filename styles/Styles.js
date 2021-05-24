@@ -11,6 +11,11 @@ export const fillSpace = {
   flex: 1,
 };
 
+export const fillColumn = {
+  ...fillSpace,
+  flexDirection: 'column',
+}
+
 export const distanceStyle = {
   ...Fonts.large,
   alignSelf: 'flex-end',
@@ -49,4 +54,9 @@ export const journeyButton = {
   marginRight: -10,
   marginBottom: 10,
   alignSelf: 'flex-end',
+};
+
+export const formRow = {
+  marginTop: 30,
+  flexDirection: 'row',
 };

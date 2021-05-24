@@ -60,3 +60,12 @@ export const formRow = {
   marginTop: 30,
   flexDirection: 'row',
 };
+
+export const fullWidth = {
+  width: '100%',
+};
+
+export const greenBorder = {
+  borderWidth: 2,
+  borderColor: Colors.green, 
+}

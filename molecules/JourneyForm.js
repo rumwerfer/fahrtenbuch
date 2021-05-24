@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import Toast from 'react-native-simple-toast';
 
 import { scanFrame } from '../atoms/scanFrame';
 import { MileageInput } from '../atoms/Inputs';

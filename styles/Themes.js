@@ -11,6 +11,7 @@ export const DarkTheme = {
     screenBackground: Colors.black,
     text: Colors.white,
     placeholder: Colors.lightgreen,
+    summary: Colors.darkblack,
   }
 };
 
@@ -24,5 +25,6 @@ export const LightTheme = {
     text: Colors.black,
     placeholder: Colors.lightgreen,
     screenBackground: Colors.white,
+    summary: Colors.black,
   }
 };

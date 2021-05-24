@@ -1,6 +1,15 @@
 import { StyleSheet } from 'react-native';
 
 import Fonts from './Fonts';
+import Colors from '../res/Colors';
+
+const horizontalPadding = {
+  paddingHorizontal: 48,
+};
+
+export const fillSpace = {
+  flex: 1,
+};
 
 export const distanceStyle = {
   ...Fonts.large,
@@ -13,8 +22,8 @@ export const distanceWhite = {
 };
 
 export const journeyStyle = {
+  ...horizontalPadding,
   flex: 1,
-  paddingHorizontal: 48,
   height: 60,
   flexDirection: 'row',
 };
@@ -28,4 +37,16 @@ export const dateStyle = {
 export const centerXY = {
   alignItems: 'center',
   justifyContent: 'center'
+};
+
+export const summaryStyle = {
+  ...horizontalPadding,
+  paddingVertical: 32,
+};
+
+export const journeyButton = {
+  marginTop: -50,
+  marginRight: -10,
+  marginBottom: 10,
+  alignSelf: 'flex-end',
 };

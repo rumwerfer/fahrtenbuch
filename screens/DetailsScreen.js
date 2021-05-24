@@ -34,7 +34,7 @@ function DetailsScreen(props) {
             icon='content-save'
             onPress={() => {
               props.saveJourney({route: route, weather: weather});
-              navigation.navigate('Home', {enRoute: false});
+              navigation.navigate('home');
             }}
             label={Strings.saveJourney}
           />

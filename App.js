@@ -9,7 +9,7 @@ import configureStore from './redux/Store';
 import Colors from './res/Colors';
 import Strings from './res/Strings';
 import HomeScreen from './screens/HomeScreen';
-import CameraScreen from './screens/CameraScreen';
+import MileageScreen from './screens/MileageScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import LoadingScreen from './screens/LoadingScreen';
 
@@ -30,10 +30,10 @@ const App = () => {
               title: Strings.appName,
             }}
           >
-            <Stack.Screen name='Home' component={HomeScreen} />
+            <Stack.Screen name='home' component={HomeScreen} />
             <Stack.Screen
-              name='Camera'
-              component={CameraScreen}
+              name='mileage'
+              component={MileageScreen}
               options={({route}) => ({
                 title: route.params?.isEndMileage
                 ? Strings.finishJourney
@@ -41,7 +41,7 @@ const App = () => {
               })}
             />
             <Stack.Screen
-              name='Details'
+              name='details'
               component={DetailsScreen}
               options={{title: Strings.enterDetails}}
             />

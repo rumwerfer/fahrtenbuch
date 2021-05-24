@@ -11,7 +11,7 @@ import CamOverlay from '../molecules/CamOverlay';
 import { scanFrame } from '../atoms/scanFrame';
 import { mapJourneysToProps } from '../redux/Mappers';
 
-class CameraScreen extends Component {
+class MileageScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -152,4 +152,4 @@ const mapDispatchToProps = dispatch => ({
   finishJourney: (payload) => dispatch(JourneyActions.finishJourney(payload)),
 });
 
-export default connect(mapJourneysToProps, mapDispatchToProps)(CameraScreen);
+export default connect(mapJourneysToProps, mapDispatchToProps)(MileageScreen);

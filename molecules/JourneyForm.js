@@ -36,10 +36,10 @@ export default JourneyForm = (props) => {
                 const payload = {time: Date.now(), mileage: props.mileage};
                 if (!props.isEndMileage) {
                   props.startJourney(payload);
-                  navigation.navigate('Home');
+                  navigation.navigate('home');
                 } else {
                   props.finishJourney(payload);
-                  navigation.navigate('Details');
+                  navigation.navigate('details');
                 }
 
               } else { // mileage is undefined

@@ -7,12 +7,12 @@ import { useTheme } from 'react-native-paper';
 
 import StatusBar from '../atoms/StatusBar';
 import Strings from '../res/Strings';
-import { centerXY, padding, fillSpace } from '../styles/Styles';
+import { centerXY, paddedScreen } from '../styles/Styles';
 
 export default () => {
   const themeColors = useTheme().colors;
   const backgroundColor = { backgroundColor: themeColors.screenBackground };
-  const textColor = { textColor: themeColors.text };
+  const textColor = { color: themeColors.text };
   return (
     <SafeAreaView style={{ ...backgroundColor, ...centerXY, ...paddedScreen }}>
       <StatusBar />

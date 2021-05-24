@@ -24,7 +24,9 @@ const HomeScreen = ({journeys}) => {
 
 const JourneyList = ({journeys}) => {
   return (
-    <ScrollView contentInsetAdjustmentBehavior='automatic'>
+    <ScrollView
+      contentInsetAdjustmentBehavior='automatic' // iOS 11+
+    >
       {journeys.saved.map(
         journey => <Journey journey={journey} key={journey.startTime} />
       )}

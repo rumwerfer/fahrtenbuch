@@ -5,7 +5,11 @@ import { useTheme } from 'react-native-paper';
 
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
-import { distanceWhite, summaryStyle, journeyButton } from '../styles/Styles';
+import {
+  distanceWhite,
+  summaryStyle,
+  journeyButtonContainer
+} from '../styles/Styles';
 
 export default ({journeys}) => {
   const enRoute = journeys.ongoing !== null;
@@ -17,7 +21,7 @@ export default ({journeys}) => {
   const navigation = useNavigation();
   return (
     <View style={{...summaryStyle, backgroundColor: themeColors.summary}}>
-      <View style={journeyButton}>
+      <View style={journeyButtonContainer}>
         <Button
           onPress={() => navigation.navigate('mileage')}
           icon={enRoute ? 'flag-checkered' : 'car'}

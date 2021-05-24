@@ -11,6 +11,10 @@ export default StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
   },
+  xlarge: {
+    fontSize: 30,
+    fontWeight: '800',
+  },
   white: {
     color: Colors.white,
   },

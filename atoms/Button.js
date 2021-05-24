@@ -1,6 +1,9 @@
 import React from 'react';
 import { Button as PaperButton } from 'react-native-paper';
+
 import Colors from '../res/Colors';
+import Fonts from '../styles/Fonts';
+import { buttonStyle } from '../styles/Styles';
 
 function Button(props) {
   return (
@@ -11,8 +14,8 @@ function Button(props) {
       mode='contained'
       compact={true}
       color={Colors.green}
-      style={{borderRadius: 25, width: 70, height: 45}}
-      labelStyle={{fontSize: 30}}
+      style={buttonStyle}
+      labelStyle={Fonts.xlarge}
       accessibilityLabel={props.label}
     />
   );

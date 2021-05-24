@@ -65,12 +65,12 @@ export const summaryStyle = {
   paddingVertical: 32,
 };
 
-export const button = {
+export const buttonContainer = {
   alignSelf: 'flex-end',
 };
 
-export const journeyButton = {
-  ...button,
+export const journeyButtonContainer = {
+  ...buttonContainer,
   marginTop: -50,
   marginRight: -10,
   marginBottom: 10,
@@ -97,4 +97,10 @@ export const spreadVertically = {
 export const detailsForm = {
   ...fillHalf,
   ...spreadVertically,
+}
+
+export const buttonStyle = {
+  borderRadius: 25,
+  width: 70,
+  height: 45
 }

@@ -14,7 +14,6 @@ import {
   greenBorder
 } from '../styles/Styles';
 
-
 export default (props) => {
 
   const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);

@@ -3,13 +3,29 @@ import { StyleSheet } from 'react-native';
 import Fonts from './Fonts';
 import Colors from '../res/Colors';
 
+const pad = 48;
+
 const horizontalPadding = {
-  paddingHorizontal: 48,
+  paddingHorizontal: pad,
 };
+
+const padding = {
+  padding: pad,
+}
 
 export const fillSpace = {
   flex: 1,
 };
+
+export const fillHalf = {
+  flex: .5,
+};
+
+
+export const paddedScreen = {
+  ...fillSpace,
+  ...padding,
+}
 
 export const fillColumn = {
   ...fillSpace,
@@ -49,11 +65,15 @@ export const summaryStyle = {
   paddingVertical: 32,
 };
 
+export const button = {
+  alignSelf: 'flex-end',
+};
+
 export const journeyButton = {
+  ...button,
   marginTop: -50,
   marginRight: -10,
   marginBottom: 10,
-  alignSelf: 'flex-end',
 };
 
 export const formRow = {
@@ -67,5 +87,14 @@ export const fullWidth = {
 
 export const greenBorder = {
   borderWidth: 2,
-  borderColor: Colors.green, 
+  borderColor: Colors.green,
+}
+
+export const spreadVertically = {
+  justifyContent: 'space-between',
+};
+
+export const detailsForm = {
+  ...fillHalf,
+  ...spreadVertically,
 }

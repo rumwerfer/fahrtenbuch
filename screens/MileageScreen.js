@@ -1,124 +1,17 @@
 import React, { Component } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { useTheme } from 'react-native-paper';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  Dimensions,
-  ScrollView,
-} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
 import MlkitOcr from 'react-native-mlkit-ocr';
-import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
 
 import * as JourneyActions from '../redux/JourneyActions';
-import { MileageInput } from '../atoms/Inputs'
-import Button from '../atoms/Button';
-import Strings from '../res/Strings.js';
-import Colors from '../res/Colors.js';
+import Strings from '../res/Strings';
+import CamOverlay from '../molecules/CamOverlay';
+import { scanFrame } from '../atoms/scanFrame';
+import { mapJourneysToProps } from '../redux/Mappers';
 
-// TODO maybe outsource into own file instead of pass via props
-const scanFrame = {
-  relHeight: 0.1,
-  relWidth: 0.55,
-  relOffsetX: 0.08,
-  relOffsetY: 0.06,
-};
-
-// for debugging only
-class ImagePreview extends Component {
-  render() {
-    if (!this.props.imageUri) {
-      return <View />;
-    }
-    return (
-      <Image source={{ uri: this.props.imageUri }} style={{height: 200, resizeMode: 'contain', marginTop: 30}}/>
-    );
-  }
-}
-
-function JourneyForm(props) {
-  const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
-  const navigation = useNavigation();
-  const backgroundColor = useTheme().colors.screenBackground;
-  return (
-    <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
-    {/* wrapping TextInput in ScrollView for correct keyboard behavior */}
-      <View style={{marginTop: 30, flexDirection: 'row', flex: scanFrame.relHeight}}>
-        <View style={{flex: scanFrame.relOffsetX, backgroundColor: backgroundColor}} />
-        <View style={{flex: scanFrame.relWidth}}>
-          <MileageInput mileage={props.mileage} setMileage={props.setMileage}/>
-        </View>
-        <View style={{flex: remainsX, backgroundColor: backgroundColor, alignItems: 'center', justifyContent: 'center'}}>
-          <Button
-            icon='check'
-            onPress={() => {
-              if (props.mileage) {
-                const payload = {time: Date.now(), mileage: props.mileage};
-                if (!props.isEndMileage) {
-                  props.startJourney(payload);
-                  navigation.navigate('Home', {enRoute: true}); // TODO enRoute not needed anymore, use redux ongoing instead!
-                } else {
-                  props.finishJourney(payload);
-                  navigation.navigate('Details');
-                }
-
-              } else { // mileage is undefined
-                Toast.show(Strings.enterMileageMessage);
-              }
-            }}
-            label={Strings.confirm}
-          />
-        </View>
-      </View>
-      <ImagePreview imageUri={props.imageUri} />
-    </ScrollView>
-  );
-}
-
-function CameraOverlay(props) {
-  const scanFrame = props.scanFrame;
-  const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
-  const remainsY = 1 - (scanFrame.relOffsetY + scanFrame.relHeight);
-  const backgroundColor = useTheme().colors.screenBackground;
-
-  return (
-    <View style={{flex: 1, flexDirection: 'column'}}>
-      <View style={{width: '100%', flex: scanFrame.relOffsetY, backgroundColor: backgroundColor}}/>
-      <View style={{flexDirection: 'row', flex: scanFrame.relHeight}}>
-        <View style={{flex: scanFrame.relOffsetX, backgroundColor: backgroundColor}} />
-        <View style={{flex: scanFrame.relWidth, borderWidth: 2, borderColor: Colors.green, }} />
-        <View style={{flex: remainsX, backgroundColor: backgroundColor, alignItems: 'center', justifyContent: 'center'}}>
-          <Button
-            icon={props.cameraIsActive ? 'camera' : 'reload'}
-            onPress={props.cameraIsActive
-              ? props.scanMileage
-              : props.resetCamera
-            }
-            label={Strings.scanMileage}
-            loading={props.scanning}
-          />
-        </View>
-      </View>
-      <View style={{flex: remainsY, backgroundColor: backgroundColor}}>
-        <JourneyForm
-          imageUri={props.imageUri}
-          mileage={props.mileage}
-          setMileage={props.setMileage}
-          isEndMileage={props.isEndMileage}
-          startJourney={props.startJourney}
-          finishJourney={props.finishJourney}
-        />
-      </View>
-    </View>
-  );
-}
-
-class CameraScreen extends Component {
+class MileageScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -153,11 +46,10 @@ class CameraScreen extends Component {
           style={{flex: 1}}
           // TODO autoFocusPointOfInterest
         >
-          <CameraOverlay
+          <CamOverlay
             style={{flex: 1}}
             scanMileage={this.scanMileage}
             imageUri={this.state.imageUri}
-            scanFrame={scanFrame}
             mileage={this.state.mileage}
             cameraIsActive={this.state.cameraIsActive}
             resetCamera={this.resetCamera}
@@ -255,14 +147,9 @@ class CameraScreen extends Component {
 
 }
 
-const mapStateToProps = (state) => {
-  const { journeys } = state;
-  return { journeys };
-};
-
 const mapDispatchToProps = dispatch => ({
   startJourney: (payload) => dispatch(JourneyActions.startJourney(payload)),
   finishJourney: (payload) => dispatch(JourneyActions.finishJourney(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);
+export default connect(mapJourneysToProps, mapDispatchToProps)(MileageScreen);

@@ -104,3 +104,8 @@ export const buttonStyle = {
   width: 70,
   height: 45
 }
+
+export const journeyListPadding = {
+  paddingTop: 10,
+  paddingBottom: 20,
+}

@@ -24,31 +24,33 @@ export default JourneyForm = (props) => {
     <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
     {/* wrapping TextInput in ScrollView for correct keyboard behavior */}
       <View style={{...formRow, flex: scanFrame.relHeight}}>
+
+        {/* left padding */}
         <View style={{...screenBackground, flex: scanFrame.relOffsetX }} />
+
         <View style={{ flex: scanFrame.relWidth }}>
           <MileageInput mileage={props.mileage} setMileage={props.setMileage}/>
         </View>
+
         <View style={{...screenBackground, ...centerXY, flex: remainsX }}>
           <Button
             icon='check'
             onPress={() => {
-              if (props.mileage) {
+              if (verifyInput(props.mileage, props.ongoingJourney)) {
                 const payload = {time: Date.now(), mileage: props.mileage};
-                if (!props.isEndMileage) {
+                if (!props.ongoingJourney) {
                   props.startJourney(payload);
                   navigation.navigate('home');
                 } else {
                   props.finishJourney(payload);
                   navigation.navigate('details');
                 }
-
-              } else { // mileage is undefined
-                Toast.show(Strings.enterMileageMessage);
               }
             }}
             label={Strings.confirm}
           />
         </View>
+
       </View>
       <ImagePreview imageUri={props.imageUri} />
     </ScrollView>
@@ -66,4 +68,28 @@ function ImagePreview ({imageUri}) {
       style={{height: 200, resizeMode: 'contain', marginTop: 30}}
     />
   );
+}
+
+function verifyInput(mileage, ongoingJourney) {
+  
+  // verify mileage
+  if (!mileage) {
+    Toast.show(Strings.enterMileageMessage);
+    return false;
+  }
+
+  // verify distance
+  if (ongoingJourney) {
+    const distance = mileage - ongoingJourney.startMileage;
+    if (distance <= 0) {
+      Toast.show(Strings.negativeDistanceMessage);
+      return false;
+    }
+    if (distance > 9999) {
+      Toast.show(Strings.highDistanceMessage);
+      return false;
+    }
+  }
+
+  return true;
 }

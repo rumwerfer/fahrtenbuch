@@ -24,6 +24,7 @@ class MileageScreen extends Component {
   }
 
   setMileage = (text) => {
+    if (/^\d*$/.test(text)) // discard everything except digits
     this.setState({mileage: text?.toString()})
   }
 
@@ -55,7 +56,7 @@ class MileageScreen extends Component {
             resetCamera={this.resetCamera}
             setMileage={this.setMileage}
             scanning={this.state.scanning}
-            isEndMileage={this.props.journeys.ongoing !== null}
+            ongoingJourney={this.props.journeys.ongoing}
             startJourney={this.props.startJourney}
             finishJourney={this.props.finishJourney}
           />

@@ -15,5 +15,7 @@ export default {
   route: 'Strecke',
   weather: 'Wetter',
   enterMileageMessage: 'Kilometerstand eingeben oder abfotografieren',
-  loadingMessage: 'Deine Fahrten werden geladen...'
+  loadingMessage: 'Deine Fahrten werden geladen...',
+  negativeDistanceMessage: 'Kilometerstand muss höher sein als zu Beginn der Fahrt',
+  highDistanceMessage: 'Da stimmt etwas nicht. Oder bist du wirklich über 10.000 km gefahren?',
 };

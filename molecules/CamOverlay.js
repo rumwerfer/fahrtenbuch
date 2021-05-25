@@ -56,7 +56,7 @@ export default (props) => {
           imageUri={props.imageUri}
           mileage={props.mileage}
           setMileage={props.setMileage}
-          isEndMileage={props.isEndMileage}
+          ongoingJourney={props.ongoingJourney}
           startJourney={props.startJourney}
           finishJourney={props.finishJourney}
         />

@@ -4,6 +4,7 @@ import { RNCamera } from 'react-native-camera';
 import PhotoManipulator from 'react-native-photo-manipulator';
 import MlkitOcr from 'react-native-mlkit-ocr';
 import { connect } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import * as JourneyActions from '../redux/JourneyActions';
 import Strings from '../res/Strings';

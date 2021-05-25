@@ -35,9 +35,9 @@ const App = () => {
               name='mileage'
               component={MileageScreen}
               options={({route}) => ({
-                title: route.params?.isEndMileage
-                ? Strings.finishJourney
-                : Strings.startJourney
+                title: route.params?.start
+                ? Strings.startJourney
+                : Strings.finishJourney
               })}
             />
             <Stack.Screen

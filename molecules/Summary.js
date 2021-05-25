@@ -23,7 +23,8 @@ export default ({journeys}) => {
     <View style={{...summaryStyle, backgroundColor: themeColors.summary}}>
       <View style={journeyButtonContainer}>
         <Button
-          onPress={() => navigation.navigate('mileage')}
+          onPress={() => navigation.navigate('mileage', {start: !enRoute})}
+          /* route params for screen title */
           icon={enRoute ? 'flag-checkered' : 'car'}
           label={enRoute ? Strings.finishJourney: Strings.startJourney}
         />

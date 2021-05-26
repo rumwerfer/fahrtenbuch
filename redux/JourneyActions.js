@@ -17,6 +17,6 @@ export const finishJourney = payload => (
 export const saveJourney = payload => (
   {
     type: ActionTypes.SAVE_JOURNEY,
-    payload: payload
+    payload: payload,
   }
-)
+);

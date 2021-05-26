@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   finished: null,
 }
 
-const journeyReducer = (journeys = INITIAL_STATE, action) => {
+export default journeyReducer = (journeys = INITIAL_STATE, action) => {
   switch(action.type) {
 
     case ActionTypes.START_JOURNEY:
@@ -47,7 +47,3 @@ const journeyReducer = (journeys = INITIAL_STATE, action) => {
       return journeys;
   }
 };
-
-export default combineReducers({
-  journeys: journeyReducer,
-})

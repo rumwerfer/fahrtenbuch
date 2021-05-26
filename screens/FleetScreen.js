@@ -35,7 +35,7 @@ function VehicleList({vehicles}) {
       contentContainerStyle={vehicleListPadding}
       contentInsetAdjustmentBehavior='automatic' // iOS 11+
     >
-      {vehicles.map((vehicle) => <Vehicle vehicle={vehicle} />)}
+      {vehicles.vehicles.map((vehicle) => <Vehicle vehicle={vehicle} />)}
     </ScrollView>
   );
 }

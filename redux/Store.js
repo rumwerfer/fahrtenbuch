@@ -1,5 +1,5 @@
-import { createStore, combineReducers } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
+import { createStore } from 'redux';
+import { persistStore, persistCombineReducers } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import journeyReducer from './JourneyReducer';
@@ -10,11 +10,10 @@ const persistConfig = {
   storage: AsyncStorage,
 }
 
-const combinedReducer = combineReducers({
-  journeys: journeyReducer,
+const persistedReducer = persistCombineReducers(persistConfig, {
   vehicles: vehicleReducer,
+  journeys: journeyReducer,
 });
-const persistedReducer = persistReducer(persistConfig, combinedReducer);
 
 export default () => {
   let store = createStore(persistedReducer);

@@ -12,7 +12,7 @@ const persistConfig = {
 
 const combinedReducer = combineReducers({
   journeys: journeyReducer,
-  vehicles: vehicleReducer
+  vehicles: vehicleReducer,
 });
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
 

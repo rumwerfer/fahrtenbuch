@@ -11,10 +11,9 @@ import { mapJourneysToProps } from '../redux/Mappers';
 
 const HomeScreen = ({journeys}) => {
   const themeColors = useTheme().colors;
+  const backgroundColor = { backgroundColor: themeColors.screenBackground };
   return (
-    <SafeAreaView
-      style={{...fillSpace, backgroundColor: themeColors.screenBackground}}
-    >
+    <SafeAreaView style={{ ...fillSpace, ...backgroundColor }}>
       <StatusBar />
       <JourneyList journeys={journeys} />
       <Summary journeys={journeys} />

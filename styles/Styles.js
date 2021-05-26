@@ -13,6 +13,10 @@ const padding = {
   padding: pad,
 }
 
+export const absolutePosition = {
+  position: 'absolute',
+}
+
 export const fillSpace = {
   flex: 1,
 };
@@ -27,11 +31,6 @@ export const paddedScreen = {
   ...padding,
 }
 
-export const fillColumn = {
-  ...fillSpace,
-  flexDirection: 'column',
-}
-
 export const distanceStyle = {
   ...Fonts.large,
   alignSelf: 'flex-end',
@@ -42,11 +41,34 @@ export const distanceWhite = {
   ...Fonts.white,
 };
 
-export const journeyStyle = {
-  ...horizontalPadding,
-  flex: 1,
-  height: 60,
+export const row = {
   flexDirection: 'row',
+};
+
+export const column = {
+  flexDirection: 'column',
+};
+
+export const fillColumn = {
+  ...fillSpace,
+  ...column,
+};
+
+export const listItem = {
+  ...horizontalPadding,
+  ...fillSpace,
+};
+
+export const journeyListItem = {
+  ...listItem,
+  ...row,
+  height: 60,
+};
+
+export const vehicleListItem = {
+  ...listItem,
+  ...column,
+  height: 80,
 };
 
 export const dateStyle = {
@@ -76,6 +98,13 @@ export const journeyButtonContainer = {
   marginBottom: 10,
 };
 
+export const vehicleButtonContainer = {
+  ...buttonContainer,
+  ...absolutePosition,
+  bottom: pad,
+  right: pad,
+}
+
 export const formRow = {
   marginTop: 30,
   flexDirection: 'row',
@@ -97,15 +126,20 @@ export const spreadVertically = {
 export const form = {
   ...fillHalf,
   ...spreadVertically,
-}
+};
 
 export const buttonStyle = {
   borderRadius: 25,
   width: 70,
   height: 45
-}
+};
 
 export const journeyListPadding = {
   paddingTop: 10,
   paddingBottom: 20,
-}
+};
+
+export const vehicleListPadding = {
+  paddingTop: 20,
+  paddingBottom: 40,
+};

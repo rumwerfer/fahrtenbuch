@@ -6,4 +6,5 @@ export default {
   scan: 'camera',
   saveJourney: 'content-save',
   retry: 'reload',
+  addVehicle: 'plus',
 };

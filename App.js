@@ -14,6 +14,7 @@ import MileageScreen from './screens/MileageScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import FleetScreen from './screens/FleetScreen';
+import VehicleScreen from './screens/VehicleScreen';
 
 const Stack = createStackNavigator();
 const { store, persistor } = configureStore();
@@ -60,6 +61,11 @@ const App = () => {
               name='fleet'
               component={FleetScreen}
               options={{title: Strings.editVehicles}}
+            />
+            <Stack.Screen
+              name='vehicle'
+              component={VehicleScreen}
+              options={{title: Strings.addVehicle}}
             />
           </Stack.Navigator>
         </NavigationContainer>

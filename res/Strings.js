@@ -19,4 +19,5 @@ export default {
   negativeDistanceMessage: 'Kilometerstand muss höher sein als zu Beginn der Fahrt',
   highDistanceMessage: 'Da stimmt etwas nicht. Oder bist du wirklich über 10.000 km gefahren?',
   editVehicles: 'Fahrzeuge bearbeiten',
+  addVehicle: 'Fahrzeug hinzufügen',
 };

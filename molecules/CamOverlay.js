@@ -6,6 +6,7 @@ import JourneyForm from '../molecules/JourneyForm';
 import Button from '../atoms/Button';
 import Colors from '../res/Colors';
 import Strings from '../res/Strings';
+import Icons from '../res/Icons';
 import { scanFrame } from '../atoms/scanFrame';
 import {
   fillColumn,
@@ -39,7 +40,7 @@ export default (props) => {
         <View style={{ ...greenBorder, flex: scanFrame.relWidth }} />
         <View style={{ ...screenBackground, ...centerXY, flex: remainsX }}>
           <Button
-            icon={props.cameraIsActive ? 'camera' : 'reload'}
+            icon={props.cameraIsActive ? Icons.scan : Icons.retry}
             onPress={props.cameraIsActive
               ? props.scanMileage
               : props.resetCamera

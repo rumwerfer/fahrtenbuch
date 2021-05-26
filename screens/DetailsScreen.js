@@ -9,6 +9,7 @@ import Button from '../atoms/Button';
 import { TextInput } from '../atoms/Inputs';
 import Strings from '../res/Strings';
 import Colors from '../res/Colors';
+import Icons from '../res/Icons';
 import { fillSpace, paddedScreen, button, detailsForm } from '../styles/Styles';
 import { mapJourneysToProps } from '../redux/Mappers';
 
@@ -29,7 +30,7 @@ function DetailsScreen(props) {
         <TextInput label={Strings.weather} text={weather} setText={setWeather} />
         <View style={ button } >
           <Button
-            icon='content-save'
+            icon={Icons.saveJourney}
             onPress={() => {
               props.saveJourney({route: route, weather: weather});
               navigation.navigate('home');

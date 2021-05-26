@@ -13,6 +13,7 @@ import { scanFrame } from '../atoms/scanFrame';
 import { MileageInput } from '../atoms/Inputs';
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
+import Icons from '../res/Icons';
 import { formRow, centerXY } from '../styles/Styles';
 
 export default JourneyForm = (props) => {
@@ -34,7 +35,7 @@ export default JourneyForm = (props) => {
 
         <View style={{...screenBackground, ...centerXY, flex: remainsX }}>
           <Button
-            icon='check'
+            icon={Icons.confirm}
             onPress={() => {
               if (verifyInput(props.mileage, props.ongoingJourney)) {
                 const payload = {time: Date.now(), mileage: props.mileage};
@@ -71,7 +72,7 @@ function ImagePreview ({imageUri}) {
 }
 
 function verifyInput(mileage, ongoingJourney) {
-  
+
   // verify mileage
   if (!mileage) {
     Toast.show(Strings.enterMileageMessage);

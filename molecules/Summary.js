@@ -10,6 +10,7 @@ import {
   summaryStyle,
   journeyButtonContainer
 } from '../styles/Styles';
+import Icons from '../res/Icons';
 
 export default ({journeys}) => {
   const enRoute = journeys.ongoing !== null;
@@ -25,7 +26,7 @@ export default ({journeys}) => {
         <Button
           onPress={() => navigation.navigate('mileage', {start: !enRoute})}
           /* route params for screen title */
-          icon={enRoute ? 'flag-checkered' : 'car'}
+          icon={enRoute ? Icons.finishJourney : Icons.startJourney}
           label={enRoute ? Strings.finishJourney: Strings.startJourney}
         />
       </View>

@@ -2,14 +2,17 @@ import React from 'react';
 import { SafeAreaView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
+import { connect } from 'react-redux';
 
 import { TextInput } from '../atoms/Inputs';
 import Strings from '../res/Strings';
 import Icons from '../res/Icons';
 import { paddedScreen, form } from '../styles/Styles';
 import { TwoTextForm } from '../molecules/Forms';
+import { mapVehiclesToProps } from '../redux/Mappers';
+import * as VehicleActions from '../redux/VehicleActions';
 
-const VehicleScreen = () => {
+function VehicleScreen(props) {
 
   const navigation = useNavigation();
 
@@ -29,6 +32,7 @@ const VehicleScreen = () => {
       setValue2={setNumberPlate}
       buttonIcon={Icons.save}
       onButtonPress={() => {
+        props.addVehicle({name: vehicleName, numberPlate: numberPlate});
         navigation.navigate('fleet');
       }}
       buttonLabel={Strings.saveVehicle}
@@ -36,4 +40,8 @@ const VehicleScreen = () => {
   );
 };
 
-export default VehicleScreen;
+const mapDispatchToProps = dispatch => ({
+  addVehicle: (payload) => dispatch(VehicleActions.addVehicle(payload)),
+});
+
+export default connect(mapVehiclesToProps, mapDispatchToProps)(VehicleScreen);

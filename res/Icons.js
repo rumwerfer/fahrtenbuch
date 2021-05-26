@@ -4,7 +4,7 @@ export default {
   fleet: 'car-multiple',
   confirm: 'check',
   scan: 'camera',
-  saveJourney: 'content-save',
+  save: 'content-save',
   retry: 'reload',
   addVehicle: 'plus',
 };

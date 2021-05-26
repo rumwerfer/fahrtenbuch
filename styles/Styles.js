@@ -94,7 +94,7 @@ export const spreadVertically = {
   justifyContent: 'space-between',
 };
 
-export const detailsForm = {
+export const form = {
   ...fillHalf,
   ...spreadVertically,
 }

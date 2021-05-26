@@ -20,4 +20,7 @@ export default {
   highDistanceMessage: 'Da stimmt etwas nicht. Oder bist du wirklich über 10.000 km gefahren?',
   editVehicles: 'Fahrzeuge bearbeiten',
   addVehicle: 'Fahrzeug hinzufügen',
+  vehicleName: 'Name des Fahrzeugs',
+  numberPlate: 'Kennzeichen',
+  saveVehicle: 'Fahrzeug speichern',
 };

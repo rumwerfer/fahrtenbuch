@@ -19,6 +19,11 @@ export default vehicleReducer = (vehicles = INITIAL_STATE, action) => {
         vehicles: newVehicles,
       };
 
+    case ActionTypes.UPDATE_VEHICLE:
+      vehicles.vehicles.find(vehicle => vehicle.id === action.payload.id)
+        .mileage = action.payload.newMileage;
+      return vehicles;
+
     default:
       return vehicles;
   }

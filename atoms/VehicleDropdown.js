@@ -18,6 +18,7 @@ function VehicleDropdown(props) {
   const [showDropdown, setShowDropdown] = useState(true);
 
   const vehicleList = props.vehicles.vehicles.map( vehicle => {
+    console.log({name: vehicle.name, mileage: vehicle.mileage });
     return { label: vehicle.name, value: vehicle.id };
   });
 

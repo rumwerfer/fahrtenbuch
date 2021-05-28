@@ -3,7 +3,9 @@ import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
 import { SafeAreaView, View, Image, ScrollView } from 'react-native';
 import Toast from 'react-native-simple-toast';
+import { connect } from 'react-redux';
 
+import * as VehicleActions from '../redux/VehicleActions';
 import { scanFrame } from '../atoms/scanFrame';
 import { MileageInput } from '../atoms/Inputs';
 import Button from '../atoms/Button';
@@ -11,8 +13,9 @@ import Strings from '../res/Strings';
 import Icons from '../res/Icons';
 import { formRow, mileageButtonContainer, formPadding } from '../styles/Styles';
 import VehicleDropdown from '../atoms/VehicleDropdown';
+import { mapStateToProps } from '../redux/Mappers';
 
-export default JourneyForm = (props) => {
+function JourneyForm(props) {
   const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
   const navigation = useNavigation();
   const backgroundColor = useTheme().colors.screenBackground;
@@ -59,6 +62,10 @@ export default JourneyForm = (props) => {
                   navigation.navigate('home');
                 } else {
                   props.finishJourney(payload);
+                  props.updateVehicle({
+                    id: props.ongoingJourney.vehicleID,
+                    newMileage: props.mileage
+                  });
                   navigation.navigate('details');
                 }
               }
@@ -74,6 +81,7 @@ export default JourneyForm = (props) => {
   );
 }
 
+
 // for debugging only
 function ImagePreview ({imageUri}) {
   if (!imageUri) {
@@ -86,6 +94,7 @@ function ImagePreview ({imageUri}) {
     />
   );
 }
+
 
 function validateInput(mileage, ongoingJourney) {
 
@@ -110,3 +119,9 @@ function validateInput(mileage, ongoingJourney) {
 
   return true;
 }
+
+const mapDispatchToProps = dispatch => ({
+  updateVehicle: (payload) => dispatch(VehicleActions.updateVehicle(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(JourneyForm);

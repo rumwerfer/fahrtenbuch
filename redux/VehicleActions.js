@@ -6,3 +6,10 @@ export const addVehicle = payload => (
     payload: payload,
   }
 );
+
+export const updateVehicle = payload => (
+  {
+    type: ActionTypes.UPDATE_VEHICLE,
+    payload: payload,
+  }
+)

@@ -23,4 +23,6 @@ export default {
   vehicleName: 'Name des Fahrzeugs',
   numberPlate: 'Kennzeichen',
   saveVehicle: 'Fahrzeug speichern',
+  enterVehicleNameMessage: 'Name eingeben',
+  enterNumberPlateMessage: 'Kennzeichen eingeben',
 };

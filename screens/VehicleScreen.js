@@ -3,6 +3,7 @@ import { SafeAreaView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
+import Toast from 'react-native-simple-toast';
 
 import { TextInput } from '../atoms/Inputs';
 import Strings from '../res/Strings';
@@ -32,13 +33,34 @@ function VehicleScreen(props) {
       setValue2={setNumberPlate}
       buttonIcon={Icons.save}
       onButtonPress={() => {
-        props.addVehicle({name: vehicleName, numberPlate: numberPlate});
-        navigation.navigate('fleet');
+        if (validateInput(vehicleName, numberPlate)) {
+          props.addVehicle({name: vehicleName, numberPlate: numberPlate});
+          navigation.navigate('fleet');
+        }
       }}
       buttonLabel={Strings.saveVehicle}
     />
   );
 };
+
+function validateInput(vehicleName, numberPlate) {
+
+  if (isBlank(vehicleName)) {
+    Toast.show(Strings.enterVehicleNameMessage);
+    return false;
+  }
+
+  if (isBlank(numberPlate)) {
+    Toast.show(Strings.enterNumberPlateMessage);
+    return false;
+  }
+
+  return true;
+}
+
+function isBlank(string) {
+  return (!string || string.trim().length === 0)
+}
 
 const mapDispatchToProps = dispatch => ({
   addVehicle: (payload) => dispatch(VehicleActions.addVehicle(payload)),

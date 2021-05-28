@@ -40,6 +40,7 @@ function JourneyForm(props) {
             setVehicleID={setVehicleID}
             ongoingJourney={props.ongoingJourney}
             containerStyle={formPadding}
+            mileage={props.mileage}
           />
         </View>
 

@@ -18,12 +18,13 @@ function VehicleDropdown(props) {
   const [showDropdown, setShowDropdown] = useState(true);
 
   const vehicleList = props.vehicles.vehicles.map( vehicle => {
-    console.log({name: vehicle.name, mileage: vehicle.mileage });
     return { label: vehicle.name, value: vehicle.id };
   });
 
   useEffect(() => {
-    props.setVehicleID(preselectVehicle(props.journeys, props.vehicles));
+    props.setVehicleID(
+      preselectVehicle(props.journeys, props.vehicles, props.mileage)
+    );
   }, []); // only run on componentDidMount
 
   return (
@@ -47,7 +48,7 @@ function VehicleDropdown(props) {
   );
 };
 
-function preselectVehicle(journeys, vehicles) {
+function preselectVehicle(journeys, vehicles, mileage) {
 
   /*
   assert: at least one vehicle exists
@@ -56,7 +57,13 @@ function preselectVehicle(journeys, vehicles) {
   */
 
   // 1. vehicle with nearest mileage (same or less)
-  // TODO
+  const nearestMileageVehicle = vehicles.vehicles.reduce((vehicle, nearest) => {
+    vehicle.mileage < mileage && vehicle.mileage > nearest.mileage
+      ? vehicle : nearest
+  });
+  console.log(nearestMileageVehicle);
+  // TODO !!!!
+  // TODO: lift state up so this function can be called from mileage screen
 
   // TODO: preselectVehicle sollte auch nach dem foto machen nochmal passieren
 

@@ -10,6 +10,7 @@ export default vehicleReducer = (vehicles = INITIAL_STATE, action) => {
     case ActionTypes.ADD_VEHICLE:
       const newVehicles = vehicles.vehicles;
       newVehicles.push({
+        id: action.payload.id,
         name: action.payload.name,
         numberPlate: action.payload.numberPlate,
         mileage: 0,

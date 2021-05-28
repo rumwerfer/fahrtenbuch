@@ -34,7 +34,12 @@ function VehicleScreen(props) {
       buttonIcon={Icons.save}
       onButtonPress={() => {
         if (validateInput(vehicleName, numberPlate)) {
-          props.addVehicle({name: vehicleName, numberPlate: numberPlate});
+          const payload = {
+            id: Date.now(),
+            name: vehicleName,
+            numberPlate: numberPlate
+          };
+          props.addVehicle(payload);
           navigation.navigate('fleet');
         }
       }}

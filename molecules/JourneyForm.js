@@ -37,7 +37,7 @@ export default JourneyForm = (props) => {
           <Button
             icon={Icons.confirm}
             onPress={() => {
-              if (verifyInput(props.mileage, props.ongoingJourney)) {
+              if (validateInput(props.mileage, props.ongoingJourney)) {
                 const payload = {time: Date.now(), mileage: props.mileage};
                 if (!props.ongoingJourney) {
                   props.startJourney(payload);
@@ -71,7 +71,7 @@ function ImagePreview ({imageUri}) {
   );
 }
 
-function verifyInput(mileage, ongoingJourney) {
+function validateInput(mileage, ongoingJourney) {
 
   // verify mileage
   if (!mileage) {

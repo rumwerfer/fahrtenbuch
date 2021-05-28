@@ -14,10 +14,10 @@ import VehicleDropdown from '../atoms/VehicleDropdown';
 
 export default JourneyForm = (props) => {
   const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
-  const [vehicle, setVehicle] = useState();
   const navigation = useNavigation();
   const backgroundColor = useTheme().colors.screenBackground;
   const screenBackground = { backgroundColor: backgroundColor };
+  const [vehicleID, setVehicleID] = useState();
 
   return (
     <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
@@ -33,8 +33,8 @@ export default JourneyForm = (props) => {
             <MileageInput mileage={props.mileage} setMileage={props.setMileage}/>
           </View>
           <VehicleDropdown
-            vehicle={vehicle}
-            setVehicle={setVehicle}
+            vehicleID={vehicleID}
+            setVehicleID={setVehicleID}
             ongoingJourney={props.ongoingJourney}
             containerStyle={formPadding}
           />
@@ -46,14 +46,15 @@ export default JourneyForm = (props) => {
           ...mileageButtonContainer,
           flex: remainsX,
           marginBottom: props.ongoingJourney ? 6 : 10,
-          // center relative to mileage or vehicle input
+          // dirty hack: center button relative to mileage or vehicle input
         }}>
           <Button
             icon={Icons.confirm}
             onPress={() => {
               if (validateInput(props.mileage, props.ongoingJourney)) {
-                const payload = {time: Date.now(), mileage: props.mileage};
+                let payload = {time: Date.now(), mileage: props.mileage};
                 if (!props.ongoingJourney) {
+                  payload = { ...payload, vehicleID: vehicleID };
                   props.startJourney(payload);
                   navigation.navigate('home');
                 } else {

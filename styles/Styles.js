@@ -4,6 +4,7 @@ import Fonts from './Fonts';
 import Colors from '../res/Colors';
 
 const pad = 48;
+const height = 56;
 
 const horizontalPadding = {
   paddingHorizontal: pad,
@@ -77,9 +78,17 @@ export const dateStyle = {
   // to align different font sizes to their center
 };
 
-export const centerXY = {
+export const centerY = {
+  justifyContent: 'center',
+}
+
+export const centerX = {
   alignItems: 'center',
-  justifyContent: 'center'
+}
+
+export const centerXY = {
+  ...centerX,
+  ...centerY,
 };
 
 export const summaryStyle = {
@@ -87,26 +96,30 @@ export const summaryStyle = {
   paddingVertical: 32,
 };
 
-export const buttonContainer = {
+export const alignSelfEnd = {
   alignSelf: 'flex-end',
 };
 
 export const journeyButtonContainer = {
-  ...buttonContainer,
+  ...alignSelfEnd,
   marginTop: -50,
   marginRight: -10,
   marginBottom: 10,
 };
 
 export const vehicleButtonContainer = {
-  ...buttonContainer,
+  ...alignSelfEnd,
   ...absolutePosition,
   bottom: pad,
   right: pad,
 }
 
+export const mileageButtonContainer = {
+  ...alignSelfEnd,
+  ...centerX,
+}
+
 export const formRow = {
-  marginTop: 30,
   flexDirection: 'row',
 };
 
@@ -143,3 +156,11 @@ export const vehicleListPadding = {
   paddingTop: 20,
   paddingBottom: 40,
 };
+
+export const inputHeight = {
+  height: height,
+}
+
+export const formPadding = {
+  paddingTop: pad / 2,
+}

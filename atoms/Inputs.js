@@ -1,7 +1,10 @@
 import React from 'react';
 import { TextInput as PaperTextInput } from 'react-native-paper';
+
 import Colors from '../res/Colors';
 import Strings from '../res/Strings';
+import { inputHeight } from '../styles/Styles';
+import Fonts from '../styles/Fonts';
 
 export const TextInput = (props) => {
   return (
@@ -10,7 +13,7 @@ export const TextInput = (props) => {
       multiline={true}
       value={props.text}
       onChangeText={props.setText}
-      style={{height: 56}}
+      style={inputHeight}
     />
   );
 }
@@ -24,7 +27,7 @@ export const MileageInput = (props) => {
       keyboardType='numeric'
       autoCompleteType='off'
       autoCorrect={false}
-      style={{textAlign: 'right', height: 56}}
+      style={{...inputHeight, ...Fonts.rightAlign}}
     />
   );
 }

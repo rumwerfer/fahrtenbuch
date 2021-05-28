@@ -1,12 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
-import {
-  SafeAreaView,
-  View,
-  Image,
-  ScrollView,
-} from 'react-native';
+import { SafeAreaView, View, Image, ScrollView } from 'react-native';
 import Toast from 'react-native-simple-toast';
 
 import { scanFrame } from '../atoms/scanFrame';
@@ -14,13 +9,16 @@ import { MileageInput } from '../atoms/Inputs';
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import Icons from '../res/Icons';
-import { formRow, centerXY } from '../styles/Styles';
+import { formRow, mileageButtonContainer, formPadding } from '../styles/Styles';
+import VehicleDropdown from '../atoms/VehicleDropdown';
 
 export default JourneyForm = (props) => {
   const remainsX = 1 - (scanFrame.relOffsetX + scanFrame.relWidth);
+  const [vehicle, setVehicle] = useState();
   const navigation = useNavigation();
   const backgroundColor = useTheme().colors.screenBackground;
   const screenBackground = { backgroundColor: backgroundColor };
+
   return (
     <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
     {/* wrapping TextInput in ScrollView for correct keyboard behavior */}
@@ -29,11 +27,27 @@ export default JourneyForm = (props) => {
         {/* left padding */}
         <View style={{...screenBackground, flex: scanFrame.relOffsetX }} />
 
+        {/* input fields */}
         <View style={{ flex: scanFrame.relWidth }}>
-          <MileageInput mileage={props.mileage} setMileage={props.setMileage}/>
+          <View style={formPadding}>
+            <MileageInput mileage={props.mileage} setMileage={props.setMileage}/>
+          </View>
+          <VehicleDropdown
+            vehicle={vehicle}
+            setVehicle={setVehicle}
+            ongoingJourney={props.ongoingJourney}
+            containerStyle={formPadding}
+          />
         </View>
 
-        <View style={{...screenBackground, ...centerXY, flex: remainsX }}>
+        {/* button */}
+        <View style={{
+          ...screenBackground,
+          ...mileageButtonContainer,
+          flex: remainsX,
+          marginBottom: props.ongoingJourney ? 6 : 10,
+          // center relative to mileage or vehicle input
+        }}>
           <Button
             icon={Icons.confirm}
             onPress={() => {
@@ -53,6 +67,7 @@ export default JourneyForm = (props) => {
         </View>
 
       </View>
+
       <ImagePreview imageUri={props.imageUri} />
     </ScrollView>
   );

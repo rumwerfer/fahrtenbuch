@@ -18,4 +18,7 @@ export default StyleSheet.create({
   white: {
     color: Colors.white,
   },
+  rightAlign: {
+    textAlign: 'right',
+  }
 });

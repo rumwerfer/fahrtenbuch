@@ -7,7 +7,7 @@ import Summary from '../molecules/Summary';
 import Journey from '../molecules/Journey';
 import StatusBar from '../atoms/StatusBar';
 import { fillSpace, journeyListPadding } from '../styles/Styles';
-import { mapJourneysToProps } from '../redux/Mappers';
+import { mapStateToProps } from '../redux/Mappers';
 
 const HomeScreen = ({journeys}) => {
   const themeColors = useTheme().colors;
@@ -39,4 +39,4 @@ const JourneyList = ({journeys}) => {
   );
 }
 
-export default connect(mapJourneysToProps)(HomeScreen);
+export default connect(mapStateToProps)(HomeScreen);

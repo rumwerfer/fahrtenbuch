@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import Button from '../atoms/Button';
 import Icons from '../res/Icons';
 import Strings from '../res/Strings';
-import { mapVehiclesToProps } from '../redux/Mappers';
+import { mapStateToProps } from '../redux/Mappers';
 import { fillSpace, vehicleButtonContainer, vehicleListPadding } from '../styles/Styles';
 import Vehicle from '../atoms/Vehicle';
 
@@ -42,4 +42,4 @@ function VehicleList({vehicles}) {
   );
 }
 
-export default connect(mapVehiclesToProps)(FleetScreen);
+export default connect(mapStateToProps)(FleetScreen);

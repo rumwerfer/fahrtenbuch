@@ -10,7 +10,7 @@ import * as JourneyActions from '../redux/JourneyActions';
 import Strings from '../res/Strings';
 import CamOverlay from '../molecules/CamOverlay';
 import { scanFrame } from '../atoms/scanFrame';
-import { mapJourneysToProps } from '../redux/Mappers';
+import { mapStateToProps } from '../redux/Mappers';
 
 class MileageScreen extends Component {
 
@@ -154,4 +154,4 @@ const mapDispatchToProps = dispatch => ({
   finishJourney: (payload) => dispatch(JourneyActions.finishJourney(payload)),
 });
 
-export default connect(mapJourneysToProps, mapDispatchToProps)(MileageScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MileageScreen);

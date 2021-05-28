@@ -11,7 +11,7 @@ import Strings from '../res/Strings';
 import Colors from '../res/Colors';
 import Icons from '../res/Icons';
 import { fillSpace, paddedScreen, button, form } from '../styles/Styles';
-import { mapJourneysToProps } from '../redux/Mappers';
+import { mapStateToProps } from '../redux/Mappers';
 import { TwoTextForm } from '../molecules/Forms';
 
 function DetailsScreen(props) {
@@ -47,4 +47,4 @@ const mapDispatchToProps = dispatch => ({
   saveJourney: (payload) => dispatch(JourneyActions.saveJourney(payload)),
 });
 
-export default connect(mapJourneysToProps, mapDispatchToProps)(DetailsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen);

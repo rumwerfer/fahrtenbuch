@@ -40,7 +40,7 @@ function VehicleScreen(props) {
             numberPlate: numberPlate
           };
           props.addVehicle(payload);
-          navigation.navigate('fleet');
+          navigation.goBack();
         }
       }}
       buttonLabel={Strings.saveVehicle}

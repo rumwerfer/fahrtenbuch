@@ -23,6 +23,11 @@ class MileageScreen extends Component {
       scanning: false,
       vehicleID: null,
     };
+
+    if (this.props.vehicles.vehicles.length === 0) {
+      this.props.navigation.navigate('vehicle');
+    }
+
   }
 
   componentDidMount() {
@@ -163,11 +168,13 @@ class MileageScreen extends Component {
 
 
   preselectVehicle = () => {
-    // assert: #vehicles > 0 (otherwise VehicleScreen is opened instead)
-    // TODO
-
     const vehicles = this.props.vehicles.vehicles;
     const savedJourneys = this.props.journeys.saved;
+
+    // assert: #vehicles > 0 (otherwise VehicleScreen is opened instead)
+    if (vehicles.length === 0) {
+      return;
+    }
 
     // 1. vehicle with nearest mileage (same or less)
     const findNearest = (nearest, vehicle) => {
@@ -202,4 +209,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MileageScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  (props) => {
+    const navigation = useNavigation();
+    return <MileageScreen {...props} navigation={navigation} />
+  }
+);

@@ -1,3 +1,5 @@
+const km = ' km';
+
 export default {
   appName: 'Fahrtenbuch',
   startJourney: 'Fahrt beginnen',
@@ -27,4 +29,7 @@ export default {
   enterNumberPlateMessage: 'Kennzeichen eingeben',
   vehicle: 'Fahrzeug',
   lowMileageMessage: 'Kilometerstand muss höher sein als bei der letzten Fahrt mit dem ',
+  madeIt: 'Geschafft!',
+  km: km,
+  kmToGo: difference => 'noch ' + difference + km,
 };

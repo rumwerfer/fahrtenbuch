@@ -12,11 +12,15 @@ const horizontalPadding = {
 
 const padding = {
   padding: pad,
-}
+};
+
+export const smallVerticalPadding = {
+  paddingVertical: pad / 4,
+};
 
 export const absolutePosition = {
   position: 'absolute',
-}
+};
 
 export const fillSpace = {
   flex: 1,
@@ -30,7 +34,7 @@ export const fillHalf = {
 export const paddedScreen = {
   ...fillSpace,
   ...padding,
-}
+};
 
 export const distanceStyle = {
   ...Fonts.large,

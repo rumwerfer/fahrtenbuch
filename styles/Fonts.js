@@ -18,6 +18,12 @@ export default StyleSheet.create({
   white: {
     color: Colors.white,
   },
+  green: {
+    color: Colors.green,
+  },
+  lightgreen: {
+    color: Colors.lightgreen,
+  },
   rightAlign: {
     textAlign: 'right',
   }

@@ -1,16 +1,19 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from 'react-native-paper';
+import { ProgressBar, useTheme } from 'react-native-paper';
 
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import {
   distanceWhite,
   summaryStyle,
-  journeyButtonContainer
+  journeyButtonContainer,
+  smallVerticalPadding,
 } from '../styles/Styles';
 import Icons from '../res/Icons';
+import Fonts from '../styles/Fonts';
+import Constants from '../res/Constants';
 
 export default ({journeys}) => {
   const enRoute = journeys.ongoing !== null;
@@ -30,8 +33,18 @@ export default ({journeys}) => {
           label={enRoute ? Strings.finishJourney: Strings.startJourney}
         />
       </View>
+      <View style={smallVerticalPadding}>
+        <Text style={Fonts.lightgreen}>
+          {
+            distanceSum < Constants.distanceGoal
+            ? Strings.kmToGo(Constants.distanceGoal - distanceSum)
+            : Strings.madeIt
+          }
+        </Text>
+        <ProgressBar progress={ distanceSum / Constants.distanceGoal } />
+      </View>
       <Text style={distanceWhite}>
-        {distanceSum + ' km'}
+        {distanceSum + Strings.km}
       </Text>
     </View>
   );

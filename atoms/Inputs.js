@@ -24,6 +24,7 @@ export const MileageInput = (props) => {
       label={Strings.mileage}
       value={props.mileage}
       onChangeText={props.setMileage}
+      onBlur={props.preselectVehicle}
       keyboardType='numeric'
       autoCompleteType='off'
       autoCorrect={false}

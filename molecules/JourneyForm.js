@@ -20,7 +20,6 @@ function JourneyForm(props) {
   const navigation = useNavigation();
   const backgroundColor = useTheme().colors.screenBackground;
   const screenBackground = { backgroundColor: backgroundColor };
-  const [vehicleID, setVehicleID] = useState();
 
   return (
     <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
@@ -33,14 +32,17 @@ function JourneyForm(props) {
         {/* input fields */}
         <View style={{ flex: scanFrame.relWidth }}>
           <View style={formPadding}>
-            <MileageInput mileage={props.mileage} setMileage={props.setMileage}/>
+            <MileageInput
+              mileage={props.mileage}
+              setMileage={props.setMileage}
+              preselectVehicle={props.preselectVehicle}
+            />
           </View>
           <VehicleDropdown
-            vehicleID={vehicleID}
-            setVehicleID={setVehicleID}
+            vehicleID={props.vehicleID}
+            setVehicleID={props.setVehicleID}
             ongoingJourney={props.ongoingJourney}
             containerStyle={formPadding}
-            mileage={props.mileage}
           />
         </View>
 
@@ -56,16 +58,22 @@ function JourneyForm(props) {
             icon={Icons.confirm}
             onPress={() => {
               if (validateInput(props.mileage, props.ongoingJourney)) {
-                let payload = {time: Date.now(), mileage: props.mileage};
+                let payload = {
+                  time: Date.now(),
+                  mileage: parseInt(props.mileage),
+                };
                 if (!props.ongoingJourney) {
-                  payload = { ...payload, vehicleID: vehicleID };
+                  payload = {
+                    ...payload,
+                    vehicleID: props.vehicleID,
+                  };
                   props.startJourney(payload);
                   navigation.navigate('home');
                 } else {
                   props.finishJourney(payload);
                   props.updateVehicle({
                     id: props.ongoingJourney.vehicleID,
-                    newMileage: props.mileage
+                    newMileage: parseInt(props.mileage),
                   });
                   navigation.navigate('details');
                 }

@@ -5,10 +5,12 @@ const INITIAL_STATE = {
 };
 
 export default vehicleReducer = (vehicles = INITIAL_STATE, action) => {
+
+  const newVehicles = vehicles.vehicles;
+
   switch(action.type) {
 
     case ActionTypes.ADD_VEHICLE:
-      const newVehicles = vehicles.vehicles;
       newVehicles.push({
         id: action.payload.id,
         name: action.payload.name,
@@ -20,9 +22,11 @@ export default vehicleReducer = (vehicles = INITIAL_STATE, action) => {
       };
 
     case ActionTypes.UPDATE_VEHICLE:
-      vehicles.vehicles.find(vehicle => vehicle.id === action.payload.id)
+      newVehicles.find(vehicle => vehicle.id === action.payload.id)
         .mileage = action.payload.newMileage;
-      return vehicles;
+      return {
+        vehicles: newVehicles,
+      };
 
     default:
       return vehicles;

@@ -21,13 +21,23 @@ class MileageScreen extends Component {
       mileage: '',
       cameraIsActive: true,
       scanning: false,
+      vehicleID: null,
     };
   }
 
-  setMileage = (text) => {
-    if (/^\d*$/.test(text)) // discard everything except digits
-    this.setState({mileage: text?.toString()})
+  componentDidMount() {
+    this.preselectVehicle();
   }
+
+  setMileage = (text) => {
+    if (/^\d*$/.test(text)) { // discard everything except digits
+      this.setState({ mileage: text?.toString() });
+    }
+  };
+
+  setVehicleID = (id) => {
+    this.setState({ vehicleID: id });
+  };
 
   render() {
     return (
@@ -60,6 +70,9 @@ class MileageScreen extends Component {
             ongoingJourney={this.props.journeys.ongoing}
             startJourney={this.props.startJourney}
             finishJourney={this.props.finishJourney}
+            vehicleID={this.state.vehicleID}
+            setVehicleID={this.setVehicleID}
+            preselectVehicle={this.preselectVehicle}
           />
         </RNCamera>
       </SafeAreaView>
@@ -77,6 +90,7 @@ class MileageScreen extends Component {
         const mileage = this.findMileage(ocrResult);
         if (mileage > 0) {
           this.setMileage(mileage);
+          this.preselectVehicle();
         }
       }
       this.setState({scanning: false});
@@ -147,11 +161,45 @@ class MileageScreen extends Component {
     return largestNumber > 0 ? largestNumber : null;
   }
 
+
+  preselectVehicle = () => {
+    // assert: #vehicles > 0 (otherwise VehicleScreen is opened instead)
+    // TODO
+
+    const vehicles = this.props.vehicles.vehicles;
+    const savedJourneys = this.props.journeys.saved;
+
+    // 1. vehicle with nearest mileage (same or less)
+    const findNearest = (nearest, vehicle) => {
+      if (vehicle.mileage <= this.state.mileage
+          && vehicle.mileage > nearest.mileage) {
+        return vehicle;
+      }
+      return nearest;
+    };
+    const nearestMileageVehicle = vehicles.reduce(findNearest, { mileage: -1 });
+    if (nearestMileageVehicle.mileage !== -1) {
+      this.setVehicleID(nearestMileageVehicle.id);
+      return;
+    }
+
+    // 2. last used vehicle
+    if (savedJourneys && savedJourneys.length !== 0) {
+      this.setVehicleID(savedJourneys[savedJourneys.length - 1].vehicleID);
+      return;
+    }
+
+    // 3. last added vehicle
+    this.setVehicleID(vehicles[vehicles.length - 1].id);
+    return;
+  }
 }
+
 
 const mapDispatchToProps = dispatch => ({
   startJourney: (payload) => dispatch(JourneyActions.startJourney(payload)),
   finishJourney: (payload) => dispatch(JourneyActions.finishJourney(payload)),
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(MileageScreen);

@@ -26,4 +26,5 @@ export default {
   enterVehicleNameMessage: 'Name eingeben',
   enterNumberPlateMessage: 'Kennzeichen eingeben',
   vehicle: 'Fahrzeug',
+  lowMileageMessage: 'Kilometerstand muss höher sein als bei der letzten Fahrt mit dem ',
 };

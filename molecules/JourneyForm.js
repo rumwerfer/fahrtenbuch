@@ -57,7 +57,7 @@ function JourneyForm(props) {
           <Button
             icon={Icons.confirm}
             onPress={() => {
-              if (validateInput(props.mileage, props.ongoingJourney)) {
+              if (validateInput(props.mileage, props.ongoingJourney, props.vehicleID, props.vehicles.vehicles)) {
                 let payload = {
                   time: Date.now(),
                   mileage: parseInt(props.mileage),
@@ -105,16 +105,25 @@ function ImagePreview ({imageUri}) {
 }
 
 
-function validateInput(mileage, ongoingJourney) {
+function validateInput(mileage, ongoingJourney, vehicleID, vehicles) {
 
   // verify mileage
   if (!mileage) {
     Toast.show(Strings.enterMileageMessage);
     return false;
   }
+  if (!ongoingJourney) {
+    const selectedVehicle = vehicles.find(vehicle => vehicleID === vehicle.id);
+    if (selectedVehicle.mileage > mileage) {
+      Toast.show(
+        Strings.lowMileageMessage + selectedVehicle.name
+        + ' (' + selectedVehicle.mileage + ')'
+      );
+      return false;
+    }
 
   // verify distance
-  if (ongoingJourney) {
+  } else {
     const distance = mileage - ongoingJourney.startMileage;
     if (distance <= 0) {
       Toast.show(Strings.negativeDistanceMessage);

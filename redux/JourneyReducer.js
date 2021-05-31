@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import * as ActionTypes from './ActionTypes';
 
 const INITIAL_STATE = {
@@ -7,7 +6,7 @@ const INITIAL_STATE = {
   finished: null,
 }
 
-const journeyReducer = (journeys = INITIAL_STATE, action) => {
+export default journeyReducer = (journeys = INITIAL_STATE, action) => {
   switch(action.type) {
 
     case ActionTypes.START_JOURNEY:
@@ -16,6 +15,7 @@ const journeyReducer = (journeys = INITIAL_STATE, action) => {
         ongoing: {
           startMileage: action.payload.mileage,
           startTime: action.payload.time,
+          vehicleID: action.payload.vehicleID,
         },
       };
 
@@ -47,7 +47,3 @@ const journeyReducer = (journeys = INITIAL_STATE, action) => {
       return journeys;
   }
 };
-
-export default combineReducers({
-  journeys: journeyReducer,
-})

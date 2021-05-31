@@ -7,14 +7,13 @@ import Summary from '../molecules/Summary';
 import Journey from '../molecules/Journey';
 import StatusBar from '../atoms/StatusBar';
 import { fillSpace, journeyListPadding } from '../styles/Styles';
-import { mapJourneysToProps } from '../redux/Mappers';
+import { mapStateToProps } from '../redux/Mappers';
 
 const HomeScreen = ({journeys}) => {
   const themeColors = useTheme().colors;
+  const backgroundColor = { backgroundColor: themeColors.screenBackground };
   return (
-    <SafeAreaView
-      style={{...fillSpace, backgroundColor: themeColors.screenBackground}}
-    >
+    <SafeAreaView style={{ ...fillSpace, ...backgroundColor }}>
       <StatusBar />
       <JourneyList journeys={journeys} />
       <Summary journeys={journeys} />
@@ -40,4 +39,4 @@ const JourneyList = ({journeys}) => {
   );
 }
 
-export default connect(mapJourneysToProps)(HomeScreen);
+export default connect(mapStateToProps)(HomeScreen);

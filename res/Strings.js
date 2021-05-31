@@ -23,4 +23,8 @@ export default {
   vehicleName: 'Name des Fahrzeugs',
   numberPlate: 'Kennzeichen',
   saveVehicle: 'Fahrzeug speichern',
+  enterVehicleNameMessage: 'Name eingeben',
+  enterNumberPlateMessage: 'Kennzeichen eingeben',
+  vehicle: 'Fahrzeug',
+  lowMileageMessage: 'Kilometerstand muss höher sein als bei der letzten Fahrt mit dem ',
 };

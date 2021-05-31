@@ -60,6 +60,9 @@ export default (props) => {
           ongoingJourney={props.ongoingJourney}
           startJourney={props.startJourney}
           finishJourney={props.finishJourney}
+          vehicleID={props.vehicleID}
+          setVehicleID={props.setVehicleID}
+          preselectVehicle={props.preselectVehicle}
         />
       </View>
 

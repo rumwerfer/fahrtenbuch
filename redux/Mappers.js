@@ -1,4 +1,4 @@
-export const mapJourneysToProps = (state) => {
-  const { journeys } = state;
-  return { journeys };
-};
+export const mapStateToProps = (state) => {
+  const { journeys, vehicles } = state;
+  return { journeys, vehicles };
+}

@@ -7,4 +7,5 @@ export default {
   save: 'content-save',
   retry: 'reload',
   addVehicle: 'plus',
+  unfoldList: 'menu-down',
 };

@@ -53,5 +53,6 @@ export default {
   kmToGoMessage: difference => 'Mir fehlen noch Ausbildungsfahrten im Ausmaß von ' + difference + km + '.',
   total: 'Gesamt',
   sendTo: 'Senden an',
-  createdWith: 'Erstellt mit der L17-Fahrtenbuch-App'
+  createdWith: 'Erstellt mit der L17-Fahrtenbuch-App',
+  ongoingJourneyMessage: (mileage, vehicleName) => 'Du hast bei' + km + ' ' + mileage + ' eine Fahrt\nmit dem ' + vehicleName + ' begonnen.',
 };

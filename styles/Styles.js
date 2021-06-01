@@ -18,6 +18,10 @@ export const smallVerticalPadding = {
   paddingVertical: pad / 4,
 };
 
+export const smallPadding = {
+  padding: pad / 4,
+}
+
 export const absolutePosition = {
   position: 'absolute',
 };

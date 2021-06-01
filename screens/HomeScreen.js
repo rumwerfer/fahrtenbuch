@@ -6,6 +6,7 @@ import { useTheme } from 'react-native-paper';
 import Summary from '../molecules/Summary';
 import Journey from '../molecules/Journey';
 import StatusBar from '../atoms/StatusBar';
+import OngoingJourney from '../atoms/OngoingJourney';
 import { fillSpace, journeyListPadding } from '../styles/Styles';
 import { mapStateToProps } from '../redux/Mappers';
 
@@ -15,6 +16,7 @@ const HomeScreen = ({journeys}) => {
   return (
     <SafeAreaView style={{ ...fillSpace, ...backgroundColor }}>
       <StatusBar />
+      <OngoingJourney />
       <JourneyList journeys={journeys} />
       <Summary journeys={journeys} />
     </SafeAreaView>

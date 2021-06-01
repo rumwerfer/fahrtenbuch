@@ -3,6 +3,10 @@ import { StyleSheet } from 'react-native';
 import Colors from '../res/Colors';
 
 export default StyleSheet.create({
+  tiny: {
+    fontSize: 14,
+    fontWeight: '200',
+  },
   small: {
     fontSize: 18,
     fontWeight: '400',
@@ -24,7 +28,16 @@ export default StyleSheet.create({
   lightgreen: {
     color: Colors.lightgreen,
   },
+  center: {
+    textAlign: 'center',
+  },
   rightAlign: {
     textAlign: 'right',
+  },
+  tinyCenterWhite: {
+    textAlign: 'center',
+    color: Colors.white,
+    fontSize: 14,
+    fontWeight: '200',
   }
 });

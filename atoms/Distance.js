@@ -1,16 +1,18 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 
-import { centerXY, distanceStyle } from '../styles/Styles';
+import { centerY, distanceStyle } from '../styles/Styles';
+import Strings from '../res/Strings';
 
 export default ({journey, flex}) => {
-  const textColor = useTheme().colors.text;
   return (
-    <View style={{...centerXY, flex: flex}}>
-      <Text style={{ ...distanceStyle, color : textColor }}>
-        {journey.endMileage - journey.startMileage + ' km'}
-      </Text>
+    <View style={{flex: flex}}>
+      <View style={{...centerY, height: 40}}>
+        <Text style={distanceStyle}>
+          {journey.endMileage - journey.startMileage + Strings.km}
+        </Text>
+      </View>
     </View>
   );
 }

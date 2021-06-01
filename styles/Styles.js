@@ -80,12 +80,6 @@ export const vehicleListItem = {
   height: 80,
 };
 
-export const dateStyle = {
-  ...Fonts.small,
-  marginTop: (Fonts.large.fontSize - Fonts.small.fontSize) / 2,
-  // to align different font sizes to their center
-};
-
 export const centerY = {
   justifyContent: 'center',
 }

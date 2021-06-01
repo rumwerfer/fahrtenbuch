@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 
-import { centerXY, dateStyle } from '../styles/Styles';
+import { centerX } from '../styles/Styles';
+import Fonts from '../styles/Fonts';
 
 export default JourneyDate = (props) => {
-  const themeColors = useTheme().colors;
 
   const date = new Date(props.time);
   const dayAndMonth = date.toLocaleDateString(
@@ -16,8 +16,8 @@ export default JourneyDate = (props) => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <View style={{...centerXY, flex: props.flex}}>
-      <Text style={{...dateStyle, color: themeColors.text}}>
+    <View style={centerX}>
+      <Text style={Fonts.small}>
         {dayAndMonth}
         {year === currentYear ? '' : ' ' + year}
       </Text>

@@ -111,8 +111,8 @@ class MileageScreen extends Component {
     const options = {
       pauseAfterCapture: true,
       forceUpOrientation: true, // ios only
-      fixOrientation: true, // slow, but necessary for android
-    }; // this only turns upright pictures correct, TODO rotate landscape pictures
+      fixOrientation: true, // android: turn upright pictures upright
+    }; // TODO rotate landscape pictures
     const image = await this.camera.takePictureAsync(options);
     console.log('takePicture: ' + image.uri);
     return image;
@@ -122,7 +122,8 @@ class MileageScreen extends Component {
     const cropRegion = {
       x: scanFrame.relOffsetX * image.width,
       y: scanFrame.relOffsetY * image.height,
-      height: scanFrame.relHeight * image.height + 130, // dirty hack to fix cropRegion on some models
+      height: scanFrame.relHeight * image.height + 200,
+      // dirty hack to fix cropRegion on some models
       width: scanFrame.relWidth * image.width,
     };
     const croppedImage = await PhotoManipulator.crop(image.uri, cropRegion);

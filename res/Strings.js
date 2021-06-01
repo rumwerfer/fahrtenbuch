@@ -1,3 +1,5 @@
+import Constants from '../res/Constants';
+
 const km = ' km';
 
 export default {
@@ -47,4 +49,8 @@ export default {
   afternoon: 'Nachmittag',
   evening: 'Abend',
   night: 'Nacht',
+  madeItMessage: 'Ich habe Ausbildungsfahrten im Ausmaß von ' + Constants.distanceGoal + km  + ' durchgeführt.',
+  kmToGoMessage: difference => 'Mir fehlen noch Ausbildungsfahrten im Ausmaß von ' + difference + km + '.',
+  total: 'Gesamt',
+  sendTo: 'Senden an',
 };

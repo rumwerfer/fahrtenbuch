@@ -43,6 +43,12 @@ export default journeyReducer = (journeys = INITIAL_STATE, action) => {
         finished: null,
       };
 
+    case ActionTypes.DISCARD_JOURNEY:
+      return {
+        ...journeys,
+        ongoing: null,
+      };
+
     default:
       return journeys;
   }

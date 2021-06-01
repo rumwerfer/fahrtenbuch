@@ -9,4 +9,5 @@ export default {
   addVehicle: 'plus',
   unfoldList: 'menu-down',
   report: 'pdf-box',
+  cancel: 'close-circle',
 };

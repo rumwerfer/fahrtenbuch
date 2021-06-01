@@ -20,3 +20,9 @@ export const saveJourney = payload => (
     payload: payload,
   }
 );
+
+export const discardJourney = () => (
+  {
+    type: ActionTypes.DISCARD_JOURNEY,
+  }
+);

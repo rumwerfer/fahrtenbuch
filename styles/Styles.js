@@ -6,7 +6,7 @@ import Colors from '../res/Colors';
 const pad = 48;
 const height = 56;
 
-const horizontalPadding = {
+export const horizontalPadding = {
   paddingHorizontal: pad,
 };
 
@@ -115,11 +115,21 @@ export const journeyButtonContainer = {
   marginBottom: 10,
 };
 
+export const rightPosition = {
+  right: pad/4,
+}
+
+export const absoluteRight = {
+  ...alignSelfEnd,
+  ...absolutePosition,
+  ...rightPosition,
+}
+
 export const vehicleButtonContainer = {
   ...alignSelfEnd,
   ...absolutePosition,
+  ...rightPosition,
   bottom: pad,
-  right: pad,
 }
 
 export const mileageButtonContainer = {

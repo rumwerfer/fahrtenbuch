@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
 import configureStore from './redux/Store';
@@ -15,6 +16,9 @@ import DetailsScreen from './screens/DetailsScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import FleetScreen from './screens/FleetScreen';
 import VehicleScreen from './screens/VehicleScreen';
+import Icons from './res/Icons';
+import { row } from './styles/Styles';
+import ReportButton from './atoms/ReportButton';
 
 const Stack = createStackNavigator();
 const { store, persistor } = configureStore();
@@ -36,11 +40,14 @@ const App = () => {
             <Stack.Screen name='home' component={HomeScreen}
               options={ ({navigation}) => ({
                 headerRight: () =>
-                  <IconButton
-                    onPress={() => navigation.navigate('fleet')}
-                    icon='car-multiple'
-                    color={Colors.white}
-                  />
+                  <View style={row}>
+                    <ReportButton />
+                    <IconButton
+                      onPress={() => navigation.navigate('fleet')}
+                      icon={Icons.fleet}
+                      color={Colors.white}
+                    />
+                  </View>
               })}
             />
             <Stack.Screen

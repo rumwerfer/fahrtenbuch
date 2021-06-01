@@ -32,4 +32,7 @@ export default {
   madeIt: 'Geschafft!',
   km: km,
   kmToGo: difference => 'noch ' + difference + km,
+  report: 'Fahrtenprotokoll',
+  date: 'Datum',
+  distance: 'Distanz',
 };

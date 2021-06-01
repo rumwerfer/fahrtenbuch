@@ -34,12 +34,12 @@ createPDF = async (savedJourneys, vehicles) => {
                           border-collapse: collapse
                         }
                         th, td {
-                          padding: 10px;
-                          font-size: 15px;
+                          padding: 5px;
+                          font-size: 10px;
                         }
                         p {
-                          margin-top: 20px;
-                          font-size: 20px;
+                          padding-top: 10px;
+                          font-size: 10px;
                         }
                       </style>`
                    + '<table> <tr>'
@@ -88,7 +88,10 @@ createPDF = async (savedJourneys, vehicles) => {
   };
 
   const reportFoot =
-    '</table> <p>' + Strings.total + ': ' + sumDistance + Strings.km + '</p>';
+    '<tr> <td> <b>' + Strings.total
+    + ' </b> </td> <td> <b>' + sumDistance
+    + '</b> </td> </tr> </table>'
+    + '<p>' + Strings.createdWith + '</p>';
 
   const report = reportHead
     + savedJourneys.reduce((rows, journey) => rows + reportRow(journey), '')
@@ -98,8 +101,8 @@ createPDF = async (savedJourneys, vehicles) => {
     html: report,
     fileName: Strings.appName,
     directory: 'Documents',
-    height: 595,
-    width: 842,
+    height: 842,
+    width: 595,
   };
   const file = await RNHTMLtoPDF.convert(options);
 

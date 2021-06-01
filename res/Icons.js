@@ -8,4 +8,5 @@ export default {
   retry: 'reload',
   addVehicle: 'plus',
   unfoldList: 'menu-down',
+  report: 'pdf-box',
 };

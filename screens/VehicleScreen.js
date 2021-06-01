@@ -10,7 +10,7 @@ import Strings from '../res/Strings';
 import Icons from '../res/Icons';
 import { paddedScreen, form } from '../styles/Styles';
 import { TwoTextForm } from '../molecules/Forms';
-import { mapVehiclesToProps } from '../redux/Mappers';
+import { mapStateToProps } from '../redux/Mappers';
 import * as VehicleActions from '../redux/VehicleActions';
 
 function VehicleScreen(props) {
@@ -71,4 +71,4 @@ const mapDispatchToProps = dispatch => ({
   addVehicle: (payload) => dispatch(VehicleActions.addVehicle(payload)),
 });
 
-export default connect(mapVehiclesToProps, mapDispatchToProps)(VehicleScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(VehicleScreen);

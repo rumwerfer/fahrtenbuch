@@ -1,3 +1,5 @@
+import Constants from '../res/Constants';
+
 const km = ' km';
 
 export default {
@@ -32,4 +34,24 @@ export default {
   madeIt: 'Geschafft!',
   km: km,
   kmToGo: difference => 'noch ' + difference + km,
+  date: 'Datum',
+  distance: 'Distanz',
+  start: 'Start',
+  end: 'Ende',
+  signature: 'Unteschrift',
+  dayTime: 'Tageszeit',
+  tutor: 'Begleiter',
+  candidate: 'Bewerber',
+  from: 'von',
+  to: 'bis',
+  morning: 'Morgen',
+  forenoon: 'Vormittag',
+  afternoon: 'Nachmittag',
+  evening: 'Abend',
+  night: 'Nacht',
+  madeItMessage: 'Ich habe Ausbildungsfahrten im Ausmaß von ' + Constants.distanceGoal + km  + ' durchgeführt.',
+  kmToGoMessage: difference => 'Mir fehlen noch Ausbildungsfahrten im Ausmaß von ' + difference + km + '.',
+  total: 'Gesamt',
+  sendTo: 'Senden an',
+  createdWith: 'Erstellt mit der L17-Fahrtenbuch-App'
 };

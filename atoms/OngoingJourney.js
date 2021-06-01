@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { useTheme, IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 
@@ -24,13 +24,24 @@ const OngoingJourney = (props) => {
     .find(vehicle => vehicle.id === journey.vehicleID)
     .name;
 
+  const discardDialog = () =>
+    Alert.alert(
+      'Fahrt verwerfen',
+      'Möchtest du die begonnene Fahrt wirklich löschen?',
+      [
+        { text: 'Abbrechen', style: 'cancel' },
+        { text: 'OK', onPress: props.discardJourney },
+      ],
+      { cancelable: true }
+    );
+
   return (
     <View style={{ ...smallPadding, ...backgroundColor, ...centerY }}>
       <Text style={Fonts.tinyCenterWhite}>
         {Strings.ongoingJourneyMessage(journey.startMileage, vehicleName)}
       </Text>
       <IconButton
-        onPress={props.discardJourney} // TODO dialog before discarding
+        onPress={discardDialog}
         icon={Icons.cancel}
         style={absoluteRight}
         color={Colors.white}

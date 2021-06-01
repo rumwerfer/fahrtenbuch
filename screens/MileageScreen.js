@@ -61,7 +61,10 @@ class MileageScreen extends Component {
           }}
           captureAudio={false}
           style={{flex: 1}}
-          // TODO autoFocusPointOfInterest
+          autoFocusPointOfInterest={{
+            x: scanFrame.relOffsetX + 0.5 * scanFrame.relWidth,
+            y: scanFrame.relOffsetY + 0.5 * scanFrame.relHeight,
+          }}
         >
           <CamOverlay
             style={{flex: 1}}

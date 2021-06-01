@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { IconButton } from 'react-native-paper';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import { connect } from 'react-redux';
 
 import Icons from '../res/Icons';
 import Colors from '../res/Colors';
 import Strings from '../res/Strings';
-
-export default class ReportButton extends Component {
-
-
-  render() {
-    return (
-      <IconButton
-        onPress={this.createPDF}
-        icon={Icons.report}
-        color={Colors.white}
-      />
-    );
-  }
+import { mapStateToProps } from '../redux/Mappers';
 
 
-  async createPDF() {
+function ReportButton(props) {
+  return (
+    <IconButton
+      onPress={() => createPDF(props.journeys.saved, props.vehicles.vehicles)}
+      icon={Icons.report}
+      color={Colors.white}
+    />
+  );
+}
 
-    const report = '<h1>' + Strings.appName + '</h1>'
+createPDF = async (savedJourneys, vehicles) => {
+
+  const reportHead = '<h1>' + Strings.appName + '</h1>'
                    + `<style>
                         table, th, td {
                           border: 1px solid black;
@@ -44,34 +43,58 @@ export default class ReportButton extends Component {
                    + '<th rowspan="2">' + Strings.tutor + '</th>'
                    + '<th colspan="2">' + Strings.signature + '</th>'
                    + '</tr> <tr>'
-                   + '<th>' + 'von' + '</th>'
-                   + '<th>' + 'bis' + '</th>'
+                   + '<th>' + Strings.from + '</th>'
+                   + '<th>' + Strings.to + '</th>'
                    + '<th>' + Strings.tutor + '</th>'
                    + '<th>' + Strings.candidate + '</th>'
-                   + '</tr> <tr>'
-                   + '<td>' + '21. Mai 2021' + '</td>'
-                   + '<td>' + '322' + '</td>'
-                   + '<td>' + '167000' + '</td>'
-                   + '<td>' + '167322' + '</td>'
-                   + '<td>' + 'SL-673RT' + '</td>'
-                   + '<td>' + 'Nacht' + '</td>'
-                   + '<td>' + 'Salzburg - Linz - retour' + '</td>'
-                   + '<td>' + 'Schnee' + '</td>'
-                   + '<td>' + '' + '</td>'
-                   + '<td>' + '' + '</td>'
-                   + '<td>' + '' + '</td>'
-                   + '</tr> </table>';
+                   + '</tr>';
 
-    let options = {
-      html: report,
-      fileName: Strings.appName,
-      directory: 'Documents',
-      height: 595,
-      width: 842,
-    };
-    let file = await RNHTMLtoPDF.convert(options);
-    // console.log(file.filePath);
-    alert(file.filePath);
-  }
+  const reportRow = (journey) => {
 
-};
+    const time = new Date(journey.startTime);
+    const date = time.toLocaleDateString(
+      undefined, // use device locale
+      {day: 'numeric', month: 'long', year: 'numeric'}
+    );
+    const hours = time.getHours();
+    const dayTime = hours < 6 ? Strings.night
+                  : hours < 9 ? Strings.morning
+                  : hours < 12 ? Strings.forenoon
+                  : hours < 18 ? Strings.afternoon
+                  : hours < 22 ? Strings.evening
+                  : Strings.night;
+    const distance = journey.endMileage - journey.startMileage;
+    const vehicle = vehicles.find(vehicle => vehicle.id === journey.vehicleID);
+
+    return '<tr> <td>' + date
+        + '</td> <td>' + distance
+        + '</td> <td>' + journey.startMileage
+        + '</td> <td>' + journey.endMileage
+        + '</td> <td>' + vehicle.numberPlate
+        + '</td> <td>' + dayTime
+        + '</td> <td>' + journey.route
+        + '</td> <td>' + journey.weather
+        + '</td> <td/> <td/> <td/> </tr>';
+  };
+
+  const reportFoot = '</table>';
+
+  const report = reportHead
+                 + savedJourneys.reduce(
+                     (rows, journey) => rows + reportRow(journey)
+                   , '')
+                 + reportFoot;
+
+  let options = {
+    html: report,
+    fileName: Strings.appName,
+    directory: 'Documents',
+    height: 595,
+    width: 842,
+  };
+  let file = await RNHTMLtoPDF.convert(options);
+  // console.log(file.filePath);
+  alert(file.filePath);
+}
+
+export default connect(mapStateToProps)(ReportButton);

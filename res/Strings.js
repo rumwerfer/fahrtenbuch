@@ -40,4 +40,11 @@ export default {
   dayTime: 'Tageszeit',
   tutor: 'Begleiter',
   candidate: 'Bewerber',
+  from: 'von',
+  to: 'bis',
+  morning: 'Morgen',
+  forenoon: 'Vormittag',
+  afternoon: 'Nachmittag',
+  evening: 'Abend',
+  night: 'Nacht',
 };

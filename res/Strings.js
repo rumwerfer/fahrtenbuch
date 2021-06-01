@@ -55,4 +55,8 @@ export default {
   sendTo: 'Senden an',
   createdWith: 'Erstellt mit der L17-Fahrtenbuch-App',
   ongoingJourneyMessage: (mileage, vehicleName) => 'Du hast bei' + km + ' ' + mileage + ' eine Fahrt\nmit dem ' + vehicleName + ' begonnen.',
+  discardJourney: 'Fahrt verwerfen',
+  ok: 'OK',
+  cancel: 'Abbrechen',
+  discardJourneyMessage: 'Die begonnene Fahrt wird gelöscht.',
 };

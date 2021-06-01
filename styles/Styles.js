@@ -182,3 +182,7 @@ export const inputHeight = {
 export const formPadding = {
   paddingTop: pad / 2,
 }
+
+export const largeWidth = {
+  width: 100,
+}

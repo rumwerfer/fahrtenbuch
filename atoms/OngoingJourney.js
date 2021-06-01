@@ -1,6 +1,13 @@
 import React from 'react';
-import { View, Text, Alert } from 'react-native';
-import { useTheme, IconButton } from 'react-native-paper';
+import { View, Text } from 'react-native';
+import {
+  useTheme,
+  IconButton,
+  Portal,
+  Dialog,
+  Paragraph,
+  Button
+} from 'react-native-paper';
 import { connect } from 'react-redux';
 
 import { mapStateToProps } from '../redux/Mappers';
@@ -8,7 +15,12 @@ import Fonts from '../styles/Fonts';
 import Strings from '../res/Strings';
 import Colors from '../res/Colors';
 import Icons from '../res/Icons';
-import { smallPadding, absoluteRight, centerY } from '../styles/Styles';
+import {
+  smallPadding,
+  absoluteRight,
+  centerY,
+  largeWidth,
+} from '../styles/Styles';
 import * as JourneyActions from '../redux/JourneyActions';
 
 const OngoingJourney = (props) => {
@@ -24,16 +36,9 @@ const OngoingJourney = (props) => {
     .find(vehicle => vehicle.id === journey.vehicleID)
     .name;
 
-  const discardDialog = () =>
-    Alert.alert(
-      'Fahrt verwerfen',
-      'Möchtest du die begonnene Fahrt wirklich löschen?',
-      [
-        { text: 'Abbrechen', style: 'cancel' },
-        { text: 'OK', onPress: props.discardJourney },
-      ],
-      { cancelable: true }
-    );
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const showDialog = () => setDialogOpen(true);
+  const hideDialog = () => setDialogOpen(false);
 
   return (
     <View style={{ ...smallPadding, ...backgroundColor, ...centerY }}>
@@ -41,12 +46,26 @@ const OngoingJourney = (props) => {
         {Strings.ongoingJourneyMessage(journey.startMileage, vehicleName)}
       </Text>
       <IconButton
-        onPress={discardDialog}
+        onPress={showDialog}
         icon={Icons.cancel}
         style={absoluteRight}
         color={Colors.white}
         size={18}
       />
+      <Portal>
+        <Dialog visible={dialogOpen} onDismiss={hideDialog} >
+          <Dialog.Title>{Strings.discardJourney + '?'}</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>{Strings.discardJourneyMessage}</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>{Strings.cancel}</Button>
+            <Button onPress={props.discardJourney} style={largeWidth}>
+              {Strings.ok}
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </View>
   );
 }

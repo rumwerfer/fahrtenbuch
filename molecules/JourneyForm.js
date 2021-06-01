@@ -10,6 +10,7 @@ import { scanFrame } from '../atoms/scanFrame';
 import { MileageInput } from '../atoms/Inputs';
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
+import Constants from '../res/Constants';
 import Icons from '../res/Icons';
 import { formRow, mileageButtonContainer, formPadding } from '../styles/Styles';
 import VehicleDropdown from '../atoms/VehicleDropdown';
@@ -93,8 +94,8 @@ function JourneyForm(props) {
 
 // for debugging only
 function ImagePreview ({imageUri}) {
-  if (!imageUri) {
-    return <View />;
+  if (!Constants.debug || !imageUri) {
+    return null;
   }
   return (
     <Image

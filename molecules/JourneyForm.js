@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import * as VehicleActions from '../redux/VehicleActions';
 import { scanFrame } from '../atoms/scanFrame';
-import { MileageInput } from '../atoms/Inputs';
+import { MileageInput, TextInput } from '../atoms/Inputs';
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import Constants from '../res/Constants';
@@ -21,6 +21,28 @@ function JourneyForm(props) {
   const navigation = useNavigation();
   const backgroundColor = useTheme().colors.screenBackground;
   const screenBackground = { backgroundColor: backgroundColor };
+
+  const vehicleDropdown = (
+    <Dropdown type={'vehicle'} id={props.vehicleID} setID={props.setVehicleID}/>
+  );
+
+  const tutorDropdown = (
+    <Dropdown type={'tutor'} id={props.tutorID} setID={props.setTutorID} />
+  );
+
+  const weatherDropdown = (
+    <Dropdown type={'weather'} id={props.weather} setID={props.setWeather} />
+  );
+
+  const routeInput = (
+    <View style={formPadding}>
+      <TextInput
+        label={Strings.route}
+        text={props.route}
+        setText={props.setRoute}
+      />
+    </View>
+  );
 
   return (
     <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='never'>
@@ -39,20 +61,10 @@ function JourneyForm(props) {
               preselectVehicle={props.preselectVehicle}
             />
           </View>
-          <Dropdown
-            type={'vehicle'}
-            id={props.vehicleID}
-            setID={props.setVehicleID}
-            ongoingJourney={props.ongoingJourney}
-            containerStyle={formPadding}
-          />
-          <Dropdown
-            type={'tutor'}
-            id={props.tutorID}
-            setID={props.setTutorID}
-            ongoingJourney={props.ongoingJourney}
-            containerStyle={formPadding}
-          />
+          {props.ongoingJourney ? null : vehicleDropdown}
+          {props.ongoingJourney ? null : tutorDropdown}
+          {props.ongoingJourney ? routeInput : null}
+          {props.ongoingJourney ? weatherDropdown : null}
         </View>
 
         {/* button */}
@@ -60,17 +72,23 @@ function JourneyForm(props) {
           ...screenBackground,
           ...mileageButtonContainer,
           flex: remainsX,
-          marginBottom: props.ongoingJourney ? 6 : 10,
-          // dirty hack: center button relative to mileage or vehicle input
+          marginBottom: 10,
         }}>
           <Button
             icon={Icons.confirm}
             onPress={() => {
-              if (validateInput(props.mileage, props.ongoingJourney, props.vehicleID, props.vehicles.vehicles)) {
+              if (
+                validateInput(
+                  props.mileage,
+                  props.ongoingJourney,
+                  props.vehicleID,
+                  props.vehicles.vehicles
+              )) {
                 let payload = {
                   time: Date.now(),
                   mileage: parseInt(props.mileage),
                 };
+
                 if (!props.ongoingJourney) {
                   payload = {
                     ...payload,
@@ -78,15 +96,21 @@ function JourneyForm(props) {
                     tutorID: props.tutorID,
                   };
                   props.startJourney(payload);
-                  navigation.navigate('home');
+
                 } else {
+                  payload = {
+                    ...payload,
+                    weather: props.weather,
+                    route: props.route,
+                  };
                   props.finishJourney(payload);
                   props.updateVehicle({
                     id: props.ongoingJourney.vehicleID,
                     newMileage: parseInt(props.mileage),
                   });
-                  navigation.navigate('details');
                 }
+                
+                navigation.goBack();
               }
             }}
             label={Strings.confirm}

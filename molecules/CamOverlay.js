@@ -65,6 +65,10 @@ export default (props) => {
           preselectVehicle={props.preselectVehicle}
           tutorID={props.tutorID}
           setTutorID={props.setTutorID}
+          weather={props.weather}
+          setWeather={props.setWeather}
+          route={props.route}
+          setRoute={props.setRoute}
         />
       </View>
 

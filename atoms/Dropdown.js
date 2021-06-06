@@ -6,36 +6,31 @@ import { connect } from 'react-redux';
 
 import Strings from '../res/Strings';
 import Icons from '../res/Icons';
-import { inputHeight } from '../styles/Styles';
+import { inputHeight, formPadding } from '../styles/Styles';
 import { mapStateToProps } from '../redux/Mappers';
 
 function Dropdown(props) {
 
-  if (props.ongoingJourney) {
-    return null;
-  }
-
   const [showDropdown, setShowDropdown] = useState(true);
 
   let list, label;
-
   if (props.type === 'vehicle') {
     list = props.vehicles.vehicles.map( vehicle => {
       return { label: vehicle.name, value: vehicle.id };
     });
     label = Strings.vehicle;
-  }
-
-  if (props.type === 'tutor') {
+  } else if (props.type === 'tutor') {
     list = props.tutors.tutors.map( tutor => {
       return { label: tutor.nickName, value: tutor.id };
     });
     label = Strings.tutor;
+  } else if (props.type === 'weather') {
+    list = [{label: 'trocken', value: 1}, {label: 'Nässe', value: 2}];
+    label = Strings.weather;
   }
 
-
   return (
-    <View style={props.containerStyle} >
+    <View style={formPadding}>
       <PaperDropdown
         label={label}
         value={props.id}

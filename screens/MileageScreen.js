@@ -23,6 +23,8 @@ class MileageScreen extends Component {
       scanning: false,
       vehicleID: null,
       tutorID: null,
+      weather: null,
+      route: null,
     };
     this.props.navigation.addListener('focus', this.prepareJourney);
   }
@@ -40,6 +42,14 @@ class MileageScreen extends Component {
   setTutorID = (id) => {
     this.setState({ tutorID: id });
   };
+
+  setWeather = (id) => {
+    this.setState({ weather: id });
+  }
+
+  setRoute = (text) => {
+    this.setState({ route: text });
+  }
 
   render() {
     return (
@@ -80,6 +90,10 @@ class MileageScreen extends Component {
             preselectVehicle={this.preselectVehicle}
             tutorID={this.state.tutorID}
             setTutorID={this.setTutorID}
+            weather={this.state.weather}
+            setWeather={this.setWeather}
+            route={this.state.route}
+            setRoute={this.setRoute}
           />
         </RNCamera>
       </SafeAreaView>

@@ -12,7 +12,6 @@ import Colors from './res/Colors';
 import Strings from './res/Strings';
 import HomeScreen from './screens/HomeScreen';
 import MileageScreen from './screens/MileageScreen';
-import DetailsScreen from './screens/DetailsScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import FleetScreen from './screens/FleetScreen';
 import VehicleScreen from './screens/VehicleScreen';
@@ -65,11 +64,6 @@ const App = () => {
                 ? Strings.startJourney
                 : Strings.finishJourney
               })}
-            />
-            <Stack.Screen
-              name='details'
-              component={DetailsScreen}
-              options={{title: Strings.enterDetails}}
             />
             <Stack.Screen
               name='fleet'

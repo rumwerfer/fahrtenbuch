@@ -233,6 +233,7 @@ class MileageScreen extends Component {
 
     if (this.props.tutors.tutors.length === 0) {
       this.props.navigation.navigate('tutor');
+      return;
     }
 
     this.preselectVehicle();

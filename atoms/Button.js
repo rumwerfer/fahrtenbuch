@@ -6,9 +6,10 @@ import Fonts from '../styles/Fonts';
 import { buttonStyle } from '../styles/Styles';
 
 function Button(props) {
+  const [disabled, setDisabled] = React.useState('');
   return (
     <PaperButton
-      onPress={props.onPress}
+      onPress={() => { setDisabled(true); props.onPress() }}
       icon={props.icon}
       loading={props.loading}
       mode='contained'
@@ -17,6 +18,7 @@ function Button(props) {
       style={buttonStyle}
       labelStyle={Fonts.xlarge}
       accessibilityLabel={props.label}
+      disabled={props.singlePress ? disabled : false}
     />
   );
 }

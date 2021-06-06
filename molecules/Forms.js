@@ -36,6 +36,7 @@ export function TwoTextForm(props) {
             icon={props.buttonIcon}
             onPress={props.onButtonPress}
             label={props.buttonLabel}
+            singlePress
           />
         </View>
       </View>

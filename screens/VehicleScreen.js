@@ -30,7 +30,7 @@ function VehicleScreen(props) {
       setValue1={setVehicleName}
       label2={Strings.numberPlate}
       value2={numberPlate}
-      setValue2={setNumberPlate}
+      setValue2={(text) => setNumberPlate(text.toUpperCase())}
       buttonIcon={Icons.save}
       onButtonPress={() => {
         if (validateInput(vehicleName, numberPlate)) {

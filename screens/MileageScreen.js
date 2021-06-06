@@ -234,25 +234,45 @@ class MileageScreen extends Component {
       return;
     }
 
-    // 3. last added tutor
+    // 2. last added tutor
     this.setTutorID(tutors[tutors.length - 1].id);
-    return;
   }
+
+
+  preselectWeather = () => {
+    const savedJourneys = this.props.journeys.saved;
+
+    // 1. last selected weather
+    if (savedJourneys && savedJourneys.length !== 0) {
+      this.setWeather(savedJourneys[savedJourneys.length - 1].weather);
+
+    // 2. default weather
+    } else {
+      this.setWeather(0);
+    }
+  }
+
 
   prepareJourney = () => {
-    if (this.props.vehicles.vehicles.length === 0) {
-      this.props.navigation.navigate('vehicle');
-      return;
-    }
+    if (!this.props.journeys.ongoing) {
 
-    if (this.props.tutors.tutors.length === 0) {
-      this.props.navigation.navigate('tutor');
-      return;
-    }
+      if (this.props.vehicles.vehicles.length === 0) {
+        this.props.navigation.navigate('vehicle');
+        return;
+      }
+      if (this.props.tutors.tutors.length === 0) {
+        this.props.navigation.navigate('tutor');
+        return;
+      }
+      this.preselectVehicle();
+      this.preselectTutor();
 
-    this.preselectVehicle();
-    this.preselectTutor();
+    } else {
+      this.preselectWeather();
+    }
   }
+
+  
 }
 
 

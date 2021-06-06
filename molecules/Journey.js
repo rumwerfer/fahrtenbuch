@@ -34,7 +34,7 @@ const Journey = (props) => {
           <View style={centerX}>
             <Text style={Fonts.tiny}>{shortenedRoute}</Text>
             <Text style={Fonts.tiny}>
-              {tutor.nickName + Strings.delimiter + vehicle.name}
+              {vehicle.name + Strings.delimiter + tutor.nickName}
             </Text>
           </View>
         </View>

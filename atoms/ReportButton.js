@@ -12,6 +12,10 @@ import { mapStateToProps } from '../redux/Mappers';
 
 
 function ReportButton(props) {
+  if (!props.journeys.saved || props.journeys.saved.length == 0) {
+    return null;
+  }
+
   return (
     <IconButton
       onPress={() => createPDF(props.journeys.saved, props.vehicles.vehicles)}

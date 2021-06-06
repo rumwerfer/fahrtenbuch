@@ -9,37 +9,37 @@ import Icons from '../res/Icons';
 import Strings from '../res/Strings';
 import { mapStateToProps } from '../redux/Mappers';
 import { fillSpace, vehicleButtonContainer, vehicleListPadding } from '../styles/Styles';
-import Vehicle from '../atoms/Vehicle';
+import Tutor from '../atoms/Tutor';
 
-function FleetScreen(props) {
+function PeopleScreen(props) {
   const themeColors = useTheme().colors;
   const backgroundColor = { backgroundColor: themeColors.screenBackground };
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ ...fillSpace, ...backgroundColor }}>
-      <VehicleList vehicles={props.vehicles} />
+      <TutorList tutors={props.tutors} />
       <View style={vehicleButtonContainer} >
         <Button
-          onPress={() => navigation.navigate('vehicle')}
+          onPress={() => navigation.navigate('tutor')}
           icon={Icons.addItem}
-          label={Strings.addVehicle}
+          label={Strings.addTutor}
         />
       </View>
     </SafeAreaView>
   );
 };
 
-function VehicleList({vehicles}) {
+function TutorList({tutors}) {
   return (
     <ScrollView
       contentContainerStyle={vehicleListPadding}
       contentInsetAdjustmentBehavior='automatic' // iOS 11+
     >
-      {vehicles.vehicles.map((vehicle) =>
-        <Vehicle vehicle={vehicle} key={vehicle.id} />
+      {tutors.tutors.map((tutor) =>
+        <Tutor tutor={tutor} key={tutor.id} />
       )}
     </ScrollView>
   );
 }
 
-export default connect(mapStateToProps)(FleetScreen);
+export default connect(mapStateToProps)(PeopleScreen);

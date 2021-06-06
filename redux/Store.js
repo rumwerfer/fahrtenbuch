@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import journeyReducer from './JourneyReducer';
 import vehicleReducer from './VehicleReducer';
+import tutorReducer from './TutorReducer';
 
 const persistConfig = {
   key: 'root',
@@ -13,6 +14,7 @@ const persistConfig = {
 const persistedReducer = persistCombineReducers(persistConfig, {
   vehicles: vehicleReducer,
   journeys: journeyReducer,
+  tutors: tutorReducer,
 });
 
 export default () => {

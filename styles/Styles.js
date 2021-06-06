@@ -124,6 +124,7 @@ export const vehicleButtonContainer = {
   ...absolutePosition,
   ...rightPosition,
   bottom: pad,
+  right: pad,
 }
 
 export const mileageButtonContainer = {

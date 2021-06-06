@@ -59,4 +59,5 @@ export default {
   ok: 'OK',
   cancel: 'Abbrechen',
   discardJourneyMessage: 'Die begonnene Fahrt wird gelöscht.',
+  manageTutors: 'Begleiter verwalten',
 };

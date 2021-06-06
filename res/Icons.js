@@ -6,8 +6,9 @@ export default {
   scan: 'camera',
   save: 'content-save',
   retry: 'reload',
-  addVehicle: 'plus',
+  addItem: 'plus',
   unfoldList: 'menu-down',
   report: 'pdf-box',
   cancel: 'close-circle',
+  people: 'account-multiple',
 };

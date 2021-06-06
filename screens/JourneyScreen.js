@@ -12,7 +12,7 @@ import CamOverlay from '../molecules/CamOverlay';
 import { scanFrame } from '../atoms/scanFrame';
 import { mapStateToProps } from '../redux/Mappers';
 
-class MileageScreen extends Component {
+class JourneyScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -23,6 +23,8 @@ class MileageScreen extends Component {
       scanning: false,
       vehicleID: null,
       tutorID: null,
+      weather: null,
+      route: null,
     };
     this.props.navigation.addListener('focus', this.prepareJourney);
   }
@@ -40,6 +42,14 @@ class MileageScreen extends Component {
   setTutorID = (id) => {
     this.setState({ tutorID: id });
   };
+
+  setWeather = (id) => {
+    this.setState({ weather: id });
+  }
+
+  setRoute = (text) => {
+    this.setState({ route: text });
+  }
 
   render() {
     return (
@@ -80,6 +90,10 @@ class MileageScreen extends Component {
             preselectVehicle={this.preselectVehicle}
             tutorID={this.state.tutorID}
             setTutorID={this.setTutorID}
+            weather={this.state.weather}
+            setWeather={this.setWeather}
+            route={this.state.route}
+            setRoute={this.setRoute}
           />
         </RNCamera>
       </SafeAreaView>
@@ -220,25 +234,45 @@ class MileageScreen extends Component {
       return;
     }
 
-    // 3. last added tutor
+    // 2. last added tutor
     this.setTutorID(tutors[tutors.length - 1].id);
-    return;
   }
+
+
+  preselectWeather = () => {
+    const savedJourneys = this.props.journeys.saved;
+
+    // 1. last selected weather
+    if (savedJourneys && savedJourneys.length !== 0) {
+      this.setWeather(savedJourneys[savedJourneys.length - 1].weather);
+
+    // 2. default weather
+    } else {
+      this.setWeather(0);
+    }
+  }
+
 
   prepareJourney = () => {
-    if (this.props.vehicles.vehicles.length === 0) {
-      this.props.navigation.navigate('vehicle');
-      return;
-    }
+    if (!this.props.journeys.ongoing) {
 
-    if (this.props.tutors.tutors.length === 0) {
-      this.props.navigation.navigate('tutor');
-      return;
-    }
+      if (this.props.vehicles.vehicles.length === 0) {
+        this.props.navigation.navigate('vehicle');
+        return;
+      }
+      if (this.props.tutors.tutors.length === 0) {
+        this.props.navigation.navigate('tutor');
+        return;
+      }
+      this.preselectVehicle();
+      this.preselectTutor();
 
-    this.preselectVehicle();
-    this.preselectTutor();
+    } else {
+      this.preselectWeather();
+    }
   }
+
+
 }
 
 
@@ -251,6 +285,6 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(
   (props) => {
     const navigation = useNavigation();
-    return <MileageScreen {...props} navigation={navigation} />
+    return <JourneyScreen {...props} navigation={navigation} />
   }
 );

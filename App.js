@@ -11,8 +11,7 @@ import configureStore from './redux/Store';
 import Colors from './res/Colors';
 import Strings from './res/Strings';
 import HomeScreen from './screens/HomeScreen';
-import MileageScreen from './screens/MileageScreen';
-import DetailsScreen from './screens/DetailsScreen';
+import JourneyScreen from './screens/JourneyScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import FleetScreen from './screens/FleetScreen';
 import VehicleScreen from './screens/VehicleScreen';
@@ -58,18 +57,13 @@ const App = () => {
               })}
             />
             <Stack.Screen
-              name='mileage'
-              component={MileageScreen}
+              name='journey'
+              component={JourneyScreen}
               options={({route}) => ({
                 title: route.params?.start
                 ? Strings.startJourney
                 : Strings.finishJourney
               })}
-            />
-            <Stack.Screen
-              name='details'
-              component={DetailsScreen}
-              options={{title: Strings.enterDetails}}
             />
             <Stack.Screen
               name='fleet'

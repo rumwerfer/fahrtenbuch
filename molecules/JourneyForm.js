@@ -82,7 +82,8 @@ function JourneyForm(props) {
                   props.mileage,
                   props.ongoingJourney,
                   props.vehicleID,
-                  props.vehicles.vehicles
+                  props.vehicles.vehicles,
+                  props.route
               )) {
                 let payload = {
                   time: Date.now(),
@@ -109,7 +110,7 @@ function JourneyForm(props) {
                     newMileage: parseInt(props.mileage),
                   });
                 }
-                
+
                 navigation.goBack();
               }
             }}
@@ -139,9 +140,9 @@ function ImagePreview ({imageUri}) {
 }
 
 
-function validateInput(mileage, ongoingJourney, vehicleID, vehicles) {
+function validateInput(mileage, ongoingJourney, vehicleID, vehicles, route) {
 
-  // verify mileage
+  // validate mileage
   if (!mileage) {
     Toast.show(Strings.enterMileageMessage);
     return false;
@@ -155,9 +156,9 @@ function validateInput(mileage, ongoingJourney, vehicleID, vehicles) {
       );
       return false;
     }
-
-  // verify distance
   } else {
+
+    // validate distance
     const distance = mileage - ongoingJourney.startMileage;
     if (distance <= 0) {
       Toast.show(Strings.negativeDistanceMessage);
@@ -167,9 +168,19 @@ function validateInput(mileage, ongoingJourney, vehicleID, vehicles) {
       Toast.show(Strings.highDistanceMessage);
       return false;
     }
+
+    // validate route
+    if (isBlank(route)) {
+      Toast.show(Strings.enterRouteMessage);
+      return false;
+    }
   }
 
   return true;
+}
+
+function isBlank(string) {
+  return (!string || string.trim().length === 0)
 }
 
 const mapDispatchToProps = dispatch => ({

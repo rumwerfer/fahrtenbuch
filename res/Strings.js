@@ -67,4 +67,5 @@ export default {
   enterNickNameMessage: 'Spitzname eingeben',
   enterFullNameMessage: 'Vor- und Nachname eingeben',
   delimiter: ' · ',
+  enterRouteMessage: 'Strecke eingeben',
 };

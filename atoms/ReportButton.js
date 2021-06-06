@@ -9,7 +9,7 @@ import Colors from '../res/Colors';
 import Strings from '../res/Strings';
 import Constants from '../res/Constants';
 import { mapStateToProps } from '../redux/Mappers';
-
+import weather from '../res/weather';
 
 function ReportButton(props) {
   if (!props.journeys.saved || props.journeys.saved.length == 0) {
@@ -90,7 +90,7 @@ createPDF = async (savedJourneys, vehicles, tutors) => {
         + '</td> <td>' + vehicle.numberPlate
         + '</td> <td>' + dayTime
         + '</td> <td>' + journey.route
-        + '</td> <td>' + journey.weather
+        + '</td> <td>' + weather[journey.weather].label
         + '</td> <td>' + tutor.fullName
         + '</td> <td/> <td/> </tr>';
   };

@@ -13,7 +13,8 @@ export default tutorReducer = (tutors = INITIAL_STATE, action) => {
     case ActionTypes.ADD_TUTOR:
       newTutors.push({
         id: action.payload.id,
-        name: action.payload.name,
+        nickName: action.payload.nickName,
+        fullName: action.payload.fullName,
       });
       return {
         tutors: newTutors,

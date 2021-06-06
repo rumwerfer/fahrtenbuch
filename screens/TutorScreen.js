@@ -11,55 +11,52 @@ import Icons from '../res/Icons';
 import { paddedScreen, form } from '../styles/Styles';
 import { TwoTextForm } from '../molecules/Forms';
 import { mapStateToProps } from '../redux/Mappers';
-import * as VehicleActions from '../redux/VehicleActions';
+import * as TutorActions from '../redux/TutorActions';
 
-function VehicleScreen(props) {
+function TutorScreen(props) {
 
   const navigation = useNavigation();
 
   const themeColors = useTheme().colors;
   const backgroundColor = { backgroundColor: themeColors.screenBackground };
 
-  const [vehicleName, setVehicleName] = React.useState('');
-  const [numberPlate, setNumberPlate] = React.useState('');
+  const [nickName, setNickName] = React.useState('');
+  const [fullName, setFullName] = React.useState('');
 
   return (
     <TwoTextForm
-      label1={Strings.vehicleName}
-      value1={vehicleName}
-      setValue1={setVehicleName}
-      label2={Strings.numberPlate}
-      value2={numberPlate}
-      setValue2={setNumberPlate}
+      label1={Strings.nickName}
+      value1={nickName}
+      setValue1={setNickName}
+      label2={Strings.fullName}
+      value2={fullName}
+      setValue2={setFullName}
       buttonIcon={Icons.save}
       onButtonPress={() => {
-        if (validateInput(vehicleName, numberPlate)) {
+        if (validateInput(nickName, fullName)) {
           const payload = {
             id: Date.now(),
-            name: vehicleName,
-            numberPlate: numberPlate
+            nickName: nickName,
+            fullName: fullName,
           };
-          props.addVehicle(payload);
+          props.addTutor(payload);
           navigation.goBack();
         }
       }}
-      buttonLabel={Strings.saveVehicle}
+      buttonLabel={Strings.saveTutor}
     />
   );
 };
 
-function validateInput(vehicleName, numberPlate) {
-
-  if (isBlank(vehicleName)) {
-    Toast.show(Strings.enterNameMessage);
+function validateInput(nickName, fullName) {
+  if (isBlank(nickName)) {
+    Toast.show(Strings.enterNickNameMessage);
     return false;
   }
-
-  if (isBlank(numberPlate)) {
-    Toast.show(Strings.enterNumberPlateMessage);
+  if (isBlank(fullName)) {
+    Toast.show(Strings.enterFullNameMessage);
     return false;
   }
-
   return true;
 }
 
@@ -68,7 +65,7 @@ function isBlank(string) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addVehicle: (payload) => dispatch(VehicleActions.addVehicle(payload)),
+  addTutor: (payload) => dispatch(TutorActions.addTutor(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(VehicleScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(TutorScreen);

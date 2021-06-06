@@ -9,7 +9,10 @@ export default Tutor = ({tutor}) => {
   return (
     <View style={vehicleListItem}>
       <Text style={Fonts.large}>
-        {tutor.name}
+        {tutor.nickName}
+      </Text>
+      <Text style={Fonts.small}>
+        {tutor.fullName}
       </Text>
     </View>
   );

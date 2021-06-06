@@ -34,7 +34,6 @@ export const fillHalf = {
   flex: .5,
 };
 
-
 export const paddedScreen = {
   ...fillSpace,
   ...padding,
@@ -111,13 +110,13 @@ export const journeyButtonContainer = {
 
 export const rightPosition = {
   right: pad/4,
-}
+};
 
 export const absoluteRight = {
   ...alignSelfEnd,
   ...absolutePosition,
   ...rightPosition,
-}
+};
 
 export const vehicleButtonContainer = {
   ...alignSelfEnd,
@@ -125,12 +124,12 @@ export const vehicleButtonContainer = {
   ...rightPosition,
   bottom: pad,
   right: pad,
-}
+};
 
 export const mileageButtonContainer = {
   ...alignSelfEnd,
   ...centerX,
-}
+};
 
 export const formRow = {
   flexDirection: 'row',

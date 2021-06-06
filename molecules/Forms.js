@@ -5,7 +5,13 @@ import { useTheme } from 'react-native-paper';
 import * as JourneyActions from '../redux/JourneyActions';
 import Button from '../atoms/Button';
 import { TextInput } from '../atoms/Inputs';
-import { paddedScreen, buttonContainer, form } from '../styles/Styles';
+import {
+  paddedScreen,
+  alignSelfEnd,
+  fillHalf,
+  fillThird,
+  spreadVertically,
+} from '../styles/Styles';
 
 export function TwoTextForm(props) {
 
@@ -14,7 +20,7 @@ export function TwoTextForm(props) {
 
   return (
     <SafeAreaView style={{ ...paddedScreen, ...backgroundColor }}>
-      <View style={ form } >
+      <View style={{ ...fillHalf, ...spreadVertically }}>
         <TextInput
           label={props.label1}
           text={props.value1}
@@ -25,7 +31,7 @@ export function TwoTextForm(props) {
           text={props.value2}
           setText={props.setValue2}
         />
-        <View style={ buttonContainer } >
+        <View style={alignSelfEnd} >
           <Button
             icon={props.buttonIcon}
             onPress={props.onButtonPress}

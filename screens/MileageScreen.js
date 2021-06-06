@@ -24,16 +24,7 @@ class MileageScreen extends Component {
       vehicleID: null,
       tutorID: null,
     };
-
-    if (this.props.vehicles.vehicles.length === 0) {
-      this.props.navigation.navigate('vehicle');
-    }
-
-  }
-
-  componentDidMount() {
-    this.preselectVehicle();
-    this.preselectTutor();
+    this.props.navigation.addListener('focus', this.prepareJourney);
   }
 
   setMileage = (text) => {
@@ -232,6 +223,20 @@ class MileageScreen extends Component {
     // 3. last added tutor
     this.setTutorID(tutors[tutors.length - 1].id);
     return;
+  }
+
+  prepareJourney = () => {
+    if (this.props.vehicles.vehicles.length === 0) {
+      this.props.navigation.navigate('vehicle');
+      return;
+    }
+
+    if (this.props.tutors.tutors.length === 0) {
+      this.props.navigation.navigate('tutor');
+    }
+
+    this.preselectVehicle();
+    this.preselectTutor();
   }
 }
 

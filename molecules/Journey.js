@@ -1,14 +1,15 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useTheme, Text } from 'react-native-paper';
+import { useTheme, Text, IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 
 import JourneyDate from '../atoms/Date';
 import Distance from '../atoms/Distance';
-import { journeyListItem, centerX } from '../styles/Styles';
+import { journeyListItem, centerX, fillColumn, centerY} from '../styles/Styles';
 import Fonts from '../styles/Fonts';
 import Strings from '../res/Strings';
 import { mapStateToProps } from '../redux/Mappers';
+import weather from '../res/weather';
 
 const Journey = (props) => {
   const textColor = useTheme().colors.text;
@@ -28,7 +29,12 @@ const Journey = (props) => {
 
   return (
     <View style={journeyListItem}>
-      <View style={{ flex: .65 }}>
+      <View style={{ flex: .1}}>
+        <View style={{...fillColumn, ...centerY}}>
+          <IconButton size={24} icon={weather[props.journey.weather].icon} />
+        </View>
+      </View>
+      <View style={{ flex: .55 }}>
         <View style={{ justifyContent: 'space-between'}}>
           <JourneyDate time={props.journey.startTime}/>
           <View style={centerX}>

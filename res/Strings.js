@@ -68,4 +68,9 @@ export default {
   enterFullNameMessage: 'Vor- und Nachname eingeben',
   delimiter: ' · ',
   enterRouteMessage: 'Strecke eingeben',
+  dry: 'trocken',
+  wet: 'Regen / Nässe',
+  fog: 'Nebel',
+  snow: 'Schnee',
+  hail: 'Hagel',
 };

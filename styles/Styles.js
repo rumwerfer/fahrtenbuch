@@ -70,7 +70,8 @@ export const listItem = {
 export const journeyListItem = {
   ...listItem,
   ...row,
-  height: 80,
+  height: 60,
+  marginVertical: 12,
 };
 
 export const vehicleListItem = {

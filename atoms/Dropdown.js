@@ -8,6 +8,7 @@ import Strings from '../res/Strings';
 import Icons from '../res/Icons';
 import { inputHeight, formPadding } from '../styles/Styles';
 import { mapStateToProps } from '../redux/Mappers';
+import weather from '../res/weather';
 
 function Dropdown(props) {
 
@@ -25,7 +26,9 @@ function Dropdown(props) {
     });
     label = Strings.tutor;
   } else if (props.type === 'weather') {
-    list = [{label: 'trocken', value: 1}, {label: 'Nässe', value: 2}];
+    list = weather.map((element, index) => {
+      return {label: element.label, value: index}
+    });
     label = Strings.weather;
   }
 

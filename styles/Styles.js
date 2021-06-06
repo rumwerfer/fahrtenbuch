@@ -44,9 +44,10 @@ export const distanceStyle = {
   alignSelf: 'flex-end',
 };
 
-export const distanceWhite = {
-  ...distanceStyle,
+export const sumDistance = {
   ...Fonts.white,
+  ...Fonts.large,
+  alignSelf: 'center',
 };
 
 export const row = {
@@ -68,7 +69,6 @@ export const listItem = {
 };
 
 export const journeyListItem = {
-  ...listItem,
   ...row,
   height: 54,
   marginVertical: 12,
@@ -98,19 +98,12 @@ export const centerXY = {
 };
 
 export const summaryStyle = {
-  ...horizontalPadding,
-  paddingVertical: 32,
+  paddingHorizontal: 24,
+  paddingVertical: 24,
 };
 
 export const alignSelfEnd = {
   alignSelf: 'flex-end',
-};
-
-export const journeyButtonContainer = {
-  ...alignSelfEnd,
-  marginTop: -50,
-  marginRight: -10,
-  marginBottom: 10,
 };
 
 export const rightPosition = {
@@ -128,6 +121,14 @@ export const vehicleButtonContainer = {
   ...absolutePosition,
   ...rightPosition,
   bottom: pad,
+  right: pad,
+};
+
+export const journeyButtonContainer = {
+  ...alignSelfEnd,
+  ...absolutePosition,
+  ...rightPosition,
+  bottom: 80,
   right: pad,
 };
 

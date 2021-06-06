@@ -6,10 +6,11 @@ import { ProgressBar, useTheme } from 'react-native-paper';
 import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import {
-  distanceWhite,
+  sumDistance,
   summaryStyle,
   journeyButtonContainer,
   smallVerticalPadding,
+  centerX,
 } from '../styles/Styles';
 import Icons from '../res/Icons';
 import Fonts from '../styles/Fonts';
@@ -33,19 +34,19 @@ export default ({journeys}) => {
           label={enRoute ? Strings.finishJourney: Strings.startJourney}
         />
       </View>
-      <View style={smallVerticalPadding}>
-        <Text style={Fonts.lightgreen}>
-          {
-            distanceSum < Constants.distanceGoal
-            ? Strings.kmToGo(Constants.distanceGoal - distanceSum)
-            : Strings.madeIt
-          }
+      <View style={centerX}>
+        <Text style={{...sumDistance, paddingRight: 12}}>
+          {distanceSum + Strings.km}
         </Text>
-        <ProgressBar progress={ distanceSum / Constants.distanceGoal } />
       </View>
-      <Text style={distanceWhite}>
-        {distanceSum + Strings.km}
+      <Text style={Fonts.lightgreen}>
+        {
+          distanceSum < Constants.distanceGoal
+          ? Strings.kmToGo(Constants.distanceGoal - distanceSum)
+          : Strings.madeIt
+        }
       </Text>
+      <ProgressBar progress={ distanceSum / Constants.distanceGoal } />
     </View>
   );
 }

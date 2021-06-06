@@ -27,6 +27,7 @@ const JourneyList = ({journeys}) => {
   const scrollView = useRef(null);
   return (
     <ScrollView
+      style={{paddingHorizontal: 36}}
       ref={scrollView}
       contentInsetAdjustmentBehavior='automatic' // iOS 11+
       onContentSizeChange={() =>

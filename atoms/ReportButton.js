@@ -18,14 +18,16 @@ function ReportButton(props) {
 
   return (
     <IconButton
-      onPress={() => createPDF(props.journeys.saved, props.vehicles.vehicles)}
+      onPress={() => createPDF(
+        props.journeys.saved, props.vehicles.vehicles, props.tutors.tutors
+      )}
       icon={Icons.report}
       color={Colors.white}
     />
   );
 }
 
-createPDF = async (savedJourneys, vehicles) => {
+createPDF = async (savedJourneys, vehicles, tutors) => {
 
   const sumDistance = savedJourneys.reduce((sum, journey) =>
     sum + (journey.endMileage - journey.startMileage)
@@ -79,6 +81,7 @@ createPDF = async (savedJourneys, vehicles) => {
                   : Strings.night;
     const distance = journey.endMileage - journey.startMileage;
     const vehicle = vehicles.find(vehicle => vehicle.id === journey.vehicleID);
+    const tutor = tutors.find(tutor => tutor.id === journey.tutorID);
 
     return '<tr> <td>' + date
         + '</td> <td>' + distance
@@ -88,7 +91,8 @@ createPDF = async (savedJourneys, vehicles) => {
         + '</td> <td>' + dayTime
         + '</td> <td>' + journey.route
         + '</td> <td>' + journey.weather
-        + '</td> <td/> <td/> <td/> </tr>';
+        + '</td> <td>' + tutor.fullName
+        + '</td> <td/> <td/> </tr>';
   };
 
   const reportFoot =

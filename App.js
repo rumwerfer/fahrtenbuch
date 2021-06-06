@@ -16,6 +16,8 @@ import DetailsScreen from './screens/DetailsScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import FleetScreen from './screens/FleetScreen';
 import VehicleScreen from './screens/VehicleScreen';
+import PeopleScreen from './screens/PeopleScreen';
+import TutorScreen from './screens/TutorScreen';
 import Icons from './res/Icons';
 import { row } from './styles/Styles';
 import ReportButton from './atoms/ReportButton';
@@ -42,6 +44,11 @@ const App = () => {
                 headerRight: () =>
                   <View style={row}>
                     <ReportButton />
+                    <IconButton
+                      onPress={() => navigation.navigate('people')}
+                      icon={Icons.people}
+                      color={Colors.white}
+                    />
                     <IconButton
                       onPress={() => navigation.navigate('fleet')}
                       icon={Icons.fleet}
@@ -73,6 +80,16 @@ const App = () => {
               name='vehicle'
               component={VehicleScreen}
               options={{title: Strings.addVehicle}}
+            />
+            <Stack.Screen
+              name='people'
+              component={PeopleScreen}
+              options={{title: Strings.manageTutors}}
+            />
+            <Stack.Screen
+              name='tutor'
+              component={TutorScreen}
+              options={{title: Strings.addTutor}}
             />
           </Stack.Navigator>
         </NavigationContainer>

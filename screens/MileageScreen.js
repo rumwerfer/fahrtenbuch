@@ -22,16 +22,9 @@ class MileageScreen extends Component {
       cameraIsActive: true,
       scanning: false,
       vehicleID: null,
+      tutorID: null,
     };
-
-    if (this.props.vehicles.vehicles.length === 0) {
-      this.props.navigation.navigate('vehicle');
-    }
-
-  }
-
-  componentDidMount() {
-    this.preselectVehicle();
+    this.props.navigation.addListener('focus', this.prepareJourney);
   }
 
   setMileage = (text) => {
@@ -42,6 +35,10 @@ class MileageScreen extends Component {
 
   setVehicleID = (id) => {
     this.setState({ vehicleID: id });
+  };
+
+  setTutorID = (id) => {
+    this.setState({ tutorID: id });
   };
 
   render() {
@@ -81,6 +78,8 @@ class MileageScreen extends Component {
             vehicleID={this.state.vehicleID}
             setVehicleID={this.setVehicleID}
             preselectVehicle={this.preselectVehicle}
+            tutorID={this.state.tutorID}
+            setTutorID={this.setTutorID}
           />
         </RNCamera>
       </SafeAreaView>
@@ -203,6 +202,41 @@ class MileageScreen extends Component {
     // 3. last added vehicle
     this.setVehicleID(vehicles[vehicles.length - 1].id);
     return;
+  }
+
+
+  preselectTutor = () => {
+    const tutors = this.props.tutors.tutors;
+    const savedJourneys = this.props.journeys.saved;
+
+    // assert: #tutors > 0 (otherwise PeopleScreen is opened instead)
+    if (tutors.length === 0) {
+      return;
+    }
+
+    // 1. last used tutor
+    if (savedJourneys && savedJourneys.length !== 0) {
+      this.setTutorID(savedJourneys[savedJourneys.length - 1].tutorID);
+      return;
+    }
+
+    // 3. last added tutor
+    this.setTutorID(tutors[tutors.length - 1].id);
+    return;
+  }
+
+  prepareJourney = () => {
+    if (this.props.vehicles.vehicles.length === 0) {
+      this.props.navigation.navigate('vehicle');
+      return;
+    }
+
+    if (this.props.tutors.tutors.length === 0) {
+      this.props.navigation.navigate('tutor');
+    }
+
+    this.preselectVehicle();
+    this.preselectTutor();
   }
 }
 

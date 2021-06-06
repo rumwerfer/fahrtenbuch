@@ -16,6 +16,7 @@ export default journeyReducer = (journeys = INITIAL_STATE, action) => {
           startMileage: action.payload.mileage,
           startTime: action.payload.time,
           vehicleID: action.payload.vehicleID,
+          tutorID: action.payload.tutorID,
         },
       };
 

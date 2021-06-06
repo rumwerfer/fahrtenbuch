@@ -34,7 +34,6 @@ export const fillHalf = {
   flex: .5,
 };
 
-
 export const paddedScreen = {
   ...fillSpace,
   ...padding,
@@ -71,7 +70,7 @@ export const listItem = {
 export const journeyListItem = {
   ...listItem,
   ...row,
-  height: 60,
+  height: 80,
 };
 
 export const vehicleListItem = {
@@ -111,25 +110,26 @@ export const journeyButtonContainer = {
 
 export const rightPosition = {
   right: pad/4,
-}
+};
 
 export const absoluteRight = {
   ...alignSelfEnd,
   ...absolutePosition,
   ...rightPosition,
-}
+};
 
 export const vehicleButtonContainer = {
   ...alignSelfEnd,
   ...absolutePosition,
   ...rightPosition,
   bottom: pad,
-}
+  right: pad,
+};
 
 export const mileageButtonContainer = {
   ...alignSelfEnd,
   ...centerX,
-}
+};
 
 export const formRow = {
   flexDirection: 'row',
@@ -161,7 +161,6 @@ export const buttonStyle = {
 
 export const journeyListPadding = {
   paddingTop: 10,
-  paddingBottom: 20,
 };
 
 export const vehicleListPadding = {

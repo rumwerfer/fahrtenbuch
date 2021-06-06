@@ -11,7 +11,7 @@ export default {
   report: 'pdf-box',
   cancel: 'close-circle',
   people: 'account-multiple',
-  dry: 'white-balance-sunny',
+  dry: 'weather-sunny',
   wet: 'weather-rainy',
   fog: 'weather-fog',
   snow: 'weather-snowy-heavy',

@@ -70,7 +70,7 @@ export const listItem = {
 export const journeyListItem = {
   ...listItem,
   ...row,
-  height: 60,
+  height: 80,
 };
 
 export const vehicleListItem = {
@@ -161,7 +161,6 @@ export const buttonStyle = {
 
 export const journeyListPadding = {
   paddingTop: 10,
-  paddingBottom: 20,
 };
 
 export const vehicleListPadding = {

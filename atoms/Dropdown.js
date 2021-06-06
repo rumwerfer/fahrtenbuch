@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import Dropdown from 'react-native-paper-dropdown';
+import PaperDropdown from 'react-native-paper-dropdown';
 import { TextInput } from 'react-native-paper';
 import { connect } from 'react-redux';
 
@@ -9,25 +9,38 @@ import Icons from '../res/Icons';
 import { inputHeight } from '../styles/Styles';
 import { mapStateToProps } from '../redux/Mappers';
 
-function VehicleDropdown(props) {
+function Dropdown(props) {
 
   if (props.ongoingJourney) {
-    return <View />;
+    return null;
   }
 
   const [showDropdown, setShowDropdown] = useState(true);
 
-  const vehicleList = props.vehicles.vehicles.map( vehicle => {
-    return { label: vehicle.name, value: vehicle.id };
-  });
+  let list, label;
+
+  if (props.type === 'vehicle') {
+    list = props.vehicles.vehicles.map( vehicle => {
+      return { label: vehicle.name, value: vehicle.id };
+    });
+    label = Strings.vehicle;
+  }
+
+  if (props.type === 'tutor') {
+    list = props.tutors.tutors.map( tutor => {
+      return { label: tutor.nickName, value: tutor.id };
+    });
+    label = Strings.tutor;
+  }
+
 
   return (
     <View style={props.containerStyle} >
-      <Dropdown
-        label={Strings.vehicle}
-        value={props.vehicleID}
-        setValue={props.setVehicleID}
-        list={vehicleList}
+      <PaperDropdown
+        label={label}
+        value={props.id}
+        setValue={props.setID}
+        list={list}
         visible={showDropdown}
         showDropDown={() => setShowDropdown(true)}
         onDismiss={() => setShowDropdown(false)}
@@ -42,4 +55,4 @@ function VehicleDropdown(props) {
   );
 };
 
-export default connect(mapStateToProps)(VehicleDropdown);
+export default connect(mapStateToProps)(Dropdown);

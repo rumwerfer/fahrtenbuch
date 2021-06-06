@@ -4,7 +4,7 @@ import Colors from '../res/Colors';
 
 export default StyleSheet.create({
   tiny: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '200',
   },
   small: {

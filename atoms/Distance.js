@@ -8,7 +8,7 @@ import Strings from '../res/Strings';
 export default ({journey, flex}) => {
   return (
     <View style={{flex: flex}}>
-      <View style={{...centerY, height: 40}}>
+      <View style={{...centerY, height: 60}}>
         <Text style={distanceStyle}>
           {journey.endMileage - journey.startMileage + Strings.km}
         </Text>

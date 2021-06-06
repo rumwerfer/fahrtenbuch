@@ -13,7 +13,7 @@ import Strings from '../res/Strings';
 import Constants from '../res/Constants';
 import Icons from '../res/Icons';
 import { formRow, mileageButtonContainer, formPadding } from '../styles/Styles';
-import VehicleDropdown from '../atoms/VehicleDropdown';
+import Dropdown from '../atoms/Dropdown';
 import { mapStateToProps } from '../redux/Mappers';
 
 function JourneyForm(props) {
@@ -39,9 +39,17 @@ function JourneyForm(props) {
               preselectVehicle={props.preselectVehicle}
             />
           </View>
-          <VehicleDropdown
-            vehicleID={props.vehicleID}
-            setVehicleID={props.setVehicleID}
+          <Dropdown
+            type={'vehicle'}
+            id={props.vehicleID}
+            setID={props.setVehicleID}
+            ongoingJourney={props.ongoingJourney}
+            containerStyle={formPadding}
+          />
+          <Dropdown
+            type={'tutor'}
+            id={props.tutorID}
+            setID={props.setTutorID}
             ongoingJourney={props.ongoingJourney}
             containerStyle={formPadding}
           />
@@ -67,6 +75,7 @@ function JourneyForm(props) {
                   payload = {
                     ...payload,
                     vehicleID: props.vehicleID,
+                    tutorID: props.tutorID,
                   };
                   props.startJourney(payload);
                   navigation.navigate('home');

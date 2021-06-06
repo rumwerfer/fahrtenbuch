@@ -63,6 +63,8 @@ export default (props) => {
           vehicleID={props.vehicleID}
           setVehicleID={props.setVehicleID}
           preselectVehicle={props.preselectVehicle}
+          tutorID={props.tutorID}
+          setTutorID={props.setTutorID}
         />
       </View>
 

@@ -66,4 +66,5 @@ export default {
   fullName: 'Vor- und Nachname',
   enterNickNameMessage: 'Spitzname eingeben',
   enterFullNameMessage: 'Vor- und Nachname eingeben',
+  delimiter: ' · ',
 };

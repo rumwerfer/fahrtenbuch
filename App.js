@@ -68,7 +68,7 @@ const App = () => {
             <Stack.Screen
               name='fleet'
               component={FleetScreen}
-              options={{title: Strings.editVehicles}}
+              options={{title: Strings.manageVehicles}}
             />
             <Stack.Screen
               name='vehicle'

@@ -22,7 +22,7 @@ export default {
   loadingMessage: 'Deine Fahrten werden geladen...',
   negativeDistanceMessage: 'Kilometerstand muss höher sein als zu Beginn der Fahrt',
   highDistanceMessage: 'Da stimmt etwas nicht. Oder bist du wirklich über 10.000 km gefahren?',
-  editVehicles: 'Fahrzeuge bearbeiten',
+  manageVehicles: 'Fahrzeuge verwalten',
   addVehicle: 'Fahrzeug hinzufügen',
   vehicleName: 'Name des Fahrzeugs',
   numberPlate: 'Kennzeichen',

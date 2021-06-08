@@ -1,8 +1,26 @@
 import * as ActionTypes from './ActionTypes';
+import Constants from '../res/Constants';
 
-const INITIAL_STATE = {
-  vehicles: [],
-};
+let INITIAL_STATE = { vehicles: [] };
+
+if (Constants.debug) {
+  INITIAL_STATE = {
+    vehicles: [
+      {
+        id: 0,
+        name: 'Toyota',
+        numberPlate: 'SL-123RT',
+        mileage: 20000,
+      },
+      {
+        id: 1,
+        name: 'Golf',
+        numberPlate: 'SL-456UV',
+        mileage: 30000,
+      },
+    ],
+  };
+}
 
 export default vehicleReducer = (vehicles = INITIAL_STATE, action) => {
 

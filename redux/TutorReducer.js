@@ -1,8 +1,24 @@
 import * as ActionTypes from './ActionTypes';
+import Constants from '../res/Constants';
 
-const INITIAL_STATE = {
-  tutors: [],
-};
+let INITIAL_STATE = { tutors: [] };
+
+if (Constants.debug) {
+  INITIAL_STATE = {
+    tutors: [
+      {
+        id: 0,
+        nickName: 'Mama',
+        fullName: 'Marlene Hinterberger',
+      },
+      {
+        id: 1,
+        nickName: 'Papa',
+        fullName: 'Franz Hinterberger',
+      }
+    ],
+  };
+}
 
 export default tutorReducer = (tutors = INITIAL_STATE, action) => {
 

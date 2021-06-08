@@ -97,9 +97,17 @@ export const centerXY = {
   ...centerY,
 };
 
-export const summaryStyle = {
-  paddingHorizontal: 24,
-  paddingVertical: 24,
+export const mediumHorizontalPadding = {
+  paddingHorizontal: pad / 2,
+};
+
+export const mediumVerticalPadding = {
+  paddingVertical: pad / 2,
+};
+
+export const mediumPadding = {
+  ...mediumHorizontalPadding,
+  ...mediumVerticalPadding,
 };
 
 export const alignSelfEnd = {

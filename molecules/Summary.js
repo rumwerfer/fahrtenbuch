@@ -7,7 +7,7 @@ import Button from '../atoms/Button';
 import Strings from '../res/Strings';
 import {
   sumDistance,
-  summaryStyle,
+  mediumPadding,
   journeyButtonContainer,
   smallVerticalPadding,
   centerX,
@@ -25,7 +25,7 @@ export default ({journeys}) => {
   const themeColors = useTheme().colors;
   const navigation = useNavigation();
   return (
-    <View style={{...summaryStyle, backgroundColor: themeColors.summary}}>
+    <View style={{...mediumPadding, backgroundColor: themeColors.summary}}>
       <View style={journeyButtonContainer}>
         <Button
           onPress={() => navigation.navigate('journey', {start: !enRoute})}

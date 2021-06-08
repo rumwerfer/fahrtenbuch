@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 
 import JourneyDate from '../atoms/Date';
 import Distance from '../atoms/Distance';
-import { journeyListItem, centerX, fillColumn, centerY} from '../styles/Styles';
+import { journeyListItem, centerX, fillColumn, centerXY} from '../styles/Styles';
 import Fonts from '../styles/Fonts';
 import Strings from '../res/Strings';
+import Constants from '../res/Constants';
 import { mapStateToProps } from '../redux/Mappers';
 import weather from '../res/weather';
 
@@ -23,18 +24,20 @@ const Journey = (props) => {
   );
 
   const shortenedRoute =
-    props.journey.route.length < 20
+    props.journey.route.length < Constants.routeDisplayMaxLength + 1
     ? props.journey.route
-    : props.journey.route.substring(0,21) + '…';
+    : props.journey.route.substring(0,Constants.routeDisplayMaxLength) + '…';
+
+  const weatherIcon = weather[props.journey.weather].icon;
 
   return (
     <View style={journeyListItem}>
       <View style={{ flex: .1}}>
-        <View style={{...fillColumn, ...centerY}}>
-          <IconButton size={24} icon={weather[props.journey.weather].icon} />
+        <View style={{...fillColumn, ...centerXY}}>
+          <IconButton size={24} icon={weatherIcon} />
         </View>
       </View>
-      <View style={{ flex: .55 }}>
+      <View style={{ flex: .6 }}>
         <View style={{ justifyContent: 'space-between'}}>
           <JourneyDate time={props.journey.startTime}/>
           <View style={centerX}>
@@ -45,7 +48,7 @@ const Journey = (props) => {
           </View>
         </View>
       </View>
-      <Distance journey={props.journey} flex={.35} />
+      <Distance journey={props.journey} flex={.3} />
     </View>
   );
 }

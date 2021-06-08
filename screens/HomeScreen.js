@@ -7,7 +7,11 @@ import Summary from '../molecules/Summary';
 import Journey from '../molecules/Journey';
 import StatusBar from '../atoms/StatusBar';
 import OngoingJourney from '../atoms/OngoingJourney';
-import { fillSpace, journeyListPadding } from '../styles/Styles';
+import {
+  fillSpace,
+  journeyListPadding,
+  mediumHorizontalPadding
+} from '../styles/Styles';
 import { mapStateToProps } from '../redux/Mappers';
 
 const HomeScreen = ({journeys}) => {
@@ -27,7 +31,7 @@ const JourneyList = ({journeys}) => {
   const scrollView = useRef(null);
   return (
     <ScrollView
-      style={{paddingHorizontal: 36}}
+      style={mediumHorizontalPadding}
       ref={scrollView}
       contentInsetAdjustmentBehavior='automatic' // iOS 11+
       onContentSizeChange={() =>

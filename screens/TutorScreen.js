@@ -1,18 +1,12 @@
 import React, { useEffect } from 'react';
 import { SafeAreaView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {
-  IconButton,
-  Portal,
-  Dialog,
-  Paragraph,
-  Button,
-  useTheme
-} from 'react-native-paper';
+import { IconButton, useTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
 import Toast from 'react-native-simple-toast';
 
 import { TextInput } from '../atoms/Inputs';
+import Dialog from '../atoms/Dialog';
 import Strings from '../res/Strings';
 import Icons from '../res/Icons';
 import Colors from '../res/Colors';
@@ -79,27 +73,17 @@ function TutorScreen(props) {
         }}
         buttonLabel={Strings.saveTutor}
       />
-      <Portal>
-        <Dialog visible={dialogOpen} onDismiss={hideDialog} >
-          <Dialog.Title>{Strings.removeTutor + '?'}</Dialog.Title>
-          <Dialog.Content>
-            <Paragraph>{Strings.removeTutorMessage}</Paragraph>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={hideDialog}>{Strings.cancel}</Button>
-            <Button
-              onPress={() => {
-                props.removeTutorJourneys({ tutorID: editTutorID });
-                props.removeTutor({ id: editTutorID });
-                navigation.goBack();
-              }}
-              style={largeWidth}
-            >
-              {Strings.ok}
-            </Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
+      <Dialog
+        onConfirm={() => {
+          props.removeTutorJourneys({ tutorID: editTutorID });
+          props.removeTutor({ id: editTutorID });
+          navigation.goBack();
+        }}
+        dialogOpen={dialogOpen}
+        hideDialog={hideDialog}
+        title={Strings.removeTutor + '?'}
+        message={Strings.removeTutorMessage}
+      />
     </View>
   );
 };

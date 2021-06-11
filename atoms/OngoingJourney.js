@@ -1,26 +1,15 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import {
-  useTheme,
-  IconButton,
-  Portal,
-  Dialog,
-  Paragraph,
-  Button
-} from 'react-native-paper';
+import { useTheme, IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 
+import Dialog from '../atoms/Dialog';
 import { mapStateToProps } from '../redux/Mappers';
 import Fonts from '../styles/Fonts';
 import Strings from '../res/Strings';
 import Colors from '../res/Colors';
 import Icons from '../res/Icons';
-import {
-  smallPadding,
-  absoluteRight,
-  centerY,
-  largeWidth,
-} from '../styles/Styles';
+import { smallPadding, absoluteRight, centerY } from '../styles/Styles';
 import * as JourneyActions from '../redux/JourneyActions';
 
 const OngoingJourney = (props) => {
@@ -52,20 +41,13 @@ const OngoingJourney = (props) => {
         color={Colors.white}
         size={18}
       />
-      <Portal>
-        <Dialog visible={dialogOpen} onDismiss={hideDialog} >
-          <Dialog.Title>{Strings.discardJourney + '?'}</Dialog.Title>
-          <Dialog.Content>
-            <Paragraph>{Strings.discardJourneyMessage}</Paragraph>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={hideDialog}>{Strings.cancel}</Button>
-            <Button onPress={props.discardJourney} style={largeWidth}>
-              {Strings.ok}
-            </Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
+      <Dialog
+        onConfirm={props.discardJourney}
+        dialogOpen={dialogOpen}
+        hideDialog={hideDialog}
+        title={Strings.discardJourney + '?'}
+        message={Strings.discardJourneyMessage}
+      />
     </View>
   );
 }

@@ -88,6 +88,16 @@ export default journeyReducer = (journeys = INITIAL_STATE, action) => {
           ? journeys.ongoing : null,
       };
 
+    case ActionTypes.REMOVE_VEHICLE_JOURNEYS:
+      return {
+        saved: newSaved.filter(
+          journey => journey.vehicleID !== action.payload.vehicleID
+        ),
+        ongoing:
+          journeys.ongoing?.vehicleID !== action.payload.vehicleID
+          ? journeys.ongoing : null,
+      }
+
     default:
       return journeys;
   }

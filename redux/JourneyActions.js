@@ -33,3 +33,10 @@ export const removeTutorJourneys = payload => (
     payload: payload,
   }
 );
+
+export const removeVehicleJourneys = payload => (
+  {
+    type: ActionTypes.REMOVE_VEHICLE_JOURNEYS,
+    payload: payload,
+  }
+);

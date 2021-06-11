@@ -56,6 +56,11 @@ export default vehicleReducer = (vehicles = INITIAL_STATE, action) => {
         vehicles: newVehicles
       };
 
+    case ActionTypes.REMOVE_VEHICLE:
+    return {
+      vehicles: newVehicles.filter(vehicle => vehicle.id !== action.payload.id)
+    };
+
     default:
       return vehicles;
   }

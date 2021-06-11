@@ -25,6 +25,8 @@ export default {
   manageVehicles: 'Fahrzeuge verwalten',
   addVehicle: 'Fahrzeug hinzufügen',
   editVehicle: 'Fahrzeug bearbeiten',
+  removeVehicle: 'Fahrzeug entfernen',
+  removeVehicleMessage: 'Alle Fahrten mit diesem Fahrzeug werden entfernt.',
   vehicleName: 'Name des Fahrzeugs',
   numberPlate: 'Kennzeichen',
   saveVehicle: 'Fahrzeug speichern',

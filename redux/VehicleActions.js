@@ -20,3 +20,10 @@ export const editVehicle = payload => (
     payload: payload,
   }
 );
+
+export const removeVehicle = payload => (
+  {
+    type: ActionTypes.REMOVE_VEHICLE,
+    payload: payload,
+  }
+);

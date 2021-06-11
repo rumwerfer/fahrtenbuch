@@ -44,6 +44,11 @@ export default tutorReducer = (tutors = INITIAL_STATE, action) => {
         tutors: newTutors
       };
 
+    case ActionTypes.REMOVE_TUTOR:
+      return {
+        tutors: newTutors.filter(tutor => tutor.id !== action.payload.id)
+      };
+
     default:
       return tutors;
   }

@@ -26,3 +26,10 @@ export const discardJourney = () => (
     type: ActionTypes.DISCARD_JOURNEY,
   }
 );
+
+export const removeTutorJourneys = payload => (
+  {
+    type: ActionTypes.REMOVE_TUTOR_JOURNEYS,
+    payload: payload,
+  }
+);

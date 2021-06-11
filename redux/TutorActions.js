@@ -13,3 +13,10 @@ export const editTutor = payload => (
     payload: payload,
   }
 );
+
+export const removeTutor = payload => (
+  {
+    type: ActionTypes.REMOVE_TUTOR,
+    payload: payload,
+  }
+);

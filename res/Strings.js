@@ -63,6 +63,8 @@ export default {
   addTutor: 'Begleiter hinzufügen',
   saveTutor: 'Begleiter speichern',
   editTutor: 'Begleiter bearbeiten',
+  removeTutor: 'Begleiter entfernen',
+  removeTutorMessage: 'Alle Fahrten mit diesem Begleiter werden entfernt.',
   nickName: 'Spitzname',
   fullName: 'Vor- und Nachname',
   enterNickNameMessage: 'Spitzname eingeben',

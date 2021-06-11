@@ -16,4 +16,5 @@ export default {
   fog: 'weather-fog',
   snow: 'weather-snowy-heavy',
   hail: 'weather-hail',
+  trash: 'delete',
 };

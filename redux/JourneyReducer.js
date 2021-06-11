@@ -45,6 +45,7 @@ if (Constants.debug) {
 }
 
 export default journeyReducer = (journeys = INITIAL_STATE, action) => {
+  const newSaved = journeys.saved;
   switch(action.type) {
 
     case ActionTypes.START_JOURNEY:
@@ -59,7 +60,6 @@ export default journeyReducer = (journeys = INITIAL_STATE, action) => {
       };
 
     case ActionTypes.FINISH_JOURNEY:
-      const newSaved = journeys.saved;
       newSaved.push({
         ...journeys.ongoing,
         endMileage: action.payload.mileage,
@@ -76,6 +76,16 @@ export default journeyReducer = (journeys = INITIAL_STATE, action) => {
       return {
         ...journeys,
         ongoing: null,
+      };
+
+    case ActionTypes.REMOVE_TUTOR_JOURNEYS:
+      return {
+        saved: newSaved.filter(
+          journey => journey.tutorID !== action.payload.tutorID
+        ),
+        ongoing:
+          journeys.ongoing?.tutorID !== action.payload.tutorID
+          ? journeys.ongoing : null,
       };
 
     default:

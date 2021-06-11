@@ -5,3 +5,4 @@ export const ADD_VEHICLE = 'ADD_VEHICLE';
 export const UPDATE_VEHICLE = 'UPDATE_VEHICLE';
 export const DISCARD_JOURNEY = 'DISCARD_JOURNEY';
 export const ADD_TUTOR = 'ADD_TUTOR';
+export const EDIT_TUTOR = 'EDIT_TUTOR';

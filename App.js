@@ -83,7 +83,11 @@ const App = () => {
             <Stack.Screen
               name='tutor'
               component={TutorScreen}
-              options={{title: Strings.addTutor}}
+              options={({route}) => ({
+                title: route.params?.id !== undefined
+                        ? Strings.editTutor
+                        : Strings.addTutor
+              })}
             />
           </Stack.Navigator>
         </NavigationContainer>

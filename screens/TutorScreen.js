@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
@@ -14,7 +14,6 @@ import { mapStateToProps } from '../redux/Mappers';
 import * as TutorActions from '../redux/TutorActions';
 
 function TutorScreen(props) {
-
   const navigation = useNavigation();
 
   const themeColors = useTheme().colors;
@@ -22,6 +21,17 @@ function TutorScreen(props) {
 
   const [nickName, setNickName] = React.useState('');
   const [fullName, setFullName] = React.useState('');
+
+  // edit tutor if id given, otherwise add tutor
+  const editTutorID = props.route.params?.id;
+  const editMode = editTutorID !== undefined;
+  if (editMode) {
+    const tutor = props.tutors.tutors.find((tutor) => tutor.id === editTutorID);
+    useEffect(() => {
+      setNickName(tutor.nickName);
+      setFullName(tutor.fullName);
+    }, []);
+  }
 
   return (
     <TwoTextForm
@@ -34,12 +44,12 @@ function TutorScreen(props) {
       buttonIcon={Icons.save}
       onButtonPress={() => {
         if (validateInput(nickName, fullName)) {
-          const payload = {
-            id: Date.now(),
-            nickName: nickName,
-            fullName: fullName,
-          };
-          props.addTutor(payload);
+          const payload = { nickName: nickName, fullName: fullName };
+          if (editMode) {
+            props.editTutor({ ...payload, id: editTutorID });
+          } else {
+            props.addTutor({ ...payload, id: Date.now() });
+          }
           navigation.goBack();
         }
       }}
@@ -66,6 +76,7 @@ function isBlank(string) {
 
 const mapDispatchToProps = dispatch => ({
   addTutor: (payload) => dispatch(TutorActions.addTutor(payload)),
+  editTutor: (payload) => dispatch(TutorActions.editTutor(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TutorScreen);

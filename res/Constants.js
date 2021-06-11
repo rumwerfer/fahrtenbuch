@@ -1,5 +1,5 @@
 export default {
   distanceGoal: 3000,
-  debug: false,
+  debug: true,
   routeDisplayMaxLength: 31,
 };

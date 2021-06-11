@@ -62,6 +62,7 @@ export default {
   manageTutors: 'Begleiter verwalten',
   addTutor: 'Begleiter hinzufügen',
   saveTutor: 'Begleiter speichern',
+  editTutor: 'Begleiter bearbeiten',
   nickName: 'Spitzname',
   fullName: 'Vor- und Nachname',
   enterNickNameMessage: 'Spitzname eingeben',

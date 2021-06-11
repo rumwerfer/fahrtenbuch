@@ -6,3 +6,10 @@ export const addTutor = payload => (
     payload: payload,
   }
 );
+
+export const editTutor = payload => (
+  {
+    type: ActionTypes.EDIT_TUTOR,
+    payload: payload,
+  }
+);

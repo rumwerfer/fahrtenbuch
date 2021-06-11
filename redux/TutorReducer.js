@@ -36,6 +36,14 @@ export default tutorReducer = (tutors = INITIAL_STATE, action) => {
         tutors: newTutors,
       };
 
+    case ActionTypes.EDIT_TUTOR:
+      const tutor = newTutors.find(tutor => tutor.id === action.payload.id);
+      tutor.fullName = action.payload.fullName;
+      tutor.nickName = action.payload.nickName;
+      return {
+        tutors: newTutors
+      };
+
     default:
       return tutors;
   }

@@ -73,7 +73,11 @@ const App = () => {
             <Stack.Screen
               name='vehicle'
               component={VehicleScreen}
-              options={{title: Strings.addVehicle}}
+              options={({route}) =>({
+                title: route.params?.id !== undefined
+                        ? Strings.editVehicle
+                        : Strings.addVehicle
+              })}
             />
             <Stack.Screen
               name='people'

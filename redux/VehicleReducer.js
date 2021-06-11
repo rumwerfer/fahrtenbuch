@@ -46,6 +46,16 @@ export default vehicleReducer = (vehicles = INITIAL_STATE, action) => {
         vehicles: newVehicles,
       };
 
+    case ActionTypes.EDIT_VEHICLE:
+      const vehicle = newVehicles.find(
+        vehicle => vehicle.id === action.payload.id
+      );
+      vehicle.numberPlate = action.payload.numberPlate;
+      vehicle.name = action.payload.name;
+      return {
+        vehicles: newVehicles
+      };
+
     default:
       return vehicles;
   }

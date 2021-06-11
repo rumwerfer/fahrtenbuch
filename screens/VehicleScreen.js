@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
@@ -23,6 +23,19 @@ function VehicleScreen(props) {
   const [vehicleName, setVehicleName] = React.useState('');
   const [numberPlate, setNumberPlate] = React.useState('');
 
+  // edit vehicle if id given, otherwise add vehicle
+  const editVehicleID = props.route.params?.id;
+  const editMode = editVehicleID !== undefined;
+  if (editMode) {
+    const vehicle = props.vehicles.vehicles.find(
+      vehicle => vehicle.id === editVehicleID
+    );
+    useEffect(() => {
+      setVehicleName(vehicle.name);
+      setNumberPlate(vehicle.numberPlate);
+    }, []);
+  }
+
   return (
     <TwoTextForm
       label1={Strings.vehicleName}
@@ -34,12 +47,12 @@ function VehicleScreen(props) {
       buttonIcon={Icons.save}
       onButtonPress={() => {
         if (validateInput(vehicleName, numberPlate)) {
-          const payload = {
-            id: Date.now(),
-            name: vehicleName,
-            numberPlate: numberPlate
-          };
-          props.addVehicle(payload);
+          const payload = { name: vehicleName, numberPlate: numberPlate };
+          if (editMode) {
+            props.editVehicle({ ...payload, id: editVehicleID });
+          } else {
+            props.addVehicle({ ...payload, id: Date.now() });
+          }
           navigation.goBack();
         }
       }}
@@ -69,6 +82,7 @@ function isBlank(string) {
 
 const mapDispatchToProps = dispatch => ({
   addVehicle: (payload) => dispatch(VehicleActions.addVehicle(payload)),
+  editVehicle: (payload) => dispatch(VehicleActions.editVehicle(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VehicleScreen);

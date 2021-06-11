@@ -8,3 +8,4 @@ export const ADD_TUTOR = 'ADD_TUTOR';
 export const EDIT_TUTOR = 'EDIT_TUTOR';
 export const REMOVE_TUTOR_JOURNEYS = 'REMOVE_TUTOR_JOURNEYS';
 export const REMOVE_TUTOR = 'REMOVE_TUTOR';
+export const EDIT_VEHICLE = 'EDIT_VEHICLE';

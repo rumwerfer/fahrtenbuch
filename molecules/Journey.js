@@ -1,7 +1,8 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { useTheme, Text, IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import JourneyDate from '../atoms/Date';
 import Distance from '../atoms/Distance';
@@ -14,42 +15,44 @@ import weather from '../res/weather';
 
 const Journey = (props) => {
   const textColor = useTheme().colors.text;
+  const navigation = useNavigation();
 
   const vehicle = props.vehicles.vehicles.find(
     (vehicle) => vehicle.id === props.journey.vehicleID
   );
-
   const tutor = props.tutors.tutors.find(
     (tutor) => tutor.id === props.journey.tutorID
   );
-
   const shortenedRoute =
     props.journey.route.length < Constants.routeDisplayMaxLength + 1
     ? props.journey.route
     : props.journey.route.substring(0,Constants.routeDisplayMaxLength) + '…';
-
   const weatherIcon = weather[props.journey.weather].icon;
 
   return (
-    <View style={journeyListItem}>
-      <View style={{ flex: .1}}>
-        <View style={{...fillColumn, ...centerXY}}>
-          <IconButton size={24} icon={weatherIcon} />
-        </View>
-      </View>
-      <View style={{ flex: .6 }}>
-        <View style={{ justifyContent: 'space-between'}}>
-          <JourneyDate time={props.journey.startTime}/>
-          <View style={centerX}>
-            <Text style={Fonts.tiny}>{shortenedRoute}</Text>
-            <Text style={Fonts.tiny}>
-              {vehicle.name + Strings.delimiter + tutor.nickName}
-            </Text>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('details', { id: props.journey.id })}
+    >
+      <View style={journeyListItem}>
+        <View style={{ flex: .1}}>
+          <View style={{...fillColumn, ...centerXY}}>
+            <IconButton size={24} icon={weatherIcon} />
           </View>
         </View>
+        <View style={{ flex: .6 }}>
+          <View style={{ justifyContent: 'space-between'}}>
+            <JourneyDate time={props.journey.startTime}/>
+            <View style={centerX}>
+              <Text style={Fonts.tiny}>{shortenedRoute}</Text>
+              <Text style={Fonts.tiny}>
+                {vehicle.name + Strings.delimiter + tutor.nickName}
+              </Text>
+            </View>
+          </View>
+        </View>
+        <Distance journey={props.journey} flex={.3} />
       </View>
-      <Distance journey={props.journey} flex={.3} />
-    </View>
+    </TouchableOpacity>
   );
 }
 

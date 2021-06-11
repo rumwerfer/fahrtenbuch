@@ -17,6 +17,7 @@ import FleetScreen from './screens/FleetScreen';
 import VehicleScreen from './screens/VehicleScreen';
 import PeopleScreen from './screens/PeopleScreen';
 import TutorScreen from './screens/TutorScreen';
+import DetailsScreen from './screens/DetailsScreen';
 import Icons from './res/Icons';
 import { row } from './styles/Styles';
 import ReportButton from './atoms/ReportButton';
@@ -92,6 +93,11 @@ const App = () => {
                         ? Strings.editTutor
                         : Strings.addTutor
               })}
+            />
+            <Stack.Screen
+              name='details'
+              component={DetailsScreen}
+              options={{ title: Strings.editJourney }}
             />
           </Stack.Navigator>
         </NavigationContainer>

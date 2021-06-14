@@ -110,6 +110,11 @@ export const mediumPadding = {
   ...mediumVerticalPadding,
 };
 
+export const mediumPaddedScreen = {
+  ...fillSpace,
+  ...mediumPadding,
+};
+
 export const alignSelfEnd = {
   alignSelf: 'flex-end',
 };

@@ -32,7 +32,7 @@ const Journey = (props) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate('details', { startTime: props.journey.startTime })
+        navigation.navigate('details', { id: props.journey.id })
       }
     >
       <View style={journeyListItem}>

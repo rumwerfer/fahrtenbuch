@@ -21,17 +21,15 @@ function DetailsScreen(props) {
   const backgroundColor = { backgroundColor: themeColors.screenBackground };
 
   const journey = props.journeys.saved.find(
-    journey => journey.startTime === props.route.params.startTime
+    journey => journey.id === props.route.params.id
   );
 
-  const [startMileage, setStartMileage] =
-    React.useState(journey.startMileage.toString());
-  const [endMileage, setEndMileage] =
-    React.useState(journey.endMileage.toString());
-  const [route, setRoute] = React.useState(journey.route);
-  const [vehicleID, setVehicleID] = React.useState(journey.vehicleID);
-  const [tutorID, setTutorID] = React.useState(journey.tutorID);
-  const [weather, setWeather] = React.useState(journey.weather);
+  const [startMileage, setStartMileage] = React.useState('');
+  const [endMileage, setEndMileage] = React.useState('');
+  const [route, setRoute] = React.useState('');
+  const [vehicleID, setVehicleID] = React.useState(-1);
+  const [tutorID, setTutorID] = React.useState(-1);
+  const [weather, setWeather] = React.useState(-1);
   // TODO too many useState hooks could be refactored with useReducer
 
   // remove journey dialog
@@ -48,6 +46,12 @@ function DetailsScreen(props) {
           color={Colors.white}
         />
     });
+    setStartMileage(journey.startMileage.toString());
+    setEndMileage(journey.endMileage.toString());
+    setRoute(journey.route);
+    setVehicleID(journey.vehicleID);
+    setTutorID(journey.tutorID);
+    setWeather(journey.weather);
   }, []);
 
   return (
@@ -67,8 +71,9 @@ function DetailsScreen(props) {
         setWeather={setWeather}
         onButtonPress={() => {
           if (validateInput(startMileage, endMileage, route)) {
+            console.log(startMileage);
             props.editJourney({
-              startTime: journey.startTime,
+              id: journey.id,
               startMileage: startMileage,
               endMileage: endMileage,
               route: route,
@@ -82,7 +87,7 @@ function DetailsScreen(props) {
       />
       <Dialog
         onConfirm={() => {
-          props.removeJourney({ startTime: journey.startTime });
+          props.removeJourney({ id: journey.id });
           navigation.goBack();
         }}
         dialogOpen={dialogOpen}

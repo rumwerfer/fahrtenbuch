@@ -10,6 +10,7 @@ if (Constants.debug) {
   INITIAL_STATE = {
     saved: [
       {
+        id: 0,
         startMileage: 19695,
         endMileage: 20000,
         startTime: 1606060606000,
@@ -20,6 +21,7 @@ if (Constants.debug) {
         route: 'Salzburg – Wien',
       },
       {
+        id: 1,
         startMileage: 29895,
         endMileage: 29917,
         startTime: 1612341234000,
@@ -30,6 +32,7 @@ if (Constants.debug) {
         route: 'Hallein – Salzburg',
       },
       {
+        id: 2,
         startMileage: 29917,
         endMileage: 30000,
         startTime: 1623232323000,
@@ -52,6 +55,7 @@ export default journeyReducer = (journeys = INITIAL_STATE, action) => {
       return {
         ...journeys,
         ongoing: {
+          id: action.payload.time,
           startMileage: action.payload.mileage,
           startTime: action.payload.time,
           vehicleID: action.payload.vehicleID,
@@ -101,14 +105,14 @@ export default journeyReducer = (journeys = INITIAL_STATE, action) => {
     case ActionTypes.REMOVE_JOURNEY:
       return {
         saved: newSaved.filter(
-          journey => journey.startTime !== action.payload.startTime
+          journey => journey.id !== action.payload.id
         ),
         ongoing: journeys.ongoing,
       };
 
     case ActionTypes.EDIT_JOURNEY:
       const journey = newSaved.find(
-        journey => journey.startTime === action.payload.startTime
+        journey => journey.id === action.payload.id
       );
       journey.startMileage = action.payload.startMileage;
       journey.endMileage = action.payload.endMileage;

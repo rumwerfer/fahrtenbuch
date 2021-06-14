@@ -3,7 +3,7 @@ import { TextInput as PaperTextInput } from 'react-native-paper';
 
 import Colors from '../res/Colors';
 import Strings from '../res/Strings';
-import { inputHeight } from '../styles/Styles';
+import { inputHeight, formPadding } from '../styles/Styles';
 import Fonts from '../styles/Fonts';
 
 export const TextInput = (props) => {
@@ -21,7 +21,7 @@ export const TextInput = (props) => {
 export const MileageInput = (props) => {
   return (
     <PaperTextInput
-      label={Strings.mileage}
+      label={props.label ?? Strings.mileage}
       value={props.mileage}
       onChangeText={props.setMileage}
       onBlur={props.preselectVehicle}

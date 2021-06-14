@@ -31,7 +31,9 @@ const Journey = (props) => {
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('details', { id: props.journey.id })}
+      onPress={() =>
+        navigation.navigate('details', { startTime: props.journey.startTime })
+      }
     >
       <View style={journeyListItem}>
         <View style={{ flex: .1}}>

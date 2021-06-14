@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { IconButton, useTheme } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import Toast from 'react-native-simple-toast';
 
@@ -19,9 +19,6 @@ import * as JourneyActions from '../redux/JourneyActions';
 function VehicleScreen(props) {
 
   const navigation = useNavigation();
-
-  const themeColors = useTheme().colors;
-  const backgroundColor = { backgroundColor: themeColors.screenBackground };
 
   const [vehicleName, setVehicleName] = React.useState('');
   const [numberPlate, setNumberPlate] = React.useState('');
@@ -53,7 +50,7 @@ function VehicleScreen(props) {
   }
 
   return (
-    <View style={fillSpace}>
+    <SafeAreaView style={fillSpace}>
       <TwoTextForm
         label1={Strings.vehicleName}
         value1={vehicleName}
@@ -86,7 +83,7 @@ function VehicleScreen(props) {
         title={Strings.removeVehicle + '?'}
         message={Strings.removeVehicleMessage}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

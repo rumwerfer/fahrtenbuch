@@ -189,3 +189,7 @@ export const formPadding = {
 export const largeWidth = {
   width: 100,
 }
+
+export const spreadHorizontally = {
+  alignContent: 'stretch',
+}

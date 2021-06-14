@@ -106,6 +106,21 @@ export default journeyReducer = (journeys = INITIAL_STATE, action) => {
         ongoing: journeys.ongoing,
       };
 
+    case ActionTypes.EDIT_JOURNEY:
+      const journey = newSaved.find(
+        journey => journey.startTime === action.payload.startTime
+      );
+      journey.startMileage = action.payload.startMileage;
+      journey.endMileage = action.payload.endMileage;
+      journey.route = action.payload.route;
+      journey.vehicleID = action.payload.vehicleID;
+      journey.tutorID = action.payload.tutorID;
+      journey.weather = action.payload.weather;
+      return {
+        saved: newSaved,
+        ongoing: journeys.ongoing,
+      }
+
     default:
       return journeys;
   }

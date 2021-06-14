@@ -47,3 +47,10 @@ export const removeJourney = payload => (
     payload: payload,
   }
 );
+
+export const editJourney = payload => (
+  {
+    type: ActionTypes.EDIT_JOURNEY,
+    payload: payload,
+  }
+);

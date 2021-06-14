@@ -44,7 +44,6 @@ export function TwoTextForm(props) {
             icon={props.buttonIcon}
             onPress={props.onButtonPress}
             label={props.buttonLabel}
-            singlePress
           />
         </View>
       </View>
@@ -97,7 +96,6 @@ export function DetailsForm(props) {
           icon={Icons.save}
           onPress={props.onButtonPress}
           label={Strings.saveJourney}
-          singlePress
         />
       </View>
     </ScrollView>

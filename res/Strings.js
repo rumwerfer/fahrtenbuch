@@ -35,6 +35,8 @@ export default {
   saveVehicle: 'Fahrzeug speichern',
   enterNameMessage: 'Name eingeben',
   enterNumberPlateMessage: 'Kennzeichen eingeben',
+  enterStartMileageMessage: 'Start-Kilometerstand eingeben',
+  enterEndMileageMessage: 'End-Kilometerstand eingeben',
   vehicle: 'Fahrzeug',
   lowMileageMessage: 'Kilometerstand muss höher sein als bei der letzten Fahrt mit dem ',
   madeIt: 'Geschafft!',

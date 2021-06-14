@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
+import Toast from 'react-native-simple-toast';
 
 import Dialog from '../atoms/Dialog';
 import { DetailsForm } from '../molecules/Forms';
@@ -65,16 +66,18 @@ function DetailsScreen(props) {
         weather={weather}
         setWeather={setWeather}
         onButtonPress={() => {
-          props.editJourney({
-            startTime: journey.startTime,
-            startMileage: startMileage,
-            endMileage: endMileage,
-            route: route,
-            vehicleID: vehicleID,
-            tutorID: tutorID,
-            weather: weather,
-          });
-          navigation.goBack();
+          if (validateInput(startMileage, endMileage, route)) {
+            props.editJourney({
+              startTime: journey.startTime,
+              startMileage: startMileage,
+              endMileage: endMileage,
+              route: route,
+              vehicleID: vehicleID,
+              tutorID: tutorID,
+              weather: weather,
+            });
+            navigation.goBack();
+          }
         }}
       />
       <Dialog
@@ -89,6 +92,40 @@ function DetailsScreen(props) {
       />
     </SafeAreaView>
   );
+}
+
+function validateInput(startMileage, endMileage, route) {
+
+  // no empty fields
+  if (isBlank(startMileage)) {
+    Toast.show(Strings.enterStartMileageMessage);
+    return false;
+  }
+  if (isBlank(endMileage)) {
+    Toast.show(Strings.enterEndMileageMessage);
+    return false;
+  }
+  if (isBlank(route)) {
+    Toast.show(Strings.enterRouteMessage);
+    return false;
+  }
+
+  // validate distance
+  const distance = endMileage - startMileage;
+  if (distance <= 0) {
+    Toast.show(Strings.negativeDistanceMessage);
+    return false;
+  }
+  if (distance > 9999) {
+    Toast.show(Strings.highDistanceMessage);
+    return false;
+  }
+
+  return true;
+}
+
+function isBlank(string) {
+  return (!string || string.trim().length === 0)
 }
 
 const mapDispatchToProps = dispatch => ({

@@ -120,10 +120,12 @@ export default journeyReducer = (journeys = INITIAL_STATE, action) => {
       journey.vehicleID = action.payload.vehicleID;
       journey.tutorID = action.payload.tutorID;
       journey.weather = action.payload.weather;
+      journey.startTime = action.payload.startTime;
+      journey.endTime = action.payload.endTime;
       return {
         saved: newSaved,
         ongoing: journeys.ongoing,
-      }
+      };
 
     default:
       return journeys;

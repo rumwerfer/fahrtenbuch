@@ -191,6 +191,10 @@ export const formPadding = {
   paddingTop: pad / 2,
 }
 
+export const smallFormPadding = {
+  paddingTop: pad / 4,
+}
+
 export const largeWidth = {
   width: 100,
 }

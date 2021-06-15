@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { useTheme, Text } from 'react-native-paper';
+import { useTheme, Text, IconButton } from 'react-native-paper';
 
 import * as JourneyActions from '../redux/JourneyActions';
 import Button from '../atoms/Button';
+import DateMileageRow from '../atoms/DateMileageRow';
 import { TextInput, MileageInput } from '../atoms/Inputs';
 import Dropdown from '../atoms/Dropdown';
 import {
@@ -14,12 +15,17 @@ import {
   spreadVertically,
   spreadHorizontally,
   row,
-  formPadding,
   distanceStyle,
+  fillRow,
+  centerXY,
+  centerY,
+  column,
+  fillSpace,
 } from '../styles/Styles';
 import Strings from '../res/Strings';
 import Icons from '../res/Icons';
 import Fonts from '../styles/Fonts';
+import Colors from '../res/Colors';
 
 export function TwoTextForm(props) {
 
@@ -54,50 +60,75 @@ export function TwoTextForm(props) {
 export function DetailsForm(props) {
   const themeColors = useTheme().colors;
   const backgroundColor = { backgroundColor: themeColors.screenBackground };
+  const placeholderColor = { color: themeColors.placeholder };
 
   return ( // TODO manage tap handling behavior for scroll view
     <ScrollView style={{ ...mediumPaddedScreen, ...backgroundColor }}>
-      <Text style={{ ...Fonts.large, alignSelf: 'center', marginBottom: 24 }}>
-        {props.endMileage - props.startMileage + Strings.km}
+
+      {/* journey start */}
+      <Text style={{ ...Fonts.tiny, ...placeholderColor}}>
+        {'Fahrtbeginn'}
       </Text>
-      <View style={{ ...row, marginBottom: 24 }}>
-        <View style={{ marginRight: 12, flexGrow: 1 }}>
-          {/* TODO do not alter width */}
-          <MileageInput
-            mileage={props.startMileage}
-            setMileage={props.setStartMileage}
-            label={'km Start'}
-          />
-        </View>
-        <View style={{ marginLeft: 12, flexGrow: 1 }}>
-          <MileageInput
-            mileage={props.endMileage}
-            setMileage={props.setEndMileage}
-            label={'km Ende'}
-          />
-        </View>
-      </View>
+      <DateMileageRow
+        time={props.startTime}
+        setTime={props.setStartTime}
+        mileage={props.startMileage}
+        setMileage={props.setStartMileage}
+      />
+
+      {/* journey end */}
+      <Text style={{ ...Fonts.tiny, ...placeholderColor}}>
+        {'Fahrtende'}
+      </Text>
+      <DateMileageRow
+        time={props.endTime}
+        setTime={props.setEndTime}
+        mileage={props.endMileage}
+        setMileage={props.setEndMileage}
+      />
+
+      {/* TODO: validate start time < end time */}
+
+      {/* route */}
       <TextInput
         label={Strings.route}
         text={props.route}
         setText={props.setRoute}
       />
+
       <View style={row}>
-        <View style={{ marginRight: 12, flexGrow: 1 }}>
+        <View style={{ marginRight: 6, flexGrow: 1 }}>
           <Dropdown type={'vehicle'} id={props.vehicleID} setID={props.setVehicleID}/>
         </View>
-        <View style={{ marginLeft: 12, flexGrow: 1 }}>
+        <View style={{ marginLeft: 6, flexGrow: 1 }}>
           <Dropdown type={'tutor'} id={props.tutorID} setID={props.setTutorID} />
         </View>
       </View>
-      <Dropdown type={'weather'} id={props.weather} setID={props.setWeather} />
-      <View style={{ ...alignSelfEnd, marginTop: 24}}>
-        <Button
-          icon={Icons.save}
-          onPress={props.onButtonPress}
-          label={Strings.saveJourney}
-        />
+
+      <View style={{...row, height: 80 }}>
+        <View style={{ width: 110 }}>
+          <Dropdown type={'weather'} id={props.weather} setID={props.setWeather} />
+        </View>
+
+        {/* distance */}
+        <View style={{ ...column, ...centerY, paddingLeft: 24, paddingTop: 30 }}>
+          <Text style={{ ...Fonts.tiny, ...placeholderColor }}>
+            {Strings.distance}
+          </Text>
+          <Text style={{ ...Fonts.smaller, alignSelf: 'center', marginBottom: 24 }}>
+            {props.endMileage - props.startMileage + Strings.km}
+          </Text>
+        </View>
+
+        <View style={{ paddingTop: 22, marginLeft: 'auto' }} >
+          <Button
+            icon={Icons.save}
+            onPress={props.onButtonPress}
+            label={Strings.saveJourney}
+          />
+        </View>
       </View>
+
     </ScrollView>
   );
 }

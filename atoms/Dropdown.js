@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import Strings from '../res/Strings';
 import Icons from '../res/Icons';
-import { inputHeight, formPadding } from '../styles/Styles';
+import { inputHeight, smallFormPadding } from '../styles/Styles';
 import { mapStateToProps } from '../redux/Mappers';
 import weather from '../res/weather';
 
@@ -33,7 +33,7 @@ function Dropdown(props) {
   }
 
   return (
-    <View style={formPadding}>
+    <View style={smallFormPadding}>
       <PaperDropdown
         label={label}
         value={props.id}

@@ -16,6 +16,7 @@ export default {
   deny: 'Ablehnen',
   modelDownloadMessage: 'Texterkennungsmodell wird heruntergeladen...',
   mileage: 'Kilometerstand',
+  mileageAbbr: 'km-Stand',
   scanMileage: 'Kilometerstand erfassen',
   confirm: 'Bestätigen',
   enterDetails: 'Details eingeben',
@@ -80,8 +81,9 @@ export default {
   delimiter: ' · ',
   enterRouteMessage: 'Strecke eingeben',
   dry: 'trocken',
-  wet: 'Regen / Nässe',
+  wet: 'Nässe',
   fog: 'Nebel',
   snow: 'Schnee',
   hail: 'Hagel',
+  negativeTimeMessage: 'Startzeit muss vor Endzeit liegen'
 };

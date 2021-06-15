@@ -88,6 +88,8 @@ function DetailsScreen(props) {
               vehicleID: vehicleID,
               tutorID: tutorID,
               weather: weather,
+              startTime: startTime,
+              endTime: endTime,
             });
             navigation.goBack();
           }

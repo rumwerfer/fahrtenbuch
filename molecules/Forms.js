@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { useTheme, Text, IconButton } from 'react-native-paper';
-import { DatePickerModal, TimePickerModal } from 'react-native-paper-dates';
 
 import * as JourneyActions from '../redux/JourneyActions';
 import Button from '../atoms/Button';
+import DateMileageRow from '../atoms/DateMileageRow';
 import { TextInput, MileageInput } from '../atoms/Inputs';
 import Dropdown from '../atoms/Dropdown';
 import {
@@ -15,10 +15,12 @@ import {
   spreadVertically,
   spreadHorizontally,
   row,
-  formPadding,
   distanceStyle,
   fillRow,
   centerXY,
+  centerY,
+  column,
+  fillSpace,
 } from '../styles/Styles';
 import Strings from '../res/Strings';
 import Icons from '../res/Icons';
@@ -58,99 +60,36 @@ export function TwoTextForm(props) {
 export function DetailsForm(props) {
   const themeColors = useTheme().colors;
   const backgroundColor = { backgroundColor: themeColors.screenBackground };
-
-  const dateFormat = {day: 'numeric', month: 'long', year: 'numeric'};
-
-  const [startDateOpen, setStartDateOpen] = React.useState(false);
-  const [startTimeOpen, setStartTimeOpen] = React.useState(false);
-
-  const startDate = new Date(props.startTime);
+  const placeholderColor = { color: themeColors.placeholder };
 
   return ( // TODO manage tap handling behavior for scroll view
     <ScrollView style={{ ...mediumPaddedScreen, ...backgroundColor }}>
 
-      {/* distance */}
-      <Text style={{ ...Fonts.large, alignSelf: 'center', marginBottom: 24 }}>
-        {props.endMileage - props.startMileage + Strings.km}
-      </Text>
-
       {/* journey start */}
-      <View style={{ ...row, marginBottom: 24 }}>
-        {/* date */}
-        <View style={{ ...row, flex: .45, paddingRight: 12, ...centerXY }}>
-          <View style={{flex: .6}}>
-            <Text style={Fonts.center}>
-              {startDate.toLocaleDateString(undefined, dateFormat)}
-            </Text>
-          </View>
-          <View style={{flex: .4}}>
-            <IconButton
-              onPress={() => setStartDateOpen(true)}
-              icon={Icons.calendar}
-              color={Colors.green}
-            />
-          </View>
-          <DatePickerModal
-            mode='single'
-            visible={startDateOpen}
-            onDismiss={() => setStartDateOpen(false)}
-            date={startDate}
-            onConfirm={React.useCallback(params => {
-              setStartDateOpen(false);
-              props.setStartTime(
-                dateToMs(params.date) + getDayTime(props.startTime)
-              );
-            })}
-          />
-        </View>
-        {/* time */}
-        <View style={{ ...row, flex: .15, paddingHorizontal: 12, ...centerXY }}>
-            <Text style={Fonts.center}>
-              {getTimeString(startDate)}
-            </Text>
-          <IconButton
-            onPress={() => setStartTimeOpen(true)}
-            icon={Icons.clock}
-            color={Colors.green}
-          />
-          <TimePickerModal
-            visible={startTimeOpen}
-            onDismiss={() => setStartTimeOpen(false)}
-            onConfirm={({hours, minutes}) => {
-              setStartTimeOpen(false);
-              props.setStartTime(
-                dateToMs(startDate) + timeToMs(hours, minutes)
-              );
-            }}
-            hours={startDate.getHours()}
-            minutes={startDate.getMinutes()}
-            label={'Fahrtbeginn'}
-            cancelLabel={Strings.cancel}
-            confirmLabel={Strings.ok}
-          />
-        </View>
-        {/* mileage */}
-        <View style={{ ...fillRow, flex: .4, marginLeft: 12 }}>
-          {/* TODO do not alter width */}
-          <MileageInput
-            mileage={props.startMileage}
-            setMileage={props.setStartMileage}
-            label={'km Start'}
-          />
-        </View>
-      </View>
+      <Text style={{ ...Fonts.tiny, ...placeholderColor}}>
+        {'Fahrtbeginn'}
+      </Text>
+      <DateMileageRow
+        time={props.startTime}
+        setTime={props.setStartTime}
+        mileage={props.startMileage}
+        setMileage={props.setStartMileage}
+      />
 
       {/* journey end */}
-      <View style={{ ...row, marginBottom: 24 }}>
-        <View style={{ marginLeft: 12, flexGrow: 1 }}>
-          <MileageInput
-            mileage={props.endMileage}
-            setMileage={props.setEndMileage}
-            label={'km Ende'}
-          />
-        </View>
-      </View>
+      <Text style={{ ...Fonts.tiny, ...placeholderColor}}>
+        {'Fahrtende'}
+      </Text>
+      <DateMileageRow
+        time={props.endTime}
+        setTime={props.setEndTime}
+        mileage={props.endMileage}
+        setMileage={props.setEndMileage}
+      />
 
+      {/* TODO: validate start time < end time */}
+
+      {/* route */}
       <TextInput
         label={Strings.route}
         text={props.route}
@@ -158,42 +97,38 @@ export function DetailsForm(props) {
       />
 
       <View style={row}>
-        <View style={{ marginRight: 12, flexGrow: 1 }}>
+        <View style={{ marginRight: 6, flexGrow: 1 }}>
           <Dropdown type={'vehicle'} id={props.vehicleID} setID={props.setVehicleID}/>
         </View>
-        <View style={{ marginLeft: 12, flexGrow: 1 }}>
+        <View style={{ marginLeft: 6, flexGrow: 1 }}>
           <Dropdown type={'tutor'} id={props.tutorID} setID={props.setTutorID} />
         </View>
       </View>
 
-      <Dropdown type={'weather'} id={props.weather} setID={props.setWeather} />
+      <View style={{...row, height: 80 }}>
+        <View style={{ width: 110 }}>
+          <Dropdown type={'weather'} id={props.weather} setID={props.setWeather} />
+        </View>
 
-      <View style={{ ...alignSelfEnd, marginTop: 24}}>
-        <Button
-          icon={Icons.save}
-          onPress={props.onButtonPress}
-          label={Strings.saveJourney}
-        />
+        {/* distance */}
+        <View style={{ ...column, ...centerY, paddingLeft: 24, paddingTop: 30 }}>
+          <Text style={{ ...Fonts.tiny, ...placeholderColor }}>
+            {Strings.distance}
+          </Text>
+          <Text style={{ ...Fonts.smaller, alignSelf: 'center', marginBottom: 24 }}>
+            {props.endMileage - props.startMileage + Strings.km}
+          </Text>
+        </View>
+
+        <View style={{ paddingTop: 22, marginLeft: 'auto' }} >
+          <Button
+            icon={Icons.save}
+            onPress={props.onButtonPress}
+            label={Strings.saveJourney}
+          />
+        </View>
       </View>
 
     </ScrollView>
   );
 }
-
-function dateToMs(date) {
-  return Math.ceil(date.getTime() / 86400000) * 86400000; // 24*60*60*1000
-}
-
-function getDayTime(time) {
-  return time % 86400000; // 24*60*60*1000
-}
-
-function getTimeString(date) {
-  const minutes = date.getMinutes();
-  return date.getHours() + ':' + (minutes < 10 ? '0' : '') + minutes;
-}
-
-function timeToMs(hours, minutes) { // negative value to keep date unchanged
-  return (hours * 60 + minutes) * 60000 - 86400000 - 7200000;
-} // dirty hack for now: -7200000 for CEST, -3600000 for CET
-// TODO make it work properly for winter and summer time

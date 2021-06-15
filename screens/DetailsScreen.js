@@ -31,6 +31,7 @@ function DetailsScreen(props) {
   const [tutorID, setTutorID] = React.useState(-1);
   const [weather, setWeather] = React.useState(-1);
   const [startTime, setStartTime] = React.useState(-1);
+  const [endTime, setEndTime] = React.useState(-1);
   // TODO too many useState hooks could be refactored with useReducer
 
   // remove journey dialog
@@ -54,6 +55,7 @@ function DetailsScreen(props) {
     setTutorID(journey.tutorID);
     setWeather(journey.weather);
     setStartTime(journey.startTime);
+    setEndTime(journey.endTime);
   }, []);
 
   return (
@@ -73,6 +75,8 @@ function DetailsScreen(props) {
         setWeather={setWeather}
         startTime={startTime}
         setStartTime={setStartTime}
+        endTime={endTime}
+        setEndTime={setEndTime}
         onButtonPress={() => {
           if (validateInput(startMileage, endMileage, route)) {
             console.log(startMileage);

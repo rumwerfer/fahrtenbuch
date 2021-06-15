@@ -7,6 +7,10 @@ export default StyleSheet.create({
     fontSize: 12,
     fontWeight: '200',
   },
+  smaller: {
+    fontSize: 16,
+    fontWeight: '300',
+  },
   small: {
     fontSize: 18,
     fontWeight: '400',

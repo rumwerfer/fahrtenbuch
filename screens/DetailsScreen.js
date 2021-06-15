@@ -78,7 +78,9 @@ function DetailsScreen(props) {
         endTime={endTime}
         setEndTime={setEndTime}
         onButtonPress={() => {
-          if (validateInput(startMileage, endMileage, route)) {
+          if (
+            validateInput(startMileage, endMileage, route, startTime, endTime)
+          ) {
             console.log(startMileage);
             props.editJourney({
               id: journey.id,
@@ -109,7 +111,7 @@ function DetailsScreen(props) {
   );
 }
 
-function validateInput(startMileage, endMileage, route) {
+function validateInput(startMileage, endMileage, route, startTime, endTime) {
 
   // no empty fields
   if (isBlank(startMileage)) {
@@ -133,6 +135,12 @@ function validateInput(startMileage, endMileage, route) {
   }
   if (distance > 9999) {
     Toast.show(Strings.highDistanceMessage);
+    return false;
+  }
+
+  // validate time
+  if (startTime >= endTime) {
+    Toast.show(Strings.negativeTimeMessage);
     return false;
   }
 

@@ -85,4 +85,5 @@ export default {
   fog: 'Nebel',
   snow: 'Schnee',
   hail: 'Hagel',
+  negativeTimeMessage: 'Startzeit muss vor Endzeit liegen'
 };

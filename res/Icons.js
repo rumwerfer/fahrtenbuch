@@ -17,4 +17,6 @@ export default {
   snow: 'weather-snowy-heavy',
   hail: 'weather-hail',
   trash: 'delete',
+  calendar: 'calendar',
+  clock: 'clock-time-four-outline',
 };

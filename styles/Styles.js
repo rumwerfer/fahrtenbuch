@@ -81,7 +81,7 @@ export const journeyListPadding = {
 export const vehicleListItem = {
   ...listItem,
   ...column,
-  height: 80,
+  height: 60,
 };
 
 export const centerY = {

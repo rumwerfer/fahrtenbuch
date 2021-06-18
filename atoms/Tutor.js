@@ -13,10 +13,10 @@ export default Tutor = ({tutor}) => {
       onPress={() => navigation.navigate('tutor', { id: tutor.id })}
     >
       <View style={vehicleListItem}>
-        <Text style={Fonts.large}>
+        <Text style={Fonts.small}>
           {tutor.nickName}
         </Text>
-        <Text style={Fonts.small}>
+        <Text style={Fonts.tiny}>
           {tutor.fullName}
         </Text>
       </View>

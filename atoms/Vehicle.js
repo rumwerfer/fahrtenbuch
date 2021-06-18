@@ -13,10 +13,10 @@ export default Vehicle = ({vehicle}) => {
       onPress={() => navigation.navigate('vehicle', { id: vehicle.id })}
     >
       <View style={vehicleListItem}>
-        <Text style={Fonts.large}>
+        <Text style={Fonts.small}>
           {vehicle.name}
         </Text>
-        <Text style={Fonts.small}>
+        <Text style={Fonts.tiny}>
           {vehicle.numberPlate}
         </Text>
       </View>

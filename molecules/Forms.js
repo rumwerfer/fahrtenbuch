@@ -67,7 +67,7 @@ export function DetailsForm(props) {
 
       {/* journey start */}
       <Text style={{ ...Fonts.tiny, ...placeholderColor}}>
-        {'Fahrtbeginn'}
+        {Strings.journeyStart}
       </Text>
       <DateMileageRow
         time={props.startTime}
@@ -78,7 +78,7 @@ export function DetailsForm(props) {
 
       {/* journey end */}
       <Text style={{ ...Fonts.tiny, ...placeholderColor}}>
-        {'Fahrtende'}
+        {Strings.journeyEnd}
       </Text>
       <DateMileageRow
         time={props.endTime}
@@ -97,10 +97,10 @@ export function DetailsForm(props) {
       />
 
       <View style={row}>
-        <View style={{ marginRight: 6, flexGrow: 1 }}>
+        <View style={{ marginRight: 6, width: 150 }}>
           <Dropdown type={'vehicle'} id={props.vehicleID} setID={props.setVehicleID}/>
         </View>
-        <View style={{ marginLeft: 6, flexGrow: 1 }}>
+        <View style={{ marginLeft: 6, width: 150 }}>
           <Dropdown type={'tutor'} id={props.tutorID} setID={props.setTutorID} />
         </View>
       </View>

@@ -88,4 +88,6 @@ export default {
   negativeTimeMessage: 'Startzeit muss vor Endzeit liegen',
   share: 'Teilen',
   pdfExport: 'Fahrtenbuch exportieren',
+  journeyStart: 'Fahrtbeginn',
+  journeyEnd: 'Fahrtende',
 };

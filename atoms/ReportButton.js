@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform, PermissionsAndroid } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import { connect } from 'react-redux';
@@ -32,7 +33,26 @@ function ReportButton(props) {
   );
 }
 
-createPDF = async (savedJourneys, vehicles, tutors) => {
+const fRequestAndroidPermission = async () => {
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      {
+        title: Strings.memoryPermission,
+        message: Strings.memoryPermissionMessage,
+        buttonNeutral: Strings.notNow,
+        buttonNegative: Strings.deny,
+        buttonPositive: Strings.ok,
+      }
+    );
+    return granted === PermissionsAndroid.RESULTS.GRANTED;
+  } catch (err) {
+    console.error('fRequestAndroidPermission error: ', err);
+    return false;
+  }
+}
+
+const createPDF = async (savedJourneys, vehicles, tutors) => {
 
   const sumDistance = savedJourneys.reduce((sum, journey) =>
     sum + (journey.endMileage - journey.startMileage)
@@ -113,10 +133,18 @@ createPDF = async (savedJourneys, vehicles, tutors) => {
   const options = {
     html: report,
     fileName: Strings.appName,
-    directory: 'Documents',
+    directory: 'Download',
     height: 842,
     width: 595,
   };
+
+  if (Platform.OS === 'android') {
+    const permissionGranted = await fRequestAndroidPermission();
+    if (!permissionGranted) {
+      console.log('memory access was refused');
+      return;
+    }
+  }
 
   const pdf = await RNHTMLtoPDF.convert(options);
 

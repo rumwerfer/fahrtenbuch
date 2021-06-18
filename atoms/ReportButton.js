@@ -2,7 +2,7 @@ import React from 'react';
 import { IconButton } from 'react-native-paper';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import { connect } from 'react-redux';
-import Share from 'react-native-share';
+import { useNavigation } from '@react-navigation/native';
 
 import Icons from '../res/Icons';
 import Colors from '../res/Colors';
@@ -12,15 +12,20 @@ import { mapStateToProps } from '../redux/Mappers';
 import weather from '../res/weather';
 
 function ReportButton(props) {
+  const navigation = useNavigation();
+
   if (!props.journeys.saved || props.journeys.saved.length == 0) {
     return null;
   }
 
   return (
     <IconButton
-      onPress={() => createPDF(
-        props.journeys.saved, props.vehicles.vehicles, props.tutors.tutors
-      )}
+      onPress={async () => {
+        const report = await createPDF(
+          props.journeys.saved, props.vehicles.vehicles, props.tutors.tutors
+        );
+        navigation.navigate('report', report);
+      }}
       icon={Icons.report}
       color={Colors.white}
     />
@@ -112,17 +117,13 @@ createPDF = async (savedJourneys, vehicles, tutors) => {
     height: 842,
     width: 595,
   };
-  const file = await RNHTMLtoPDF.convert(options);
 
-  Share.open({
-    url: 'file:///' + file.filePath,
-    title: Strings.sendTo,
-    subject: Strings.appName,
-    message: sumDistance >= Constants.distanceGoal
-             ? Strings.madeItMessage
-             : Strings.kmToGoMessage(Constants.distanceGoal - sumDistance),
-  })
-  .catch(err => console.log(err)); // error if user did not share
+  const pdf = await RNHTMLtoPDF.convert(options);
+
+  return {
+    url: 'file:///' + pdf.filePath,
+    sumDistance: sumDistance,
+  };
 }
 
 export default connect(mapStateToProps)(ReportButton);

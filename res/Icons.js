@@ -19,4 +19,5 @@ export default {
   trash: 'delete',
   calendar: 'calendar',
   clock: 'clock-time-four-outline',
+  share: 'share-variant',
 };

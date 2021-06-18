@@ -85,5 +85,7 @@ export default {
   fog: 'Nebel',
   snow: 'Schnee',
   hail: 'Hagel',
-  negativeTimeMessage: 'Startzeit muss vor Endzeit liegen'
+  negativeTimeMessage: 'Startzeit muss vor Endzeit liegen',
+  share: 'Teilen',
+  pdfExport: 'Fahrtenbuch exportieren',
 };

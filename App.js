@@ -18,6 +18,7 @@ import VehicleScreen from './screens/VehicleScreen';
 import PeopleScreen from './screens/PeopleScreen';
 import TutorScreen from './screens/TutorScreen';
 import DetailsScreen from './screens/DetailsScreen';
+import ReportScreen from './screens/ReportScreen';
 import Icons from './res/Icons';
 import { row } from './styles/Styles';
 import ReportButton from './atoms/ReportButton';
@@ -98,6 +99,11 @@ const App = () => {
               name='details'
               component={DetailsScreen}
               options={{ title: Strings.editJourney }}
+            />
+            <Stack.Screen
+              name='report'
+              component={ReportScreen}
+              options={{ title: Strings.pdfExport }}
             />
           </Stack.Navigator>
         </NavigationContainer>

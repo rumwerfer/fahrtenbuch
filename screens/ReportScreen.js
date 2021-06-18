@@ -8,7 +8,7 @@ import Button from '../atoms/Button';
 import Icons from '../res/Icons';
 import Strings from '../res/Strings';
 import Constants from '../res/Constants';
-import { fillSpace, vehicleButtonContainer } from '../styles/Styles';
+import { fillSpace, shareButtonContainer } from '../styles/Styles';
 
 export default function ReportScreen(props) {
   const themeColors = useTheme().colors;
@@ -40,7 +40,7 @@ export default function ReportScreen(props) {
         source={{ uri: url, cache: false }}
         style={{ ...fillSpace, ...fillWindow, ...backgroundColor }}
       />
-      <View style={vehicleButtonContainer}>
+      <View style={shareButtonContainer}>
         <Button icon={Icons.share} onPress={shareReport} label={Strings.share}/>
       </View>
     </SafeAreaView>

@@ -137,6 +137,14 @@ export const vehicleButtonContainer = {
   right: pad,
 };
 
+export const shareButtonContainer = {
+  ...alignSelfEnd,
+  ...absolutePosition,
+  ...rightPosition,
+  bottom: 1.75 * pad,
+  right: pad,
+};
+
 export const journeyButtonContainer = {
   ...alignSelfEnd,
   ...absolutePosition,
